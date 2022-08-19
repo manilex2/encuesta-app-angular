@@ -8,7 +8,7 @@
     "build:prod": "ng build --configuration production --base-href https://manilex2.github.io/encuesta-app-angular/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:headless": "ng test -- --prod"
+    "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {
