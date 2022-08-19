@@ -2,8 +2,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 /************** COMPONENTES ********************/
@@ -23,7 +23,7 @@ import { AuthInterceptor } from '../services/auth.interceptor';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    FormsModule,
     AuthRoutingModule
   ],
   exports: [AuthComponent],

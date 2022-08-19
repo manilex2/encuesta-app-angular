@@ -1,8 +1,12 @@
+import { Injectable } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

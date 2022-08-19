@@ -1,12 +1,24 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AdminGuard } from './admin.guard';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 describe('AdminGuard', () => {
   let guard: AdminGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
+      providers: [
+        JwtHelperService,
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }
+      ]
+    });
     guard = TestBed.inject(AdminGuard);
   });
 

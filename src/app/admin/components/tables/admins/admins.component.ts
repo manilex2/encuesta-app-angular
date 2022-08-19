@@ -16,8 +16,8 @@ export class AdminsComponent {
 
   admins: Admin[] = [];
 
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  /* @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort; */
 
   constructor(private adminService: AdminService) {}
 
@@ -27,8 +27,8 @@ export class AdminsComponent {
       this.admins = admins;
       this.dataSource = new MatTableDataSource<Admin>(this.admins);
     })
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    //this.dataSource.paginator = this.paginator;
+    //this.dataSource.sort = this.sort;
   }
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;

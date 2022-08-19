@@ -16,7 +16,7 @@ export class TabsComponent {
 
   token: any = localStorage.getItem('auth_token');
 
-  tokenPayload: any = decode(this.token);
+  tokenPayload: any = this.token? decode(this.token) : false;
 
 
   constructor() {

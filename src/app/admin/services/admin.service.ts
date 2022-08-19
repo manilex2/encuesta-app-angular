@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { Admins } from '../interfaces/Admins';
 import { map } from 'rxjs/operators';
 import { Admin } from '../models/Admin';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
