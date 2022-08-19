@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Encuesta App</span>
+    <span class="example-spacer"></span>
+    <ng-template [ngIf]="logIn">
+      <!-- <mat-icon class="" aria-hidden="false" aria-label="User settings icon">settings</mat-icon> -->
+      <mat-icon (click)="logout()" class="" aria-hidden="false" aria-label="User Logout icon">logout</mat-icon>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>
