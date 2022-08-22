@@ -1,0 +1,117 @@
+<mat-form-field>
+  <mat-label>Buscar</mat-label>
+  <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #tabla2>
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.codigo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="codigo_cia">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Código Compañía </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.codigo_cia}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="origen_dato">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Dato de Origen </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.origen_dato}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="origen_puerto">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Puerto de Origen </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.origen_puerto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="origen_name_DB">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Base de Datos de Origen </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.origen_name_DB}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="origen_user">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario de Origen </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.origen_user}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="origen_clave">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Clave de Origen </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.origen_clave}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email_smtp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> SMTP de Email </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.email_smtp}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email_puerto">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Puerto de Email </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.email_puerto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email_salida">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email de Salida </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.email_salida}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email_clave">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Clave de Email </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.email_clave}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email_tema">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tema de Email </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.email_tema}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email_mensaje">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mensaje de Email </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.email_mensaje}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email_office_365">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Office 365 </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.email_office_365}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdIp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> IP de Creación </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.createdIp}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Creación </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.createdAt | date: 'short':"":"es-EC"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedIp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> IP de Actualización </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.updatedIp}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Actualización </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.updatedAt | date: 'short':"":"es-EC"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cia_logo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Logo de Compañía </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.cia_logo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="vista_lista">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vista Lista </th>
+      <td mat-cell *matCellDef="let compania"> {{compania.vista_lista}} </td>
+    </ng-container>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="20">No Hay Compañías</td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+</div>

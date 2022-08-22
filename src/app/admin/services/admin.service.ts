@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Admins } from '../interfaces/Admins';
+import { Admins } from '../components/interfaces/Admins';
 import { map } from 'rxjs/operators';
-import { Admin } from '../models/Admin';
+import { Admin } from '../components/models/Admin';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   obtenerTodosAdmins () {
-    return this.http.get<Admins>(`${this.serverURL}/admin/all`)
+    return this.http.get<Admins>(`${this.serverURL}/users/admins`)
     .pipe(
       map(resp => {
         return resp.data.map(admin => Admin.adminDesdeJson(admin));

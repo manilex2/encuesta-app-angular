@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../components/interfaces/Users';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  login(user: any) {
-    this.http.post(this.serverURL + '/authenticate', { codigo: user.codigo, usuario: user.usuario, clave: user.clave })
+  login(user: User) {
+    this.http.post(this.serverURL + '/authenticate', { codigo: user.codigo, nombre: user.nombre, clave: user.clave })
     .subscribe((resp: any) => {
       this.router.navigate(['admin']);
       localStorage.setItem('auth_token', resp.token);
