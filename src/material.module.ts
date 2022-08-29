@@ -8,6 +8,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatSortModule,
     MatInputModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: []

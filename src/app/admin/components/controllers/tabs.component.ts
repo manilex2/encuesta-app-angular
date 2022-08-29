@@ -24,6 +24,7 @@ export class TabsComponent {
       this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
         setTimeout(() => {
           observer.next([
+            {label: 'Dashboard'},
             {label: 'Admins'},
             {label: 'Compañías'},
             {label: 'Categorias'},

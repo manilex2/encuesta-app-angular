@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 /************** COMPONENTES ********************/
 import { AdminComponent } from './components/controllers/admin.component';
@@ -27,6 +28,7 @@ import { CompaniasEffect } from './store/effects/compania.effect';
 
 /**************** INTERCEPTOR ******************/
 import { AdminInterceptor } from './services/admin.interceptor';
+import { DashboardComponent } from './components/controllers/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -36,11 +38,13 @@ import { AdminInterceptor } from './services/admin.interceptor';
     CategoriasComponent,
     AdminsComponent,
     EncuestasComponent,
-    CompaniasComponent
+    CompaniasComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    NgxChartsModule,
     AdminRoutingModule,
     StoreModule.forFeature('admins', adminReducer),
     StoreModule.forFeature('companias', companiaReducer),
