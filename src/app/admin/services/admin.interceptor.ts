@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AdminInterceptor implements HttpInterceptor {
-  jsonIpURL = 'http://api.ipify.org/?format=json';
+  jsonIpURL = 'https://api.ipify.org/?format=json';
 
   constructor() {}
 
