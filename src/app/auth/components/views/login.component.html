@@ -5,10 +5,6 @@
     <input matInput formControlName="codigo">
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Usuario</mat-label>
-    <input matInput formControlName="nombre">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
     <mat-label>Contraseña</mat-label>
     <input matInput formControlName="clave" [type]="hide ? 'password' : 'text'">
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">

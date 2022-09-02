@@ -4,6 +4,7 @@
     <span class="example-spacer"></span>
     <ng-template [ngIf]="logIn">
       <!-- <mat-icon class="" aria-hidden="false" aria-label="User settings icon">settings</mat-icon> -->
+      <h1 class="bienvenida">Bienvenido: {{ userName }}</h1>
       <mat-icon (click)="logout()" class="" aria-hidden="false" aria-label="User Logout icon">logout</mat-icon>
     </ng-template>
   </mat-toolbar-row>

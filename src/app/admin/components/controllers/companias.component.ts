@@ -8,7 +8,7 @@ import { companiasGET } from '../../store/actions/compania.action';
 import { selectCompanias } from '../../store/selectors/compania.selector';
 
 @Component({
-  selector: 'app-companias-table',
+  selector: 'app-companias',
   templateUrl: '../views/companias.component.html',
   styleUrls: ['../styles/companias.component.scss']
 })

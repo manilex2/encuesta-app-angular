@@ -2,18 +2,18 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Encuesta } from "../interfaces/Encuesta";
+import { Cliente } from "../interfaces/Cliente";
 
 @Component({
-  selector: 'app-encuestas',
-  templateUrl: '../views/encuestas.component.html',
-  styleUrls: ['../styles/encuestas.component.scss']
+  selector: 'app-lista-clientes',
+  templateUrl: '../views/lista-clientes.component.html',
+  styleUrls: ['../styles/lista-clientes.component.scss']
 })
-export class EncuestasComponent {
+export class ListaClientesComponent {
 
-  columnas: string[] = ['encuesta'];
+  columnas: string[] = ['nombre'];
 
-  encuestas: Encuesta[] = [];
+  clientes: Cliente[] = [];
   dataSource:any;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -21,11 +21,11 @@ export class EncuestasComponent {
 
   ngOnInit() {
     for (let x = 1; x <= 100; x++) {
-      var encuesta: Encuesta = {
-        encuesta: `Encuesta ${x}`,
+      var cliente: Cliente = {
+        nombre: `Cliente ${x}`,
       }
-      this.encuestas.push(encuesta);
-      this.dataSource = new MatTableDataSource<Encuesta>(this.encuestas);
+      this.clientes.push(cliente);
+      this.dataSource = new MatTableDataSource<Cliente>(this.clientes);
     }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

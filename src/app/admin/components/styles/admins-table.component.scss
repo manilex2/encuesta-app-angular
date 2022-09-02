@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+.example-button-row {
+  width: 100%;
+  position: absolute;
+  top: 13vh;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 80px;
+}

@@ -8,14 +8,20 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 /************** COMPONENTES ********************/
 import { AdminComponent } from './components/controllers/admin.component';
-import { TabsComponent } from './components/controllers/tabs.component';
-import { ContainerComponent } from './components/controllers/container.component';
-import { CategoriasComponent } from './components/controllers/categorias.component';
+import { TiposEncuestaComponent } from './components/controllers/tipos-encuesta.component';
 import { AdminsComponent } from './components/controllers/admins.component';
 import { EncuestasComponent } from './components/controllers/encuestas.component';
 import { AdminRoutingModule } from './router/admin-routing.module';
 import { CompaniasComponent } from './components/controllers/companias.component';
+import { DashboardComponent } from './components/controllers/dashboard.component';
+import { SpinnerComponent } from './components/controllers/spinner.component';
+import { CreateAdminComponent } from './components/controllers/create-admin.component';
+import { AdminsTableComponent } from './components/controllers/admins-table.component';
+
+/*************** COMMONS **********************/
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+/*************** AUTH **********************/
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 /*************** REDUCERS **********************/
@@ -26,20 +32,24 @@ import { companiaReducer } from "./store/reducers/compania.reducer";
 import { AdminsEffect } from './store/effects/admin.effect';
 import { CompaniasEffect } from './store/effects/compania.effect';
 
-/**************** INTERCEPTOR ******************/
+/**************** INTERCEPTORES ******************/
 import { AdminInterceptor } from './services/admin.interceptor';
-import { DashboardComponent } from './components/controllers/dashboard.component';
+import { SpinnerInterceptor } from './services/spinner.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    TabsComponent,
-    ContainerComponent,
-    CategoriasComponent,
+    TiposEncuestaComponent,
     AdminsComponent,
     EncuestasComponent,
     CompaniasComponent,
-    DashboardComponent
+    DashboardComponent,
+    SpinnerComponent,
+    CreateAdminComponent,
+    AdminsTableComponent,
+    ListaClientesComponent
   ],
   imports: [
     CommonModule,
@@ -48,10 +58,12 @@ import { DashboardComponent } from './components/controllers/dashboard.component
     AdminRoutingModule,
     StoreModule.forFeature('admins', adminReducer),
     StoreModule.forFeature('companias', companiaReducer),
-    EffectsModule.forFeature([AdminsEffect, CompaniasEffect])
+    EffectsModule.forFeature([AdminsEffect, CompaniasEffect]),
+    ReactiveFormsModule
   ],
   exports: [AdminComponent],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService

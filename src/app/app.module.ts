@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from '@ngrx/store';
+import { ToastrModule } from 'ngx-toastr';
 
 /************** COMPONENTES ********************/
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ registerLocaleData(myLocaleES);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     AppRoutingModule,
     MaterialModule,
     AdminModule,

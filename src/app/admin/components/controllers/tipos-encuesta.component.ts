@@ -2,16 +2,16 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Categoria } from "../interfaces/Categoria";
+import { TipoEncuesta } from "../interfaces/TipoEncuesta";
 
 @Component({
-  selector: 'app-categorias-table',
-  templateUrl: '../views/categorias.component.html',
-  styleUrls: ['../styles/categorias.component.scss']
+  selector: 'app-tipos-encuesta',
+  templateUrl: '../views/tipos-encuesta.component.html',
+  styleUrls: ['../styles/tipos-encuesta.component.scss']
 })
-export class CategoriasComponent {
-  columnas: string[] = ['codigo', 'categoria'];
-  categorias: Categoria[] = [];
+export class TiposEncuestaComponent {
+  columnas: string[] = ['tipo_encuesta'];
+  tipos_encuesta: TipoEncuesta[] = [];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -19,12 +19,11 @@ export class CategoriasComponent {
 
   ngOnInit() {
     for (let x = 1; x <= 100; x++) {
-      var categoria: Categoria = {
-        codigo: `${x}`,
-        categoria: `Categoria ${x}`,
+      var tipo_encuesta: TipoEncuesta = {
+        tipo_encuesta: `Tipo de Encuesta ${x}`,
       }
-      this.categorias.push(categoria);
-      this.dataSource = new MatTableDataSource<Categoria>(this.categorias);
+      this.tipos_encuesta.push(tipo_encuesta);
+      this.dataSource = new MatTableDataSource<TipoEncuesta>(this.tipos_encuesta);
     }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

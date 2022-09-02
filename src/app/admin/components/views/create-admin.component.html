@@ -1,0 +1,26 @@
+
+<form [formGroup]="createAdminForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Codigo</mat-label>
+    <input matInput formControlName="codigo" placeholder="Introduzca 3 digitos obligatoriamente">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" placeholder="Introduzca un nombre">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Contraseña</mat-label>
+    <input matInput formControlName="clave" [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>FSBS</mat-label>
+    <mat-select formControlName="fsbs">
+      <mat-option [value]="true">Si</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="login-button-container" (click)="onSubmit()" [disabled]="!createAdminForm.valid" mat-raised-button color="primary">Create Admin</button>
+</form>
