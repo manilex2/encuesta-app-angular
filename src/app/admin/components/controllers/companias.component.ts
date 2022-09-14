@@ -4,8 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Compania } from '../models/Compania';
 import { select, Store } from '@ngrx/store';
-import { companiasGET } from '../../store/actions/compania.action';
-import { selectCompanias } from '../../store/selectors/compania.selector';
+import { companias } from '../../store/selectors/companias.selectors';
+import { GET_COMPANIAS } from '../../store/actions/companias.actions';
 
 @Component({
   selector: 'app-companias',
@@ -24,13 +24,13 @@ export class CompaniasComponent {
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.store.pipe(select(selectCompanias))
+    this.store.pipe(select(companias))
     .subscribe(compania => {
       this.companias = compania;
       this.dataSource = new MatTableDataSource<Compania>(this.companias);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.store.dispatch(companiasGET());
+      this.store.dispatch(GET_COMPANIAS());
     });
   }
   filtrar(event: Event) {

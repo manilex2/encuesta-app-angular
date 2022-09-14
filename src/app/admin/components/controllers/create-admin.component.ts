@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
 import { CreateAdmin } from '../interfaces/CreateAdmin';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-create-admin',
@@ -10,7 +11,13 @@ import { CreateAdmin } from '../interfaces/CreateAdmin';
 })
 export class CreateAdminComponent implements OnInit {
 
+  @ViewChild('logoInput') logoInput!: ElementRef;
+
   hide = true;
+  logoAtrib = 'Subir un logo';
+  imageError: string | null | undefined;
+  isImageSaved: boolean | undefined;
+  cardImageBase64: string | undefined;
 
   ngOnInit() {
     this.getIp();
@@ -24,6 +31,7 @@ export class CreateAdminComponent implements OnInit {
     clave: ["", Validators.required],
     fsbs: [false, Validators.required],
     createdIp: ['', Validators.required],
+    logo: [null]
   });
 
   onSubmit() {
@@ -34,6 +42,68 @@ export class CreateAdminComponent implements OnInit {
     return this.adminService.getIPAddress().subscribe((res: any) => {
       this.createAdminForm.controls['createdIp']?.setValue(res.ip);
     })
+  }
+
+  uploadFileEvt(imgFile: any) {
+    this.imageError = null;
+    if (imgFile.target.files && imgFile.target.files[0]) {
+      console.log(imgFile.target.files[0]);
+      const max_size = 20971520;
+      const allowed_types = ['image/png', 'image/jpeg'];
+      const max_height = 15200;
+      const max_width = 25600;
+      this.logoAtrib = '';
+      Array.from(imgFile.target.files).forEach((file: any) => {
+        this.logoAtrib = file.name;
+      });
+      if (imgFile.target.files[0].size > max_size) {
+        this.imageError =
+            'Tamaño maximo permitido es ' + max_size / 1000 + 'Mb';
+        imgFile = null;
+        this.logoAtrib = 'Subir un logo';
+        return false;
+      }
+
+      if (!_.includes(allowed_types, imgFile.target.files[0].type)) {
+          this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
+          imgFile = null;
+          this.logoAtrib = 'Subir un logo';
+          return false;
+      }
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        const img_height = e.currentTarget['height'];
+        const img_width = e.currentTarget['width'];
+        console.log(img_height, img_width);
+        if (img_height > max_height && img_width > max_width) {
+          this.imageError =
+              'Dimensiones maximas permitidas ' +
+              max_height +
+              '*' +
+              max_width +
+              'px';
+            imgFile = null;
+            this.logoAtrib = 'Subir un logo';
+          return false;
+        } else {
+          let image = new Image();
+          image.src = e.target.result;
+          image.onload = (rs) => {
+            const imgBase64Path = e.target.result;
+            this.cardImageBase64 = imgBase64Path;
+            this.isImageSaved = true;
+            this.createAdminForm.controls['logo']?.setValue(imgBase64Path);
+          };
+          return true;
+        }
+      };
+      reader.readAsDataURL(imgFile.target.files[0]);
+      this.logoInput.nativeElement.value = '';
+      return true;
+    } else {
+      this.logoAtrib = 'Subir un logo';
+      return false;
+    }
   }
 
 }

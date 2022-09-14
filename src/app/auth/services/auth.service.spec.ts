@@ -8,8 +8,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 describe('AuthService', () => {
   let service: AuthService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule

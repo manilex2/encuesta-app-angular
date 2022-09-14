@@ -2,7 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { TipoEncuesta } from "../interfaces/TipoEncuesta";
+import { TiposEncuesta } from '../models/';
+import { Store, select } from '@ngrx/store';
+import { GET_TIPOS_ENCUESTA } from '../../store/actions/tiposencuesta.actions';
+import { tipos_encuesta } from '../../store/selectors/tiposencuesta.selectors';
 
 @Component({
   selector: 'app-tipos-encuesta',
@@ -10,23 +13,24 @@ import { TipoEncuesta } from "../interfaces/TipoEncuesta";
   styleUrls: ['../styles/tipos-encuesta.component.scss']
 })
 export class TiposEncuestaComponent {
-  columnas: string[] = ['tipo_encuesta'];
-  tipos_encuesta: TipoEncuesta[] = [];
+  columnas: string[] = ['codigo', 'identificador', 'descripcion', 'afectacion', 'createdIp', 'createdAt', 'updatedIp', 'updatedAt'];
+  tiposencuesta: TiposEncuesta[] = [];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
+  constructor(private store: Store) {}
+
   ngOnInit() {
-    for (let x = 1; x <= 100; x++) {
-      var tipo_encuesta: TipoEncuesta = {
-        tipo_encuesta: `Tipo de Encuesta ${x}`,
-      }
-      this.tipos_encuesta.push(tipo_encuesta);
-      this.dataSource = new MatTableDataSource<TipoEncuesta>(this.tipos_encuesta);
-    }
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.store.pipe(select(tipos_encuesta))
+    .subscribe(tipo => {
+      this.tiposencuesta = tipo;
+      this.dataSource = new MatTableDataSource<TiposEncuesta>(this.tiposencuesta);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.store.dispatch(GET_TIPOS_ENCUESTA());
+    });
   }
 
   filtrar(event: Event) {

@@ -2,12 +2,6 @@ table {
   width: 100%;
 }
 
-.example-button-row {
-  width: 100%;
-  position: absolute;
-  top: 13vh;
-}
-
 .example-button-row .mat-button-base {
   margin: 8px 8px 8px 0;
 }
@@ -23,4 +17,26 @@ table {
   display: flex;
   justify-content: center;
   width: 80px;
+}
+
+.button-actions {
+  width: 40px;
+  height: 44px;
+}
+
+.icon-actions {
+  font-size: 12px !important;
+}
+
+.img-cell {
+  max-height: 50px;
+}
+
+.create-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
 }

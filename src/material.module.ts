@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatGridListModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatFormFieldModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: []

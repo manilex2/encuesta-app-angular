@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Admins } from '../components/interfaces/Admins';
 import { CreateAdmin } from '../components/interfaces/CreateAdmin';
-import { map, delay } from 'rxjs/operators';
-import { Admin } from '../components/models/Admin';
+import { Admin } from "../components/models/Admin";
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,13 +14,12 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerTodosAdmins (): Observable<any> {
-    return this.http.get<Admins>(`${this.serverURL}/admins`)
-    .pipe(
-      map(resp => {
-        return resp.data.map(admin => Admin.adminDesdeJson(admin));
-      })
-    )
+  obtenerTodosAdmins(): Observable<Admin[]> {
+    return this.http.get<Admin[]>(`${this.serverURL}/admins`)
+  }
+
+  obtenerCurrentUser(): Observable<Admin> {
+    return this.http.get<Admin>(`${this.serverURL}/admins/currentUser`)
   }
 
   crearAdmin(adminUser: CreateAdmin) {

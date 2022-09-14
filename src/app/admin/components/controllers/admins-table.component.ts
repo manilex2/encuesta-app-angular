@@ -2,10 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Admin } from '../models/Admin';
+import { Admin } from "../models";
 import { select, Store } from '@ngrx/store';
-import { adminGET } from '../../store/actions/admin.action';
-import { selectAdmins } from '../../store/selectors/admin.selector';
+import { admins } from '../../store/selectors/admin.selectors';
+import { GET_ADMINS } from '../../store/actions/admin.actions';
 
 @Component({
   selector: 'app-admins-table',
@@ -13,7 +13,7 @@ import { selectAdmins } from '../../store/selectors/admin.selector';
   styleUrls: ['../styles/admins-table.component.scss']
 })
 export class AdminsTableComponent {
-  columnas: string[] = ['codigo', 'nombre', 'fsbs', 'createdIp', 'createdAt', 'updatedIp', 'updatedAt', 'logo'];
+  columnas: string[] = ['codigo', 'nombre', 'fsbs', 'createdIp', 'createdAt', 'updatedIp', 'updatedAt', 'logo', 'edit'];
   admins: Admin[] = [];
   dataSource: any;
 
@@ -23,15 +23,16 @@ export class AdminsTableComponent {
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.store.pipe(select(selectAdmins))
+    this.store.pipe(select(admins))
     .subscribe(admin => {
+      this.store.dispatch(GET_ADMINS());
       this.admins = admin;
       this.dataSource = new MatTableDataSource<Admin>(this.admins);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.store.dispatch(adminGET());
     });
   }
+
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filtro.trim().toLowerCase();

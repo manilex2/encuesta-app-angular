@@ -9,6 +9,7 @@ import { DashboardComponent } from '../components/controllers/dashboard.componen
 import { EncuestasComponent } from '../components/controllers/encuestas.component';
 import { ListaClientesComponent } from '../components/controllers/lista-clientes.component';
 import { TiposEncuestaComponent } from '../components/controllers/tipos-encuesta.component';
+import { EditAdminComponent } from '../components/controllers/edit-admin.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { FsbsGuard } from '../guards/fsbs.guard';
 
@@ -18,7 +19,8 @@ const routes: Routes = [
         { path: 'admins', component: AdminsComponent, canActivate: [FsbsGuard], children: [
           { path: 'view', component: AdminsTableComponent},
           { path: 'create', component: CreateAdminComponent},
-          { path: '', redirectTo:'view', pathMatch:"full" }
+          { path: 'edit/:id', component: EditAdminComponent },
+          { path: '', redirectTo:'view', pathMatch:"full" },
         ]},
         { path: 'companias', component: CompaniasComponent },
         { path: 'tipos_encuesta', component: TiposEncuestaComponent },

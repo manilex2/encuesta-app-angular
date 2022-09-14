@@ -1,4 +1,10 @@
 
+{{imageError}}
+<ng-container *ngIf="isImageSaved && !imageError;">
+  <div class="container-img-logo">
+    <img [src]="cardImageBase64" class="img-logo"/>
+  </div>
+</ng-container>
 <form [formGroup]="createAdminForm">
   <mat-form-field appearance="fill">
     <mat-label>Codigo</mat-label>
@@ -22,5 +28,20 @@
       <mat-option [value]="false">No</mat-option>
     </mat-select>
   </mat-form-field>
-  <button class="login-button-container" (click)="onSubmit()" [disabled]="!createAdminForm.valid" mat-raised-button color="primary">Create Admin</button>
+  <mat-form-field>
+    <div>
+      <mat-toolbar>
+        <input [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="logoAtrib" readonly name="name" />
+        <button class="button-files " mat-flat-button color="primary">Subir un logo</button>
+      </mat-toolbar>
+      <input
+        type="file"
+        #logoInput
+        id="uploadFile"
+        (change)="uploadFileEvt($event)"
+        name="uploadFile"
+      />
+    </div>
+  </mat-form-field>
+  <button class="login-button-container" (click)="onSubmit()" [disabled]="!createAdminForm.valid" mat-raised-button color="primary">Crear Admin</button>
 </form>

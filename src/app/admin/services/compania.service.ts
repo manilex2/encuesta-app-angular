@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Companias } from '../components/interfaces/Companias';
-import { delay, map } from 'rxjs/operators';
-import { Compania } from '../components/models/Compania';
+import { Compania } from '../components/models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +13,7 @@ export class CompaniaService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerTodasCompanias () {
-    return this.http.get<Companias>(`${this.serverURL}/companias`)
-    .pipe(
-      map(resp => {
-        return resp.data.map(compania => Compania.companiaDesdeJson(compania));
-      })
-    )
+  obtenerTodasCompanias(): Observable<Compania[]> {
+    return this.http.get<Compania[]>(`${this.serverURL}/companias`)
   }
 }

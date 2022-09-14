@@ -5,6 +5,7 @@ import { MaterialModule } from '../../material.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /************** COMPONENTES ********************/
 import { AdminComponent } from './components/controllers/admin.component';
@@ -17,6 +18,9 @@ import { DashboardComponent } from './components/controllers/dashboard.component
 import { SpinnerComponent } from './components/controllers/spinner.component';
 import { CreateAdminComponent } from './components/controllers/create-admin.component';
 import { AdminsTableComponent } from './components/controllers/admins-table.component';
+import { HeaderComponent } from './components/controllers/header.component';
+import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
+import { EditAdminComponent } from './components/controllers/edit-admin.component';
 
 /*************** COMMONS **********************/
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -25,18 +29,20 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 /*************** REDUCERS **********************/
-import { adminReducer } from "./store/reducers/admin.reducer";
-import { companiaReducer } from "./store/reducers/compania.reducer";
+import * as fromAdmins from './store/reducers/admin.reducers';
+import * as fromCurrentUser from './store/reducers/currentuser.reducers';
+import * as fromCompanias from './store/reducers/companias.reducers';
+import * as fromTiposEncuesta from './store/reducers/tiposencuesta.reducers';
 
 /*************** EFFECTS ***********************/
-import { AdminsEffect } from './store/effects/admin.effect';
-import { CompaniasEffect } from './store/effects/compania.effect';
+import { AdminsEffect } from './store/effects/admin.effects';
+import { CompaniasEffect } from './store/effects/companias.effects';
+import { TiposEncuestaEffect } from './store/effects/tiposencuesta.effects';
+import { CurrentUserEffect } from './store/effects/currentuser.effects';
 
 /**************** INTERCEPTORES ******************/
 import { AdminInterceptor } from './services/admin.interceptor';
 import { SpinnerInterceptor } from './services/spinner.interceptor';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
 
 @NgModule({
   declarations: [
@@ -49,17 +55,22 @@ import { ListaClientesComponent } from './components/controllers/lista-clientes.
     SpinnerComponent,
     CreateAdminComponent,
     AdminsTableComponent,
-    ListaClientesComponent
+    ListaClientesComponent,
+    HeaderComponent,
+    EditAdminComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     NgxChartsModule,
     AdminRoutingModule,
-    StoreModule.forFeature('admins', adminReducer),
-    StoreModule.forFeature('companias', companiaReducer),
-    EffectsModule.forFeature([AdminsEffect, CompaniasEffect]),
-    ReactiveFormsModule
+    StoreModule.forFeature(fromAdmins.adminFeatureKey, fromAdmins.reducer),
+    StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
+    StoreModule.forFeature(fromCompanias.companiasFeatureKey, fromCompanias.reducer),
+    StoreModule.forFeature(fromTiposEncuesta.tiposEncuestaFeatureKey, fromTiposEncuesta.reducer),
+    EffectsModule.forFeature([AdminsEffect, CompaniasEffect, TiposEncuestaEffect, CurrentUserEffect]),
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [AdminComponent],
   providers: [

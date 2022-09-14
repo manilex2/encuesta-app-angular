@@ -1,0 +1,27 @@
+export class TipoEncuesta {
+
+  static tipoEncuestaDesdeJson(obj: any) {
+    return new TipoEncuesta(
+      obj['codigo'],
+      obj['identificador'],
+      obj['descripcion'],
+      obj['afectacion'],
+      obj['createdIp'],
+      obj['createdAt'],
+      obj['updatedIp'],
+      obj['updatedAt'],
+    )
+  }
+
+  constructor(
+    public codigo: String,
+    public identificador: String,
+    public descripcion: Boolean,
+    public afectacion: String,
+    public createdIp: String,
+    public createdAt: Date,
+    public updatedIp: String,
+    public updatedAt: Date,
+  ) {}
+
+}

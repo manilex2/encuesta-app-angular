@@ -34,3 +34,46 @@ form {
   justify-content: center;
   width: 100%;
 }
+
+#uploadFile {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 9;
+  opacity: 0;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+}
+
+.mat-form-field.file {
+  margin: 40px 0;
+  width: 500px !important;
+}
+.mat-toolbar-single-row.file {
+  height: auto !important;
+  background: transparent;
+}
+.mat-toolbar-single-row.file button {
+  width: 200px;
+}
+.mat-form-field {
+  width: 100%;
+}
+
+.button-files {
+  background-color: #f44336;
+  width: 150px;
+}
+
+.img-logo {
+  max-height: 100px;
+}
+
+.container-img-logo {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+}
