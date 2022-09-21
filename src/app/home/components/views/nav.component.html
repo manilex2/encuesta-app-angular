@@ -1,11 +1,23 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Encuesta App</span>
-    <span class="example-spacer"></span>
-    <ng-template [ngIf]="logIn">
-      <!-- <mat-icon class="" aria-hidden="false" aria-label="User settings icon">settings</mat-icon> -->
-      <h1 class="bienvenida">Bienvenido: {{ userName }}</h1>
-      <mat-icon (click)="logout()" class="" aria-hidden="false" aria-label="User Logout icon">logout</mat-icon>
-    </ng-template>
-  </mat-toolbar-row>
-</mat-toolbar>
+<mat-drawer-container class="example-drawer-container" hasBackdrop autosize>
+  <mat-drawer #drawer mode="over">
+    <mat-icon class="icon-dark-light">brightness_5</mat-icon>
+    <mat-slide-toggle (click)="toggleTheme()"></mat-slide-toggle>
+    <mat-icon class="icon-dark-light">bedtime</mat-icon>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+        </button>
+        <span class="header">FSBS Encuesta</span>
+        <span class="example-spacer"></span>
+        <ng-template [ngIf]="logIn">
+          <!-- <mat-icon class="" aria-hidden="false" aria-label="User settings icon">settings</mat-icon> -->
+          <h1 class="bienvenida">Bienvenido: {{ userName }}</h1>
+          <mat-icon (click)="logout()" class="" aria-hidden="false" aria-label="User Logout icon">logout</mat-icon>
+        </ng-template>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,3 +1,9 @@
+@import "~@angular/material/theming";
+
+@import "../../../../customtheme.scss";
+
+$accent: map-get($theme, accent);
+
 @keyframes ldio-sd15ej83xzc {
   0% { transform: translate(-50%,-50%) rotate(0deg); }
   100% { transform: translate(-50%,-50%) rotate(360deg); }
@@ -6,7 +12,7 @@
   position: fixed;
   width: 120px;
   height: 120px;
-  border: 20px solid #0055a5;
+  border: 20px solid mat-color($accent);
   border-top-color: transparent;
   border-radius: 50%;
 }

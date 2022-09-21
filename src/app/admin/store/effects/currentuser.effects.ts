@@ -14,7 +14,7 @@ export class CurrentUserEffect {
   loadCurrentUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GET_CURRENT_USER),
-      exhaustMap((initAction) => {
+      exhaustMap(() => {
         return this.adminService.obtenerCurrentUser().pipe(
           map(currentUser => GET_CURRENT_USER_SUCCESS({currentUser})),
           catchError(() => of(GET_CURRENT_USER_ERROR({error: "Ha ocurrido un error al obtener el usuario actual"}))),

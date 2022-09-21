@@ -1,11 +1,15 @@
 export interface Admin {
-  codigo: string;
-  nombre: string;
-  fsbs: boolean;
-  createdIp: string;
-  createdAt: Date;
-  updatedIp: string;
-  updatedAt: Date;
-  logo?: Blob;
-  clave?: string;
+  codigo?: any;
+  nombre?: any;
+  fsbs?: any;
+  createdIp?: any;
+  createdAt?: any;
+  updatedIp?: any;
+  updatedAt?: any;
+  logo?: any;
+  clave?: any;
+}
+
+export interface AdminState {
+  admins: Admin[]
 }

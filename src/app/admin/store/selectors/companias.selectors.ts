@@ -1,9 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CompaniasState, companiasFeatureKey } from '../reducers/companias.reducers';
+import { Compania } from '../../components/models';
+import { companiasFeatureKey } from '../reducers/companias.reducers';
 
-export const selectCompanias = createFeatureSelector<CompaniasState>(companiasFeatureKey);
+export const selectCompanias = createFeatureSelector<Compania[]>(companiasFeatureKey);
 
 export const companias = createSelector(
   selectCompanias,
-  (selectCompanias) => selectCompanias.companias
+  (selectCompanias) => selectCompanias
 )

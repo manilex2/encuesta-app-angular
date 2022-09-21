@@ -23,16 +23,16 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>FSBS</mat-label>
-    <mat-select formControlName="fsbs">
+    <mat-select formControlName="fsbs" panelClass="panel-custom">
       <mat-option [value]="true">Si</mat-option>
       <mat-option [value]="false">No</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <div>
-      <mat-toolbar>
+      <mat-toolbar class="custom-toolbar">
         <input [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="logoAtrib" readonly name="name" />
-        <button class="button-files " mat-flat-button color="primary">Subir un logo</button>
+        <button class="button-files" mat-flat-button color="primary">Subir un logo</button>
       </mat-toolbar>
       <input
         type="file"
@@ -43,5 +43,5 @@
       />
     </div>
   </mat-form-field>
-  <button class="login-button-container" (click)="onSubmit()" [disabled]="!createAdminForm.valid" mat-raised-button color="primary">Crear Admin</button>
+  <button class="login-button-container create-button-custom" (click)="onSubmit()" [disabled]="!createAdminForm.valid" mat-raised-button color="primary">Crear Admin</button>
 </form>

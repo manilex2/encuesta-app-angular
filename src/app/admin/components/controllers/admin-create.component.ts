@@ -1,13 +1,20 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
-import { CreateAdmin } from '../interfaces/CreateAdmin';
 import * as _ from 'lodash';
+import { Store, select } from '@ngrx/store';
+import { CREATE_ADMIN } from '../../store/actions/admin.actions';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Appstate } from '../../../shared/store/AppState';
+import { selectAppState } from '../../../shared/store/selectors/app.selectors';
+import { setAPIStatus } from '../../../shared/store/actions/app.actions';
 
 @Component({
-  selector: 'app-create-admin',
-  templateUrl: '../views/create-admin.component.html',
-  styleUrls: ['../styles/create-admin.component.scss']
+  selector: 'app-admin-create',
+  templateUrl: '../views/admin-create.component.html',
+  styleUrls: ['../styles/admin-create.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CreateAdminComponent implements OnInit {
 
@@ -23,19 +30,49 @@ export class CreateAdminComponent implements OnInit {
     this.getIp();
   }
 
-  constructor(private fb: FormBuilder, private adminService: AdminService) { }
+  constructor(
+    private fb: FormBuilder,
+    private adminService: AdminService,
+    private store: Store,
+    private router: Router,
+    private toastr: ToastrService,
+    private appStore: Store<Appstate>
+  ) { }
 
-  createAdminForm = this.fb.group<CreateAdmin>({
+  createAdminForm = this.fb.group({
     codigo: ["", [Validators.required, Validators.pattern(/[0-9]{3}/g)]],
     nombre: ["", [Validators.required]],
     clave: ["", Validators.required],
     fsbs: [false, Validators.required],
     createdIp: ['', Validators.required],
-    logo: [null]
+    logo: [null],
   });
 
   onSubmit() {
-    this.adminService.crearAdmin(this.createAdminForm.value);
+    try {
+      this.store.dispatch(CREATE_ADMIN({newUser: {...this.createAdminForm.value}}));
+      let appStatus$ = this.appStore.pipe(select(selectAppState));
+      appStatus$.subscribe((data) => {
+        if (data.apiStatus === 'success') {
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+          this.toastr.success("Admin creado exitosamente.", "Admin Exito", {
+            progressBar: true
+          });
+          this.router.navigate(['/admin/admins']);
+        } else if (data.apiStatus === 'error'){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+          this.toastr.error(data.apiResponseMessage, "Admin Error", {
+            progressBar: true,
+            timeOut: 10000
+          });
+          if (data.apiCodeStatus === 401) {
+            this.router.navigate(['/']);
+          }
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   getIp() {
@@ -47,7 +84,6 @@ export class CreateAdminComponent implements OnInit {
   uploadFileEvt(imgFile: any) {
     this.imageError = null;
     if (imgFile.target.files && imgFile.target.files[0]) {
-      console.log(imgFile.target.files[0]);
       const max_size = 20971520;
       const allowed_types = ['image/png', 'image/jpeg'];
       const max_height = 15200;
@@ -74,7 +110,6 @@ export class CreateAdminComponent implements OnInit {
       reader.onload = (e: any) => {
         const img_height = e.currentTarget['height'];
         const img_width = e.currentTarget['width'];
-        console.log(img_height, img_width);
         if (img_height > max_height && img_width > max_width) {
           this.imageError =
               'Dimensiones maximas permitidas ' +

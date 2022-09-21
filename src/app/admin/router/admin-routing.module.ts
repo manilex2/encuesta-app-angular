@@ -4,7 +4,7 @@ import { AdminComponent } from '../components/controllers/admin.component';
 import { AdminsTableComponent } from '../components/controllers/admins-table.component';
 import { AdminsComponent } from '../components/controllers/admins.component';
 import { CompaniasComponent } from '../components/controllers/companias.component';
-import { CreateAdminComponent } from '../components/controllers/create-admin.component';
+import { CreateAdminComponent } from '../components/controllers/admin-create.component';
 import { DashboardComponent } from '../components/controllers/dashboard.component';
 import { EncuestasComponent } from '../components/controllers/encuestas.component';
 import { ListaClientesComponent } from '../components/controllers/lista-clientes.component';

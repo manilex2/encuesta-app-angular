@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { CreateAdmin } from '../components/interfaces/CreateAdmin';
-import { Admin } from "../components/models/Admin";
+import { Admin } from "../components/models";
 import { Observable } from 'rxjs';
+import { CurrentUser } from '../components/models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,17 @@ export class AdminService {
     return this.http.get<Admin[]>(`${this.serverURL}/admins`)
   }
 
-  obtenerCurrentUser(): Observable<Admin> {
-    return this.http.get<Admin>(`${this.serverURL}/admins/currentUser`)
+  obtenerCurrentUser(): Observable<CurrentUser> {
+    return this.http.get<CurrentUser>(`${this.serverURL}/admins/currentUser`)
   }
 
-  crearAdmin(adminUser: CreateAdmin) {
-    this.http.post(`${this.serverURL}/admins/create`, { adminUser })
-    .subscribe((resp: any) => {
-      return resp;
-    });
+  crearAdmin(adminUser: Admin): Observable<Admin> {
+    try {
+      return this.http.post<Admin>(`${this.serverURL}/admins/create`, adminUser)
+    } catch (error) {
+      throw error;
+    }
+
   }
 
   getIPAddress() {

@@ -24,6 +24,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 /***************** ENVIRONMENTS ********************/
 import { environment } from '../environments/environment';
+import { appReducer } from './shared/store/reducers/app.reducers';
 
 registerLocaleData(myLocaleES);
 
@@ -35,13 +36,16 @@ registerLocaleData(myLocaleES);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      maxOpened: 1
+    }),
     AppRoutingModule,
     MaterialModule,
     AdminModule,
     AuthModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ appState: appReducer }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],

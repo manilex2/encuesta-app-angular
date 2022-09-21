@@ -3,8 +3,9 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { User } from '../components/interfaces/Users';
+import { User } from '../components/models';
 import decode from 'jwt-decode';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

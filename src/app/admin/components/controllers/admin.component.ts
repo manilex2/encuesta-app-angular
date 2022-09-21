@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import decode from 'jwt-decode';
-import { Navs } from '../interfaces/Navs';
+import { Navs } from '../models';
 
 @Component({
   selector: 'app-admin',

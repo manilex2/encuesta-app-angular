@@ -6,12 +6,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { AuthRoutingModule } from './router/auth-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 /************** COMPONENTES ********************/
 import { LoginComponent } from './components/controllers/login.component';
 import { AuthComponent } from './components/controllers/auth.component';
 
-/**************** INTERCEPTOR ******************/
+/*************** REDUCERS **********************/
+import * as fromLogin from './store/reducers/login.reducers';
+
+/*************** EFFECTS ***********************/
+import { LoginEffect } from './store/effects/login.effects';
+
+/**************** INTERCEPTORES ******************/
 import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
@@ -25,6 +33,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     ReactiveFormsModule,
     FormsModule,
     AuthRoutingModule,
+    /* StoreModule.forFeature(fromLogin.loginFeatureKey, fromLogin.loginReducer),
+    EffectsModule.forFeature([LoginEffect]) */
   ],
   exports: [AuthComponent],
   providers: [

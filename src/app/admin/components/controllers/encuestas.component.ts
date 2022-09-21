@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Encuesta } from "../interfaces/Encuesta";
+import { Encuesta } from "../models";
 
 @Component({
   selector: 'app-encuestas',

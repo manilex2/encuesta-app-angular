@@ -16,7 +16,7 @@ import { AdminRoutingModule } from './router/admin-routing.module';
 import { CompaniasComponent } from './components/controllers/companias.component';
 import { DashboardComponent } from './components/controllers/dashboard.component';
 import { SpinnerComponent } from './components/controllers/spinner.component';
-import { CreateAdminComponent } from './components/controllers/create-admin.component';
+import { CreateAdminComponent } from './components/controllers/admin-create.component';
 import { AdminsTableComponent } from './components/controllers/admins-table.component';
 import { HeaderComponent } from './components/controllers/header.component';
 import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
@@ -64,10 +64,10 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     MaterialModule,
     NgxChartsModule,
     AdminRoutingModule,
-    StoreModule.forFeature(fromAdmins.adminFeatureKey, fromAdmins.reducer),
+    StoreModule.forFeature(fromAdmins.adminFeatureKey, fromAdmins.adminReducer),
     StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
-    StoreModule.forFeature(fromCompanias.companiasFeatureKey, fromCompanias.reducer),
-    StoreModule.forFeature(fromTiposEncuesta.tiposEncuestaFeatureKey, fromTiposEncuesta.reducer),
+    StoreModule.forFeature(fromCompanias.companiasFeatureKey, fromCompanias.companiasReducer),
+    StoreModule.forFeature(fromTiposEncuesta.tiposEncuestaFeatureKey, fromTiposEncuesta.tiposEncuestaReducer),
     EffectsModule.forFeature([AdminsEffect, CompaniasEffect, TiposEncuestaEffect, CurrentUserEffect]),
     ReactiveFormsModule,
     FormsModule
