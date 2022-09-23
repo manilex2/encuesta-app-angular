@@ -1,7 +1,10 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { Appstate } from 'src/app/shared/store/AppState';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +13,12 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService, private overlay: OverlayContainer) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private overlay: OverlayContainer,
+    private appStore: Store<Appstate>
+  ) { }
 
   public get logIn(): boolean {
     return (localStorage.getItem('auth_token') !== null);
@@ -45,6 +53,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('auth_token');
-    this.router.navigate(["auth"]);
+    this.router.navigate(['auth']);
+    this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "", loginStatus: "logout" } }));
   }
 }

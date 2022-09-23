@@ -33,8 +33,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     ReactiveFormsModule,
     FormsModule,
     AuthRoutingModule,
-    /* StoreModule.forFeature(fromLogin.loginFeatureKey, fromLogin.loginReducer),
-    EffectsModule.forFeature([LoginEffect]) */
+    StoreModule.forFeature(fromLogin.loginFeatureKey, fromLogin.loginReducer),
+    EffectsModule.forFeature([LoginEffect])
   ],
   exports: [AuthComponent],
   providers: [

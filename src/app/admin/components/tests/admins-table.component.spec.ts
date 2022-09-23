@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AdminsTableComponent } from '../controllers/admins-table.component';
 
@@ -9,6 +10,7 @@ describe('AdminsTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ToastrModule.forRoot()],
       declarations: [ AdminsTableComponent ],
       providers: [provideMockStore({})]
     })

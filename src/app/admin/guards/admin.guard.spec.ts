@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AdminGuard } from './admin.guard';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AdminGuard', () => {
   let guard: AdminGuard;
@@ -16,7 +17,8 @@ describe('AdminGuard', () => {
       ],
       providers: [
         JwtHelperService,
-        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        provideMockStore({})
       ]
     });
     guard = TestBed.inject(AdminGuard);

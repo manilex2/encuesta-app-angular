@@ -53,17 +53,17 @@ export class CreateAdminComponent implements OnInit {
       this.store.dispatch(CREATE_ADMIN({newUser: {...this.createAdminForm.value}}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success') {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
-          this.toastr.success("Admin creado exitosamente.", "Admin Exito", {
+        if (data.apiStatus === 'success' && data.adminState === "created") {
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
+          this.toastr.success("Admin creado exitosamente.", "Admin", {
             progressBar: true
           });
           this.router.navigate(['/admin/admins']);
         } else if (data.apiStatus === 'error'){
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
-          this.toastr.error(data.apiResponseMessage, "Admin Error", {
+          this.toastr.error(data.apiResponseMessage, "Admin", {
             progressBar: true,
-            timeOut: 10000
+            timeOut: 8000
           });
           if (data.apiCodeStatus === 401) {
             this.router.navigate(['/']);
@@ -84,7 +84,7 @@ export class CreateAdminComponent implements OnInit {
   uploadFileEvt(imgFile: any) {
     this.imageError = null;
     if (imgFile.target.files && imgFile.target.files[0]) {
-      const max_size = 20971520;
+      const max_size = 2097152;
       const allowed_types = ['image/png', 'image/jpeg'];
       const max_height = 15200;
       const max_width = 25600;
@@ -94,9 +94,12 @@ export class CreateAdminComponent implements OnInit {
       });
       if (imgFile.target.files[0].size > max_size) {
         this.imageError =
-            'Tamaño maximo permitido es ' + max_size / 1000 + 'Mb';
+            'Tamaño maximo permitido es ' + Math.trunc(max_size / 1000000) + 'Mb';
         imgFile = null;
         this.logoAtrib = 'Subir un logo';
+        this.toastr.error(this.imageError, "Imagen", {
+          progressBar: true
+        })
         return false;
       }
 
@@ -104,6 +107,9 @@ export class CreateAdminComponent implements OnInit {
           this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
           imgFile = null;
           this.logoAtrib = 'Subir un logo';
+          this.toastr.error(this.imageError, "Imagen", {
+            progressBar: true
+          })
           return false;
       }
       let reader = new FileReader();

@@ -24,7 +24,6 @@ export class CompaniasEffect {
       exhaustMap(([, companiasFromStore]) => {
         this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200}}))
         if (companiasFromStore.length > 0) {
-          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200}}))
           return EMPTY;
         }
         return this.companiaService.obtenerTodasCompanias().pipe(

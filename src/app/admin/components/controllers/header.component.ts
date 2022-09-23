@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { AdminService } from '../../services/admin.service';
 import { CurrentUser } from '../models';
 import { select, Store } from '@ngrx/store';
 import { currentUser } from '../../store/selectors/currentuser.selectors';
@@ -22,17 +21,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (!this.authService.isAuthenticated()) {
       localStorage.removeItem('auth_token');
+      this.show = false;
     } else {
       this.transformar();
     }
   }
 
   transformar() {
-    if (!this.authService.isAuthenticated()) {
-      localStorage.removeItem('auth_token');
-      this.show = false;
-      return;
-    } else {
       this.store.pipe(select(currentUser))
       .subscribe(current => {
         this.store.dispatch(GET_CURRENT_USER());
@@ -49,9 +44,7 @@ export class HeaderComponent implements OnInit {
           this.show = false;
         }
       });
-    }
   }
-
   /* getDominantColor(imageObject: any, ctx: any, _that: any) {
     //draw the image to one pixel and let the browser find the dominant color
     ctx.drawImage(imageObject, 0, 0, 1, 1);

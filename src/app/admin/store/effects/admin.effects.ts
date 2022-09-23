@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from "@ngrx/store";
-import { catchError, map, of, exhaustMap, concatMap, withLatestFrom, EMPTY } from 'rxjs';
+import { catchError, map, of, exhaustMap, concatMap, withLatestFrom, EMPTY, tap, switchMap } from 'rxjs';
 import { Appstate } from "../../../shared/store/AppState";
 import { AdminService } from '../../services/admin.service';
 import {
@@ -29,7 +29,6 @@ export class AdminsEffect {
       exhaustMap(([, adminsFromStore]) => {
         this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200}}))
         if (adminsFromStore.length > 0) {
-          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200}}))
           return EMPTY;
         }
         return this.adminService.obtenerTodosAdmins().pipe(
@@ -38,8 +37,18 @@ export class AdminsEffect {
             return GET_ADMINS_SUCCESS({ admins })
           }),
           catchError((error) => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
-            throw error;
+            if (error.statusText === "Unknown Error") {
+              this.appStore.dispatch(setAPIStatus({
+                apiStatus: {
+                  apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas",
+                  apiStatus: 'error',
+                  apiCodeStatus: error.status,
+                  adminState: 'error'
+                }}))
+              throw error;
+            } else {
+              throw error;
+            }
           }),
         );
       })
@@ -53,7 +62,7 @@ export class AdminsEffect {
         this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200}}))
         return this.adminService.crearAdmin(action.newUser).pipe(
           map(newUser => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200}}))
+            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, adminState: "created"}}))
             return CREATE_ADMIN_SUCCESS({ newUser })
           }),
           catchError((error) => {

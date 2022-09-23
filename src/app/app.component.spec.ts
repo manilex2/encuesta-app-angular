@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -16,7 +17,8 @@ describe('AppComponent', () => {
       ],
       providers: [
         JwtHelperService,
-        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        provideMockStore({})
       ]
     }).compileComponents();
   });

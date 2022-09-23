@@ -65,7 +65,7 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     NgxChartsModule,
     AdminRoutingModule,
     StoreModule.forFeature(fromAdmins.adminFeatureKey, fromAdmins.adminReducer),
-    StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
+    StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.currentUserReducer),
     StoreModule.forFeature(fromCompanias.companiasFeatureKey, fromCompanias.companiasReducer),
     StoreModule.forFeature(fromTiposEncuesta.tiposEncuestaFeatureKey, fromTiposEncuesta.tiposEncuestaReducer),
     EffectsModule.forFeature([AdminsEffect, CompaniasEffect, TiposEncuestaEffect, CurrentUserEffect]),

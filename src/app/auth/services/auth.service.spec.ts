@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthService } from './auth.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -16,7 +17,8 @@ describe('AuthService', () => {
       ],
       providers: [
         JwtHelperService,
-        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        provideMockStore({})
       ]
     });
     service = TestBed.inject(AuthService);

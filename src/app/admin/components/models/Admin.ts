@@ -9,7 +9,3 @@ export interface Admin {
   logo?: any;
   clave?: any;
 }
-
-export interface AdminState {
-  admins: Admin[]
-}

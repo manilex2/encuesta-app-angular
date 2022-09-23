@@ -1,6 +1,6 @@
 export interface CurrentUser {
-  codigo: string;
-  nombre: string;
-  fsbs: boolean;
-  logo?: Blob;
+  codigo?: any;
+  nombre?: any;
+  fsbs?: any;
+  logo?: any;
 }

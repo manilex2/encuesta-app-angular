@@ -7,7 +7,7 @@ import { MaterialModule } from '../material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, INIT, MetaReducer, StoreModule } from '@ngrx/store';
 import { ToastrModule } from 'ngx-toastr';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -22,9 +22,11 @@ import { registerLocaleData } from "@angular/common";
 /***************** EFFECTS ********************/
 import { EffectsModule } from '@ngrx/effects';
 
+/***************** REDUCERS ********************/
+import { appReducer } from './shared/store/reducers/app.reducers';
+
 /***************** ENVIRONMENTS ********************/
 import { environment } from '../environments/environment';
-import { appReducer } from './shared/store/reducers/app.reducers';
 
 registerLocaleData(myLocaleES);
 

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from "@ngrx/store";
-import { catchError, map, concatMap } from 'rxjs';
+import { act, Actions, createEffect, ofType } from '@ngrx/effects';
+import { select, Store } from "@ngrx/store";
+import { catchError, map, concatMap, tap, exhaustMap, switchMap, withLatestFrom, EMPTY, takeUntil } from 'rxjs';
 import { Appstate } from "../../../shared/store/AppState";
 import { AuthService } from '../../services/auth.service';
 import {
@@ -9,6 +9,9 @@ import {
   LOGIN_SUCCESS
 } from '../actions/login.actions';
 import { setAPIStatus } from "../../../shared/store/actions/app.actions";
+import { Router } from "@angular/router";
+import { selectAdmins } from "src/app/admin/store/selectors/admin.selectors";
+import { Admin } from "src/app/admin/components/models";
 
 @Injectable()
 export class LoginEffect {
@@ -16,7 +19,16 @@ export class LoginEffect {
     private actions$: Actions,
     private authService: AuthService,
     private appStore: Store<Appstate>,
+    private router: Router,
+    private store: Store<Admin>,
   ) {}
+
+  /* logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LOGOUT),
+      tap(() => {})
+    ), {dispatch: false}
+  ) */
 
   /* login$ = createEffect(() =>
     this.actions$.pipe(

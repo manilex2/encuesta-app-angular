@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { NavComponent } from '../controllers/nav.component';
 
@@ -17,7 +18,8 @@ describe('NavComponent', () => {
         HttpClientTestingModule
       ], providers: [
         JwtHelperService,
-        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        provideMockStore({})
       ]
     })
     .compileComponents();

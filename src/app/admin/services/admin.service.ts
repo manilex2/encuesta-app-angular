@@ -15,20 +15,28 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   obtenerTodosAdmins(): Observable<Admin[]> {
-    return this.http.get<Admin[]>(`${this.serverURL}/admins`)
+    try {
+      return this.http.get<Admin[]>(`${this.serverURL}/admins`);
+    } catch (error) {
+      throw error;
+    }
   }
 
   obtenerCurrentUser(): Observable<CurrentUser> {
-    return this.http.get<CurrentUser>(`${this.serverURL}/admins/currentUser`)
-  }
-
-  crearAdmin(adminUser: Admin): Observable<Admin> {
     try {
-      return this.http.post<Admin>(`${this.serverURL}/admins/create`, adminUser)
+      return this.http.get<CurrentUser>(`${this.serverURL}/admins/currentUser`);
     } catch (error) {
       throw error;
     }
 
+  }
+
+  crearAdmin(adminUser: Admin): Observable<Admin> {
+    try {
+      return this.http.post<Admin>(`${this.serverURL}/admins/create`, adminUser);
+    } catch (error) {
+      throw error;
+    }
   }
 
   getIPAddress() {
