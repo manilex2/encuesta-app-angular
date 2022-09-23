@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditAdminComponent } from '../controllers/edit-admin.component';
+import { DeleteDialogComponent } from '../controllers/delete-dialog.component';
 
-describe('EditAdminComponent', () => {
-  let component: EditAdminComponent;
-  let fixture: ComponentFixture<EditAdminComponent>;
+describe('DeleteDialogComponent', () => {
+  let component: DeleteDialogComponent;
+  let fixture: ComponentFixture<DeleteDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditAdminComponent ]
+      declarations: [ DeleteDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EditAdminComponent);
+    fixture = TestBed.createComponent(DeleteDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

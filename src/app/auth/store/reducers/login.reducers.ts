@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { LOGIN_SUCCESS } from "../actions/login.actions";
+import { LOGIN_SUCCESS, LOGOUT } from "../actions/login.actions";
 
 export const loginFeatureKey = "loginState";
 
@@ -10,4 +10,7 @@ export const loginReducer = createReducer(
   on(LOGIN_SUCCESS, (state, { token }) => {
     return token;
   }),
+  on(LOGOUT, (state) => {
+    return state;
+  })
 );

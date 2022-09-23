@@ -82,7 +82,7 @@
             <mat-icon class="icon-actions">edit</mat-icon>
           </button>
         </a>
-        <button class="button-actions" mat-fab color="warn" aria-label="Icon button with a delete icon">
+        <button (click)="openDialog('1500ms', '1000ms', admin)" *ngIf="currentUser.codigo != admin.codigo" class="button-actions" mat-fab color="warn" aria-label="Icon button with a delete icon">
           <mat-icon class="icon-actions">delete</mat-icon>
         </button>
       </td>

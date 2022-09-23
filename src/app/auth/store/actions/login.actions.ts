@@ -8,5 +8,9 @@ export const LOGIN = createAction(
 
 export const LOGIN_SUCCESS = createAction(
   '[LOGIN] Login Exito',
-  props<{ token: any }>()
+  props<{ token: string }>()
+);
+
+export const LOGOUT = createAction(
+  '[LOGIN] Iniciar Sesion'
 );

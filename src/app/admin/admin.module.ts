@@ -16,11 +16,12 @@ import { AdminRoutingModule } from './router/admin-routing.module';
 import { CompaniasComponent } from './components/controllers/companias.component';
 import { DashboardComponent } from './components/controllers/dashboard.component';
 import { SpinnerComponent } from './components/controllers/spinner.component';
-import { CreateAdminComponent } from './components/controllers/admin-create.component';
+import { AdminCreateComponent } from './components/controllers/admin-create.component';
 import { AdminsTableComponent } from './components/controllers/admins-table.component';
 import { HeaderComponent } from './components/controllers/header.component';
 import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
-import { EditAdminComponent } from './components/controllers/edit-admin.component';
+import { AdminEditComponent } from './components/controllers/admin-edit.component';
+import { DeleteDialogComponent } from './components/controllers/delete-dialog.component';
 
 /*************** COMMONS **********************/
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -53,11 +54,12 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     CompaniasComponent,
     DashboardComponent,
     SpinnerComponent,
-    CreateAdminComponent,
+    AdminCreateComponent,
     AdminsTableComponent,
     ListaClientesComponent,
     HeaderComponent,
-    EditAdminComponent
+    AdminEditComponent,
+    DeleteDialogComponent
   ],
   imports: [
     CommonModule,

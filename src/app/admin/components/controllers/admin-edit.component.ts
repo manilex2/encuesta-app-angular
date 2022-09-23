@@ -1,22 +1,24 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
+import { Appstate } from 'src/app/shared/store/AppState';
 import { AdminService } from '../../services/admin.service';
 import * as _ from 'lodash';
-import { Store, select } from '@ngrx/store';
-import { CREATE_ADMIN } from '../../store/actions/admin.actions';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Appstate } from '../../../shared/store/AppState';
-import { selectAppState } from '../../../shared/store/selectors/app.selectors';
-import { setAPIStatus } from '../../../shared/store/actions/app.actions';
+import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
+import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { UPDATE_ADMIN } from '../../store/actions/admin.actions';
+import { switchMap } from 'rxjs';
+import { selectAdminById } from '../../store/selectors/admin.selectors';
 
 @Component({
-  selector: 'app-admin-create',
-  templateUrl: '../views/admin-create.component.html',
-  styleUrls: ['../styles/admin-create.component.scss'],
+  selector: 'app-edit-admin',
+  templateUrl: '../views/admin-edit.component.html',
+  styleUrls: ['../styles/admin-edit.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AdminCreateComponent implements OnInit {
+export class AdminEditComponent implements OnInit {
 
   @ViewChild('logoInput') logoInput!: ElementRef;
 
@@ -26,58 +28,54 @@ export class AdminCreateComponent implements OnInit {
   isImageSaved: boolean | undefined;
   cardImageBase64: string | undefined;
 
-  ngOnInit() {
-    this.getIp();
-  }
-
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
     private store: Store,
     private router: Router,
+    private route: ActivatedRoute,
     private toastr: ToastrService,
     private appStore: Store<Appstate>
   ) { }
 
-  createAdminForm = this.fb.group({
+  updateAdminForm = this.fb.group({
     codigo: ["", [Validators.required, Validators.pattern(/[0-9]{3}/g)]],
     nombre: ["", [Validators.required]],
     clave: ["", Validators.required],
     fsbs: [false, Validators.required],
-    createdIp: ['', Validators.required],
+    updatedIp: ['', Validators.required],
     logo: [null],
   });
 
-  onSubmit() {
-    try {
-      this.store.dispatch(CREATE_ADMIN({newAdmin: {...this.createAdminForm.value}}));
-      let appStatus$ = this.appStore.pipe(select(selectAppState));
-      appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success' && data.adminState === "created") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
-          this.toastr.success("Admin creado exitosamente.", "Admin", {
-            progressBar: true
-          });
-          this.router.navigate(['/admin/admins']);
-        } else if (data.apiStatus === 'error'){
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
-          this.toastr.error(data.apiResponseMessage, "Admin", {
-            progressBar: true,
-            timeOut: 8000
-          });
-          if (data.apiCodeStatus === 401) {
-            this.router.navigate(['/']);
-          }
+  ngOnInit(): void {
+    this.getIp();
+    let fetchData$ = this.route.paramMap.pipe(
+      switchMap((params) => {
+        var codigo = String(params.get('codigo'));
+        return this.store.pipe(select(selectAdminById(codigo)));
+      })
+    );
+    fetchData$.subscribe((data) => {
+      if (data) {
+        this.updateAdminForm.controls.codigo.setValue(data.codigo);
+        this.updateAdminForm.controls.nombre.setValue(data.nombre);
+        this.updateAdminForm.controls.clave.setValue(data.clave);
+        this.updateAdminForm.controls.logo.setValue(data.logo);
+        this.updateAdminForm.controls.fsbs.setValue(data.fsbs);
+        if (this.updateAdminForm.value.logo != null) {
+          this.isImageSaved = true;
+          this.cardImageBase64 = this.updateAdminForm.value.logo;
         }
-      });
-    } catch (error) {
-      console.error(error);
-    }
+      }
+      else{
+        this.router.navigate(['/admin/admins']);
+      }
+    });
   }
 
   getIp() {
     return this.adminService.getIPAddress().subscribe((res: any) => {
-      this.createAdminForm.controls['createdIp']?.setValue(res.ip);
+      this.updateAdminForm.controls.updatedIp.setValue(res.ip);
     })
   }
 
@@ -133,7 +131,7 @@ export class AdminCreateComponent implements OnInit {
             const imgBase64Path = e.target.result;
             this.cardImageBase64 = imgBase64Path;
             this.isImageSaved = true;
-            this.createAdminForm.controls['logo']?.setValue(imgBase64Path);
+            this.updateAdminForm.controls['logo']?.setValue(imgBase64Path);
           };
           return true;
         }
@@ -144,6 +142,33 @@ export class AdminCreateComponent implements OnInit {
     } else {
       this.logoAtrib = 'Subir un logo';
       return false;
+    }
+  }
+
+  onUpdate() {
+    try {
+      this.store.dispatch(UPDATE_ADMIN({updateAdmin: { ...this.updateAdminForm.value }}));
+      let appStatus$ = this.appStore.pipe(select(selectAppState));
+      appStatus$.subscribe((data) => {
+        if (data.apiStatus === 'success' && data.adminState === "updated") {
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
+          this.toastr.success("Admin actualizado exitosamente.", "Admin", {
+            progressBar: true
+          });
+          this.router.navigate(['/admin/admins']);
+        } else if (data.apiStatus === 'error'){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+          this.toastr.error(data.apiResponseMessage, "Admin", {
+            progressBar: true,
+            timeOut: 8000
+          });
+          if (data.apiCodeStatus === 401) {
+            this.router.navigate(['/']);
+          }
+        }
+      });
+    } catch (error) {
+      console.error(error);
     }
   }
 

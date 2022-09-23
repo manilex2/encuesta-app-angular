@@ -8,3 +8,12 @@ export const admins = createSelector(
   selectAdmins,
   (selectAdmins) => selectAdmins
 )
+
+export const selectAdminById = (adminCodigo: string) =>
+  createSelector(selectAdmins, (admins: Admin[]) => {
+    var adminById = admins.filter((_) => _.codigo == adminCodigo);
+    if (adminById.length == 0) {
+      return null;
+    }
+    return adminById[0];
+  });

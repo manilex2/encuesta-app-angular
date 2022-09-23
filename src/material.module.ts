@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatFormFieldModule,
     MatProgressBarModule,
     MatSlideToggleModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: []

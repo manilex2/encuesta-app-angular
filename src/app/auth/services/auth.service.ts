@@ -50,11 +50,17 @@ export class AuthService {
   }
 
   login(user: User) {
-    this.http.post(this.serverURL + '/authenticate', { codigo: user.codigo, clave: user.clave })
-    .subscribe((resp: any) => {
-      this.appStore.dispatch(setAPIStatus({apiStatus: { apiCodeStatus: 200, apiResponseMessage: '', apiStatus: '', loginStatus: "login" }}))
-      this.router.navigate(['admin']);
-      localStorage.setItem('auth_token', resp.token)
-    });
+    try {
+      this.http.post(this.serverURL + '/authenticate', { codigo: user.codigo, clave: user.clave })
+      .subscribe((resp: any) => {
+        this.appStore.dispatch(setAPIStatus({apiStatus: { apiCodeStatus: 200, apiResponseMessage: '', apiStatus: '', loginStatus: "login" }}))
+        this.router.navigate(['admin']);
+        localStorage.setItem('auth_token', resp.token)
+      });
+    } catch (error) {
+      throw error;
+
+    }
+
   }
 }

@@ -39,6 +39,22 @@ export class AdminService {
     }
   }
 
+  actualizarAdmin(adminUser: Admin): Observable<Admin> {
+    try {
+      return this.http.put<Admin>(`${this.serverURL}/admins/edit/${adminUser.codigo}`, adminUser);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  eliminarAdmin(codigo: string): Observable<Admin> {
+    try {
+      return this.http.delete<Admin>(`${this.serverURL}/admins/delete/${codigo}`);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   getIPAddress() {
     return this.http.get("https://api.ipify.org/?format=json");
   }
