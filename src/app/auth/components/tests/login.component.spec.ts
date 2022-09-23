@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from '../controllers/login.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { provideMockStore } from '@ngrx/store/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -16,7 +17,8 @@ describe('LoginComponent', () => {
       imports: [
         ReactiveFormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ToastrModule.forRoot({})
       ],
       declarations: [ LoginComponent ],
       providers: [
