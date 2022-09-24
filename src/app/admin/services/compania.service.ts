@@ -25,9 +25,9 @@ export class CompaniaService {
     }
   }
 
-  actualizarCompania(compania: Compania): Observable<Compania> {
+  actualizarCompania(compania: Compania, codigo: string, codigo_cia: string): Observable<Compania> {
     try {
-      return this.http.put<Compania>(`${this.serverURL}/companias/edit/${compania.codigo}/${compania.codigo_cia}`, compania);
+      return this.http.put<Compania>(`${this.serverURL}/companias/edit/${codigo}/${codigo_cia}`, compania);
     } catch (error) {
       throw error;
     }

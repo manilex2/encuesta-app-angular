@@ -1,0 +1,114 @@
+.mat-cell {
+  font-size: 14px;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+}
+
+.mat-header-cell {
+  font-size: 14px;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+}
+
+.tipos-encuesta-container {
+  width: auto;
+  max-width: 100vw;
+  overflow: auto;
+  max-height: 530px;
+}
+
+table {
+  width: 100vw;
+  min-height: 182px;
+}
+
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.tipos-encuesta-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.tipos-encuesta-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.tipos-encuesta-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-actions {
+  width: 40px;
+  height: 44px;
+}
+
+.icon-actions {
+  font-size: 12px !important;
+}
+
+.img-cell {
+  max-height: 50px;
+}
+
+.create-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+@media only screen and (max-width: 960px) {
+  .mat-cell {
+    font-size: 8px;
+  }
+
+  .mat-header-cell {
+    font-size: 8px;
+  }
+  .tipos-encuesta-container {
+    min-height: auto;
+    height: 580px;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .tipos-encuesta-container::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+
+  .tipos-encuesta-container::-webkit-scrollbar:vertical {
+    width: 6px;
+    background-color: var(--warn-color);
+  }
+
+  .tipos-encuesta-container::-webkit-scrollbar-button:increment,.tipos-encuesta-container::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .tipos-encuesta-container::-webkit-scrollbar:horizontal {
+    height: 6px;
+    background-color: var(--warn-color);
+  }
+
+  .tipos-encuesta-container::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);;
+    border-radius: 20px;
+    border: 1px solid var(--warn-color);
+  }
+
+  .tipos-encuesta-container::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+}

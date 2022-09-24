@@ -82,7 +82,7 @@ export class CompaniasEffect {
       ofType(UPDATE_COMPANIA),
       concatMap((action) => {
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "" } }));
-        return this.companiaService.actualizarCompania(action.updateCompania).pipe(
+        return this.companiaService.actualizarCompania(action.updateCompania, action.codigo, action.codigo_cia).pipe(
           map((updateCompania) => {
             this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "success", companiaState: "updated" } }));
             return UPDATE_COMPANIA_SUCCESS({ updateCompania });

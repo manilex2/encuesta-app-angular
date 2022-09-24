@@ -97,3 +97,10 @@ form {
   padding: 1rem;
   margin-bottom: 1rem;
 }
+
+.hidden-field {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}

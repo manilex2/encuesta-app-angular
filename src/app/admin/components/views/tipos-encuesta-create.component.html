@@ -1,0 +1,46 @@
+<form [formGroup]="createTipoEncuestaForm">
+  <mat-form-field [class.hidden-field]="!currentUser.fsbs" appearance="fill">
+    <mat-label>Codigo</mat-label>
+    <input matInput formControlName="codigo" placeholder="Introduzca 3 digitos obligatoriamente">
+  </mat-form-field>
+  <div *ngIf="createTipoEncuestaForm.get('codigo')?.invalid && (createTipoEncuestaForm.get('codigo')?.dirty || createTipoEncuestaForm.get('codigo')?.touched)" class="alert alert-danger">
+    <div *ngIf="createTipoEncuestaForm.get('codigo')?.errors?.['required']">
+      El codigo es requerido.
+    </div>
+    <div *ngIf="createTipoEncuestaForm.get('codigo')?.errors?.['pattern']">
+      El codigo debe ser numerico y de 3 dígitos.
+    </div>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Código Tipo de Encuesta</mat-label>
+    <input matInput formControlName="identificador" placeholder="Introduzca un identificador para el tipo de encuesta">
+  </mat-form-field>
+  <div *ngIf="createTipoEncuestaForm.get('identificador')?.invalid && (createTipoEncuestaForm.get('identificador')?.dirty || createTipoEncuestaForm.get('identificador')?.touched)" class="alert alert-danger">
+    <div *ngIf="createTipoEncuestaForm.get('identificador')?.errors?.['required']">
+      El código de tipo de encuesta es requerido.
+    </div>
+    <div *ngIf="createTipoEncuestaForm.get('identificador')?.errors?.['maxlength']">
+      Solo se permiten máximo 3 caracteres para el código de tipo de encuesta.
+    </div>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Descripción del Tipo de Encuesta</mat-label>
+    <input matInput formControlName="descripcion" placeholder="Introduzca una descripcion para el tipo de encuesta">
+  </mat-form-field>
+  <div *ngIf="createTipoEncuestaForm.get('descripcion')?.invalid && (createTipoEncuestaForm.get('descripcion')?.dirty || createTipoEncuestaForm.get('descripcion')?.touched)" class="alert alert-danger">
+    <div *ngIf="createTipoEncuestaForm.get('descripcion')?.errors?.['required']">
+      La descripción del tipo de encuesta es requerido.
+    </div>
+    <div *ngIf="createTipoEncuestaForm.get('descripcion')?.errors?.['maxlength']">
+      Solo se permiten 100 caracteres para la descripción del tipo de encuesta.
+    </div>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>¿Afectación?</mat-label>
+    <mat-select formControlName="afectacion" panelClass="panel-custom">
+      <mat-option value="CLIENTE">CLIENTE</mat-option>
+      <mat-option value="PROVEEDOR">PROVEEDOR</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="login-button-container create-button-custom" (click)="onSubmit()" [disabled]="!createTipoEncuestaForm.valid" mat-raised-button color="primary">Crear Tipo de Encuesta</button>
+</form>

@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-import { ToastrModule } from 'ngx-toastr';
 
 import { TiposEncuestaComponent } from '../controllers/tipos-encuesta.component';
 
@@ -10,9 +8,7 @@ describe('TiposEncuestaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ToastrModule.forRoot()],
-      declarations: [ TiposEncuestaComponent ],
-      providers: [provideMockStore({})]
+      declarations: [ TiposEncuestaComponent ]
     })
     .compileComponents();
 

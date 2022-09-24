@@ -42,6 +42,7 @@ export class CompaniaEditComponent implements OnInit {
   cardImageBase64: string | undefined;
   stepperOrientation: Observable<StepperOrientation>;
   currentUser: any;
+  routeParams: any;
 
   constructor(
     private fb: FormBuilder,
@@ -120,6 +121,10 @@ export class CompaniaEditComponent implements OnInit {
         this.emailCompaniaForm.controls.email_salida.setValue(data.email_salida);
         this.emailCompaniaForm.controls.email_smtp.setValue(data.email_smtp);
         this.emailCompaniaForm.controls.email_tema.setValue(data.email_tema);
+        this.routeParams = {
+          codigo: data.codigo,
+          codigo_cia: data.codigo_cia
+        }
       }
       else{
         this.router.navigate(['/admin/companias']);
@@ -206,7 +211,7 @@ export class CompaniaEditComponent implements OnInit {
         ...this.emailCompaniaForm.value,
         ...this.origenCompaniaForm.value
       }
-      this.store.dispatch(UPDATE_COMPANIA({updateCompania: { ...this.updateCompaniaForm }}));
+      this.store.dispatch(UPDATE_COMPANIA({updateCompania: { ...this.updateCompaniaForm }, codigo: this.routeParams.codigo, codigo_cia: this.routeParams.codigo_cia}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
         if (data.apiStatus === 'success' && data.companiaState === "updated") {

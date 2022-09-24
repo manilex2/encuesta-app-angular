@@ -37,9 +37,19 @@ form {
 
 @media screen and (max-width: 768px) {
   form {
-    width: 100vw;
+    width: 90vw;
   }
   .login-button-container {
-    width: 100vw;
+    width: 90vw;
   }
+}
+
+.header-login {
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--text-primary-color);
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }

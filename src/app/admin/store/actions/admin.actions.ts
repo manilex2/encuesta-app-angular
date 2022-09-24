@@ -20,7 +20,7 @@ export const CREATE_ADMIN_SUCCESS = createAction(
 
 export const UPDATE_ADMIN = createAction(
   '[UPDATE ADMIN] Init',
-  props<{ updateAdmin: Admin }>()
+  props<{ updateAdmin: Admin, codigo: string }>()
 );
 
 export const UPDATE_ADMIN_SUCCESS = createAction(

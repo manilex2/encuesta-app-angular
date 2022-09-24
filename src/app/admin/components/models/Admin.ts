@@ -1,5 +1,6 @@
 export interface Admin {
   codigo?: any;
+  codigo_ant?: any;
   nombre?: any;
   fsbs?: any;
   createdIp?: any;

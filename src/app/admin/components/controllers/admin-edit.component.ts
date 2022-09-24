@@ -27,6 +27,7 @@ export class AdminEditComponent implements OnInit {
   imageError: string | null | undefined;
   isImageSaved: boolean | undefined;
   cardImageBase64: string | undefined;
+  routeParams: any;
 
   constructor(
     private fb: FormBuilder,
@@ -65,6 +66,9 @@ export class AdminEditComponent implements OnInit {
         if (this.updateAdminForm.value.logo != null) {
           this.isImageSaved = true;
           this.cardImageBase64 = this.updateAdminForm.value.logo;
+        }
+        this.routeParams = {
+          codigo: data.codigo
         }
       }
       else{
@@ -147,7 +151,7 @@ export class AdminEditComponent implements OnInit {
 
   onUpdate() {
     try {
-      this.store.dispatch(UPDATE_ADMIN({updateAdmin: { ...this.updateAdminForm.value }}));
+      this.store.dispatch(UPDATE_ADMIN({updateAdmin: { ...this.updateAdminForm.value }, codigo: this.routeParams.codigo}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
         if (data.apiStatus === 'success' && data.adminState === "updated") {

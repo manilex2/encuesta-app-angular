@@ -16,9 +16,9 @@
     </ng-container>
     <form [formGroup]="basicCompaniaForm">
       <ng-template matStepLabel>Información Básica</ng-template>
-      <mat-form-field appearance="fill">
+      <mat-form-field  [class.hidden-field]="!currentUser.fsbs" appearance="fill">
         <mat-label>Codigo</mat-label>
-        <input [readonly]="!currentUser.fsbs" matInput formControlName="codigo" placeholder="Introduzca 3 digitos obligatoriamente">
+        <input matInput formControlName="codigo" placeholder="Introduzca 3 digitos obligatoriamente">
       </mat-form-field>
       <div *ngIf="basicCompaniaForm.get('codigo')?.invalid && (basicCompaniaForm.get('codigo')?.dirty || basicCompaniaForm.get('codigo')?.touched)" class="alert alert-danger">
         <div *ngIf="basicCompaniaForm.get('codigo')?.errors?.['required']">

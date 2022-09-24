@@ -1,0 +1,93 @@
+<section class="create-container">
+  <div>
+    <mat-form-field>
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+    </mat-form-field>
+  </div>
+  <div>
+    <div class="tipos-encuesta-button-row">
+      <div class="tipos-encuesta-flex-container">
+        <div class="tipos-encuesta-button-container">
+          <a [routerLink]="['../create']">
+            <button mat-fab color="primary" aria-label="Icon button with a create icon">
+              <mat-icon>add</mat-icon>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tipos-encuesta-container mat-elevation-z8" tabindex="0">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #tabla2>
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="Codigo"> {{tipoencuesta.codigo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="identificador">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Codigo Tipo de Encuesta </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="Identificador"> {{tipoencuesta.identificador}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="Descripcion"> {{tipoencuesta.descripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="afectacion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Afectacion </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="Afectacion"> {{tipoencuesta.afectacion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdIp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> IP de Creación </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="IP de Creación"> {{tipoencuesta.createdIp}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Creación </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="Fecha de Creación"> {{tipoencuesta.createdAt | date: 'medium':"+0000":"es-EC"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedIp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> IP de Actualización </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="IP de Actualización"> {{tipoencuesta.updatedIp}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Actualización </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="Fecha de Actualización"> {{tipoencuesta.updatedAt | date: 'medium':"+0000":"es-EC"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit" stickyEnd>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let compania">
+        <a
+          href="#"
+          [routerLink]="['../edit/', compania.codigo, compania.identificador]"
+          routerLinkActive="router-link-active"
+        >
+          <button class="button-actions" mat-fab color="accent" aria-label="Icon button with a edit icon">
+            <mat-icon class="icon-actions">edit</mat-icon>
+          </button>
+        </a>
+        <button (click)="openDialog('1500ms', '1000ms', compania)" class="button-actions" mat-fab color="warn" aria-label="Icon button with a delete icon">
+          <mat-icon class="icon-actions">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="20">No hay tipos de encuesta</td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+</section>
+

@@ -39,9 +39,9 @@ export class AdminService {
     }
   }
 
-  actualizarAdmin(adminUser: Admin): Observable<Admin> {
+  actualizarAdmin(adminUser: Admin, codigo: string): Observable<Admin> {
     try {
-      return this.http.put<Admin>(`${this.serverURL}/admins/edit/${adminUser.codigo}`, adminUser);
+      return this.http.put<Admin>(`${this.serverURL}/admins/edit/${codigo}`, adminUser);
     } catch (error) {
       throw error;
     }

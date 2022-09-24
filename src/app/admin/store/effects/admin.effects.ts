@@ -91,7 +91,7 @@ export class AdminsEffect {
       ofType(UPDATE_ADMIN),
       concatMap((action) => {
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "" } }));
-        return this.adminService.actualizarAdmin(action.updateAdmin).pipe(
+        return this.adminService.actualizarAdmin(action.updateAdmin, action.codigo).pipe(
           map((updateAdmin) => {
             this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "success", adminState: "updated" } }));
             return UPDATE_ADMIN_SUCCESS({ updateAdmin });

@@ -6,26 +6,37 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminRoutingModule } from './router/admin-routing.module';
 
 /************** COMPONENTES ********************/
+//ADMIN HOME
 import { AdminComponent } from './components/controllers/admin.component';
-import { TiposEncuestaComponent } from './components/controllers/tipos-encuesta.component';
-import { AdminsComponent } from './components/controllers/admins.component';
-import { EncuestasComponent } from './components/controllers/encuestas.component';
-import { AdminRoutingModule } from './router/admin-routing.module';
-import { CompaniasTableComponent } from './components/controllers/companias-table.component';
-import { DashboardComponent } from './components/controllers/dashboard.component';
-import { SpinnerComponent } from './components/controllers/spinner.component';
-import { AdminCreateComponent } from './components/controllers/admin-create.component';
-import { AdminsTableComponent } from './components/controllers/admins-table.component';
 import { HeaderComponent } from './components/controllers/header.component';
-import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
+import { SpinnerComponent } from './components/controllers/spinner.component';
+//DASHBOARD
+import { DashboardComponent } from './components/controllers/dashboard.component';
+//ADMINS USERS
+import { AdminsComponent } from './components/controllers/admins.component';
+import { AdminsTableComponent } from './components/controllers/admins-table.component';
+import { AdminCreateComponent } from './components/controllers/admin-create.component';
 import { AdminEditComponent } from './components/controllers/admin-edit.component';
 import { AdminDeleteDialogComponent } from './components/controllers/admin-delete-dialog.component';
-import { CompaniaDeleteDialogComponent } from './components/controllers/compania-delete-dialog.component';
+//COMPAÑIAS
+import { CompaniasComponent } from './components/controllers/companias.component';
+import { CompaniasTableComponent } from './components/controllers/companias-table.component';
 import { CompaniaCreateComponent } from './components/controllers/compania-create.component';
 import { CompaniaEditComponent } from './components/controllers/compania-edit.component';
-import { CompaniasComponent } from './components/controllers/companias.component';
+import { CompaniaDeleteDialogComponent } from './components/controllers/compania-delete-dialog.component';
+//TIPOS DE ENCUESTA
+import { TiposEncuestaComponent } from './components/controllers/tipos-encuesta.component';
+import { TiposEncuestaTableComponent } from './components/controllers/tipos-encuesta-table.component';
+import { TiposEncuestaCreateComponent } from './components/controllers/tipos-encuesta-create.component';
+import { TiposEncuestaEditComponent } from './components/controllers/tipos-encuesta-edit.component';
+import { TiposEncuestaDeleteDialogComponent } from './components/controllers/tipos-encuesta-delete-dialog.component';
+//ENCUESTAS
+import { EncuestasComponent } from './components/controllers/encuestas.component';
+//LISTA DE CLIENTES
+import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
 
 /*************** COMMONS **********************/
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -52,7 +63,7 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
 @NgModule({
   declarations: [
     AdminComponent,
-    TiposEncuestaComponent,
+    TiposEncuestaTableComponent,
     AdminsComponent,
     EncuestasComponent,
     CompaniasTableComponent,
@@ -67,7 +78,11 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     CompaniaDeleteDialogComponent,
     CompaniaCreateComponent,
     CompaniaEditComponent,
-    CompaniasComponent
+    CompaniasComponent,
+    TiposEncuestaComponent,
+    TiposEncuestaDeleteDialogComponent,
+    TiposEncuestaCreateComponent,
+    TiposEncuestaEditComponent
   ],
   imports: [
     CommonModule,

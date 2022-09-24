@@ -20,7 +20,7 @@ export const CREATE_COMPANIA_SUCCESS = createAction(
 
 export const UPDATE_COMPANIA = createAction(
   '[UPDATE COMPAÑÍA] Init',
-  props<{ updateCompania: Compania }>()
+  props<{ updateCompania: Compania, codigo_cia: string, codigo: string }>()
 );
 
 export const UPDATE_COMPANIA_SUCCESS = createAction(
@@ -30,7 +30,7 @@ export const UPDATE_COMPANIA_SUCCESS = createAction(
 
 export const DELETE_COMPANIA = createAction(
   '[DELETE COMPAÑÍA] Init',
-  props<{ codigo_cia: string, codigo: string }>()
+  props<{ codigo: string, codigo_cia: string }>()
 );
 
 export const DELETE_COMPANIA_SUCCESS = createAction(

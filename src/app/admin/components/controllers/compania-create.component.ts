@@ -13,6 +13,7 @@ import { Appstate } from 'src/app/shared/store/AppState';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { CompaniaService } from '../../services/compania.service';
 import { CREATE_COMPANIA } from '../../store/actions/companias.actions';
+import { currentUser } from '../../store/selectors/currentuser.selectors';
 import { Compania } from '../models';
 
 @Component({
@@ -40,6 +41,7 @@ export class CompaniaCreateComponent implements OnInit {
   isImageSaved: boolean | undefined;
   cardImageBase64: string | undefined;
   stepperOrientation: Observable<StepperOrientation>;
+  currentUser: any;
 
   constructor(
     private fb: FormBuilder,
@@ -56,6 +58,12 @@ export class CompaniaCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.pipe(select(currentUser)).subscribe(currentUser => {
+      this.currentUser = currentUser;
+      if (!this.currentUser.fsbs) {
+        this.basicCompaniaForm.controls.codigo?.setValue(this.currentUser.codigo);
+      }
+    })
     this.getIp();
   }
 

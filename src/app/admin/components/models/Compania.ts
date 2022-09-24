@@ -1,6 +1,8 @@
 export interface Compania {
   codigo?: any;
+  codigo_ant?: any;
   codigo_cia?: any;
+  codigo_cia_ant?: any;
   origen_dato?: any;
   origen_puerto?: any;
   origen_name_DB?: any;

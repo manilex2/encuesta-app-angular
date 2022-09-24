@@ -9,12 +9,15 @@ import { DashboardComponent } from '../components/controllers/dashboard.componen
 import { EncuestasComponent } from '../components/controllers/encuestas.component';
 import { ListaClientesComponent } from '../components/controllers/lista-clientes.component';
 import { TiposEncuestaComponent } from '../components/controllers/tipos-encuesta.component';
+import { TiposEncuestaTableComponent } from '../components/controllers/tipos-encuesta-table.component';
 import { AdminEditComponent } from '../components/controllers/admin-edit.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { FsbsGuard } from '../guards/fsbs.guard';
 import { CompaniaCreateComponent } from '../components/controllers/compania-create.component';
 import { CompaniaEditComponent } from '../components/controllers/compania-edit.component';
 import { CompaniasComponent } from '../components/controllers/companias.component';
+import { TiposEncuestaCreateComponent } from '../components/controllers/tipos-encuesta-create.component';
+import { TiposEncuestaEditComponent } from '../components/controllers/tipos-encuesta-edit.component';
 
 const routes: Routes = [
     { path: 'admin', component: AdminComponent, children: [
@@ -31,7 +34,12 @@ const routes: Routes = [
           { path: 'edit/:codigo/:compania', component: CompaniaEditComponent },
           { path: '', redirectTo:'view', pathMatch:"full" },
         ]},
-        { path: 'tipos_encuesta', component: TiposEncuestaComponent },
+        { path: 'tipos_encuesta', component: TiposEncuestaComponent, children: [
+          { path: 'view', component: TiposEncuestaTableComponent},
+          { path: 'create', component: TiposEncuestaCreateComponent},
+          { path: 'edit/:codigo/:identificador', component: TiposEncuestaEditComponent },
+          { path: '', redirectTo:'view', pathMatch:"full" },
+        ] },
         { path: 'encuestas', component: EncuestasComponent },
         { path: 'clientes', component: ListaClientesComponent },
         { path: '**', component: DashboardComponent },

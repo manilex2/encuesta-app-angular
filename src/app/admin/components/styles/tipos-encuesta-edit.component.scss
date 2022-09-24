@@ -6,7 +6,7 @@ form {
 }
 
 .mat-form-field {
-  width:100%;
+  width: 100%;
 }
 
 .misc-bottom-padding {
@@ -30,7 +30,7 @@ form {
 }
 
 .login-button-container {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   width: 100%;
 }
@@ -78,6 +78,7 @@ form {
   form {
     width: 90vw;
   }
+
   .login-button-container {
     width: 90vw;
   }
@@ -88,4 +89,11 @@ form {
   color: #820000;
   padding: 1rem;
   margin-bottom: 1rem;
+}
+
+.hidden-field {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
 }

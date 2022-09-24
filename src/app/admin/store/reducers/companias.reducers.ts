@@ -26,7 +26,7 @@ export const companiasReducer = createReducer(
       return newState;
     }),
     on(UPDATE_COMPANIA_SUCCESS, (state, { updateCompania }) => {
-      let newState = state.filter((_) => !(_.codigo_cia == updateCompania.codigo_cia && _.codigo == updateCompania.codigo));;
+      let newState = state.filter((_) => !(_.codigo_cia == updateCompania.codigo_cia_ant && _.codigo == updateCompania.codigo_ant));;
       newState.push(updateCompania);
       newState.sort((a, b) => {
         if (a.codigo < b.codigo) return -1;
