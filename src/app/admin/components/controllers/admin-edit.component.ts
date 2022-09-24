@@ -40,8 +40,8 @@ export class AdminEditComponent implements OnInit {
 
   updateAdminForm = this.fb.group({
     codigo: ["", [Validators.required, Validators.pattern(/[0-9]{3}/g)]],
-    nombre: ["", [Validators.required]],
-    clave: ["", Validators.required],
+    nombre: ["", [Validators.required, Validators.maxLength(100)]],
+    clave: ["", [Validators.required, Validators.maxLength(12)]],
     fsbs: [false, Validators.required],
     updatedIp: ['', Validators.required],
     logo: [null],

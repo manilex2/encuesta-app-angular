@@ -24,10 +24,13 @@
     <div *ngIf="updateAdminForm.get('nombre')?.errors?.['required']">
       El nombre es requerido.
     </div>
+    <div *ngIf="updateAdminForm.get('nombre')?.errors?.['maxlength']">
+      Solo se permiten 100 caracteres para el nombre.
+    </div>
   </div>
   <mat-form-field appearance="fill">
     <mat-label>Contraseña</mat-label>
-    <input matInput formControlName="clave" [type]="hide ? 'password' : 'text'">
+    <input matInput formControlName="clave" [type]="hide ? 'password' : 'text'" placeholder="Introduzca contraseña del admin">
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
@@ -36,9 +39,12 @@
     <div *ngIf="updateAdminForm.get('clave')?.errors?.['required']">
       La contraseña es requerida.
     </div>
+    <div *ngIf="updateAdminForm.get('clave')?.errors?.['maxlength']">
+      Solo se permiten 12 caracteres para la contraseña.
+    </div>
   </div>
   <mat-form-field appearance="fill">
-    <mat-label>FSBS</mat-label>
+    <mat-label>¿FSBS?</mat-label>
     <mat-select formControlName="fsbs" panelClass="panel-custom">
       <mat-option [value]="true">Si</mat-option>
       <mat-option [value]="false">No</mat-option>

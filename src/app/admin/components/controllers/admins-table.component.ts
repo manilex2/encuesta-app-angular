@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { currentUser } from '../../store/selectors/currentuser.selectors';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from './delete-dialog.component';
+import { AdminDeleteDialogComponent } from './admin-delete-dialog.component';
 
 @Component({
   selector: 'app-admins-table',
@@ -37,7 +37,7 @@ export class AdminsTableComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit() {
+  ngOnInit():void {
     this.store.pipe(select(admins)).subscribe(admin => {
       this.store.dispatch(GET_ADMINS());
       this.admins = admin;
@@ -46,7 +46,7 @@ export class AdminsTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
       let apiStatus$ = this.appStore.pipe(select(selectAppState));
       apiStatus$.subscribe((data) => {
-        if (data.apiStatus === "success" && data.adminState === "" && data.loginStatus === "login") {
+        if (data.apiStatus === "success" && data.adminState === "getted" && data.loginStatus === "login") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
           this.toastr.success("Admins recuperados con exito.", "Admin", {
             progressBar: true
@@ -66,8 +66,8 @@ export class AdminsTableComponent implements OnInit {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, admin: any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '250px',
+    const dialogRef = this.dialog.open(AdminDeleteDialogComponent, {
+      width: '350px',
       enterAnimationDuration,
       exitAnimationDuration,
       data: admin

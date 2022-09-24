@@ -1,5 +1,39 @@
-@import '~@angular/material/theming';
-
 .example-spacer {
   flex: 1 1 auto;
 }
+
+@media only screen and (min-width: 960px) {
+  mat-sidenav-content::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+
+  mat-sidenav-content::-webkit-scrollbar:vertical {
+    width: 6px;
+    background-color: var(--warn-color);
+  }
+
+  mat-sidenav-content::-webkit-scrollbar-button:increment, mat-sidenav-content::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  mat-sidenav-content::-webkit-scrollbar:horizontal {
+    height: 6px;
+    background-color: var(--warn-color);
+  }
+
+  mat-sidenav-content::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 20px;
+    border: 1px solid var(--warn-color);
+  }
+
+  mat-sidenav-content::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  mat-sidenav-content {
+    scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+  }
+}
+

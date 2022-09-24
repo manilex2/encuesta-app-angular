@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from '../components/controllers/admin.component';
 import { AdminsTableComponent } from '../components/controllers/admins-table.component';
 import { AdminsComponent } from '../components/controllers/admins.component';
-import { CompaniasComponent } from '../components/controllers/companias.component';
+import { CompaniasTableComponent } from '../components/controllers/companias-table.component';
 import { AdminCreateComponent } from '../components/controllers/admin-create.component';
 import { DashboardComponent } from '../components/controllers/dashboard.component';
 import { EncuestasComponent } from '../components/controllers/encuestas.component';
@@ -12,6 +12,9 @@ import { TiposEncuestaComponent } from '../components/controllers/tipos-encuesta
 import { AdminEditComponent } from '../components/controllers/admin-edit.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { FsbsGuard } from '../guards/fsbs.guard';
+import { CompaniaCreateComponent } from '../components/controllers/compania-create.component';
+import { CompaniaEditComponent } from '../components/controllers/compania-edit.component';
+import { CompaniasComponent } from '../components/controllers/companias.component';
 
 const routes: Routes = [
     { path: 'admin', component: AdminComponent, children: [
@@ -22,7 +25,12 @@ const routes: Routes = [
           { path: 'edit/:codigo', component: AdminEditComponent },
           { path: '', redirectTo:'view', pathMatch:"full" },
         ]},
-        { path: 'companias', component: CompaniasComponent },
+        { path: 'companias', component: CompaniasComponent, children: [
+          { path: 'view', component: CompaniasTableComponent},
+          { path: 'create', component: CompaniaCreateComponent},
+          { path: 'edit/:codigo/:compania', component: CompaniaEditComponent },
+          { path: '', redirectTo:'view', pathMatch:"full" },
+        ]},
         { path: 'tipos_encuesta', component: TiposEncuestaComponent },
         { path: 'encuestas', component: EncuestasComponent },
         { path: 'clientes', component: ListaClientesComponent },

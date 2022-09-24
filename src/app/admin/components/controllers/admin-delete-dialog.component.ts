@@ -3,13 +3,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-delete-dialog',
-  templateUrl: '../views/delete-dialog.component.html',
-  styleUrls: ['../styles/delete-dialog.component.scss']
+  templateUrl: '../views/admin-delete-dialog.component.html',
+  styleUrls: ['../styles/admin-delete-dialog.component.scss']
 })
-export class DeleteDialogComponent {
+export class AdminDeleteDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    public dialogRef: MatDialogRef<AdminDeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 

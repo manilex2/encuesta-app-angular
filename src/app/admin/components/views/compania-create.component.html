@@ -1,0 +1,234 @@
+<mat-stepper linear [orientation]="(stepperOrientation | async)!" #stepper>
+  <ng-template matStepperIcon="home">
+    <mat-icon>home</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="mail">
+    <mat-icon>mail</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="public">
+    <mat-icon>public</mat-icon>
+  </ng-template>
+  <mat-step state="home" [stepControl]="basicCompaniaForm">
+    <ng-container *ngIf="isImageSaved && !imageError;">
+      <div class="container-img-logo">
+        <img [src]="cardImageBase64" class="img-logo"/>
+      </div>
+    </ng-container>
+    <form [formGroup]="basicCompaniaForm">
+      <ng-template matStepLabel>Información Básica</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Codigo</mat-label>
+        <input matInput formControlName="codigo" placeholder="Introduzca 3 digitos obligatoriamente">
+      </mat-form-field>
+      <div *ngIf="basicCompaniaForm.get('codigo')?.invalid && (basicCompaniaForm.get('codigo')?.dirty || basicCompaniaForm.get('codigo')?.touched)" class="alert alert-danger">
+        <div *ngIf="basicCompaniaForm.get('codigo')?.errors?.['required']">
+          El codigo es requerido.
+        </div>
+        <div *ngIf="basicCompaniaForm.get('codigo')?.errors?.['pattern']">
+          El codigo debe ser numerico y de 3 dígitos.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Codigo Compañía</mat-label>
+        <input matInput formControlName="codigo_cia" placeholder="Introduzca 2 digitos obligatoriamente">
+      </mat-form-field>
+      <div *ngIf="basicCompaniaForm.get('codigo_cia')?.invalid && (basicCompaniaForm.get('codigo_cia')?.dirty || basicCompaniaForm.get('codigo_cia')?.touched)" class="alert alert-danger">
+        <div *ngIf="basicCompaniaForm.get('codigo_cia')?.errors?.['required']">
+          El codigo de compañía es requerido.
+        </div>
+        <div *ngIf="basicCompaniaForm.get('codigo_cia')?.errors?.['pattern']">
+          El codigo debe ser numerico y de 2 dígitos.
+        </div>
+      </div>
+      <mat-form-field>
+        <div>
+          <mat-toolbar class="custom-toolbar">
+            <input [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="logoAtrib" readonly name="name" />
+            <button class="button-files" mat-flat-button color="primary">Subir un logo</button>
+          </mat-toolbar>
+          <input
+            type="file"
+            accept="image/jpeg,image/png"
+            #logoInput
+            id="uploadFile"
+            (change)="uploadFileEvt($event)"
+            name="uploadFile"
+          />
+        </div>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Vista Lista</mat-label>
+        <input matInput formControlName="vista_lista" placeholder="Introduzca la vista">
+      </mat-form-field>
+      <div>
+        <button class="login-button-container create-button-custom" mat-raised-button color="primary" [disabled]="!basicCompaniaForm.valid" matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step state="public" [stepControl]="origenCompaniaForm">
+    <form [formGroup]="origenCompaniaForm">
+      <ng-template matStepLabel>Información Origen</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Dato de Origen</mat-label>
+        <input matInput formControlName="origen_dato" placeholder="Introduzca dato de origen">
+      </mat-form-field>
+      <div *ngIf="origenCompaniaForm.get('origen_dato')?.invalid && (origenCompaniaForm.get('origen_dato')?.dirty || origenCompaniaForm.get('origen_dato')?.touched)" class="alert alert-danger">
+        <div *ngIf="origenCompaniaForm.get('origen_dato')?.errors?.['required']">
+          El dato de origen es requerido.
+        </div>
+        <div *ngIf="origenCompaniaForm.get('origen_dato')?.errors?.['maxlength']">
+          Solo se permiten 100 caracteres para el dato de origen.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Puerto de Origen</mat-label>
+        <input matInput formControlName="origen_puerto" placeholder="Introduzca puerto de origen">
+      </mat-form-field>
+      <div *ngIf="origenCompaniaForm.get('origen_puerto')?.invalid && (origenCompaniaForm.get('origen_puerto')?.dirty || origenCompaniaForm.get('origen_puerto')?.touched)" class="alert alert-danger">
+        <div *ngIf="origenCompaniaForm.get('origen_puerto')?.errors?.['required']">
+          El puerto de origen es requerido.
+        </div>
+        <div *ngIf="origenCompaniaForm.get('origen_puerto')?.errors?.['maxlength']">
+          Solo se permiten 50 caracteres para el puerto de origen.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Base de datos de Origen</mat-label>
+        <input matInput formControlName="origen_name_DB" placeholder="Introduzca base de datos de origen">
+      </mat-form-field>
+      <div *ngIf="origenCompaniaForm.get('origen_name_DB')?.invalid && (origenCompaniaForm.get('origen_name_DB')?.dirty || origenCompaniaForm.get('origen_name_DB')?.touched)" class="alert alert-danger">
+        <div *ngIf="origenCompaniaForm.get('origen_name_DB')?.errors?.['required']">
+          La base de datos de origen es requerido.
+        </div>
+        <div *ngIf="origenCompaniaForm.get('origen_name_DB')?.errors?.['maxlength']">
+          Solo se permiten 50 caracteres para la base de datos de origen.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Usuario de Origen</mat-label>
+        <input matInput formControlName="origen_user" placeholder="Introduzca usuario de origen">
+      </mat-form-field>
+      <div *ngIf="origenCompaniaForm.get('origen_user')?.invalid && (origenCompaniaForm.get('origen_user')?.dirty || origenCompaniaForm.get('origen_user')?.touched)" class="alert alert-danger">
+        <div *ngIf="origenCompaniaForm.get('origen_user')?.errors?.['required']">
+          El usuario de origen es requerido.
+        </div>
+        <div *ngIf="origenCompaniaForm.get('origen_user')?.errors?.['maxlength']">
+          Solo se permiten 20 caracteres para el usuario de origen.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Clave de Origen</mat-label>
+        <input matInput formControlName="origen_clave" placeholder="Introduzca clave de origen" [type]="hideOrigen ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hideOrigen = !hideOrigen" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hideOrigen">
+          <mat-icon>{{hideOrigen ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div *ngIf="origenCompaniaForm.get('origen_clave')?.invalid && (origenCompaniaForm.get('origen_clave')?.dirty || origenCompaniaForm.get('origen_clave')?.touched)" class="alert alert-danger">
+        <div *ngIf="origenCompaniaForm.get('origen_clave')?.errors?.['required']">
+          La clave de origen es requerido.
+        </div>
+        <div *ngIf="origenCompaniaForm.get('origen_clave')?.errors?.['maxlength']">
+          Solo se permiten 12 caracteres para la contraseña de origen.
+        </div>
+      </div>
+      <div>
+        <button class="login-button-container create-button-custom" mat-raised-button color="accent" matStepperPrevious>Atrás</button>
+        <button class="login-button-container create-button-custom" mat-raised-button color="primary" [disabled]="!origenCompaniaForm.valid" matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step state="mail" [stepControl]="emailCompaniaForm">
+    <form [formGroup]="emailCompaniaForm">
+      <ng-template matStepLabel>Información Email</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>SMTP del Email</mat-label>
+        <input matInput formControlName="email_smtp" placeholder="Introduzca el SMTP del email">
+      </mat-form-field>
+      <div *ngIf="emailCompaniaForm.get('email_smtp')?.invalid && (emailCompaniaForm.get('email_smtp')?.dirty || emailCompaniaForm.get('email_smtp')?.touched)" class="alert alert-danger">
+        <div *ngIf="emailCompaniaForm.get('email_smtp')?.errors?.['required']">
+          El SMTP del email es requerido.
+        </div>
+        <div *ngIf="emailCompaniaForm.get('email_smtp')?.errors?.['maxlength']">
+          Solo se permiten 100 caracteres para el SMTP del email.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Puerto del Email</mat-label>
+        <input matInput formControlName="email_puerto" placeholder="Introduzca el puerto del email">
+      </mat-form-field>
+      <div *ngIf="emailCompaniaForm.get('email_puerto')?.invalid && (emailCompaniaForm.get('email_puerto')?.dirty || emailCompaniaForm.get('email_puerto')?.touched)" class="alert alert-danger">
+        <div *ngIf="emailCompaniaForm.get('email_puerto')?.errors?.['required']">
+          El puerto del email es requerido.
+        </div>
+        <div *ngIf="emailCompaniaForm.get('email_puerto')?.errors?.['maxlength']">
+          Solo se permiten 100 caracteres para el puerto del email.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Dirección Email de Salida</mat-label>
+        <input matInput formControlName="email_salida" placeholder="Introduzca una dirección email de salida">
+      </mat-form-field>
+      <div *ngIf="emailCompaniaForm.get('email_salida')?.invalid && (emailCompaniaForm.get('email_salida')?.dirty || emailCompaniaForm.get('email_salida')?.touched)" class="alert alert-danger">
+        <div *ngIf="emailCompaniaForm.get('email_salida')?.errors?.['required']">
+          La dirección de email de salida es requerida.
+        </div>
+        <div *ngIf="emailCompaniaForm.get('email_salida')?.errors?.['maxlength']">
+          Solo se permiten 100 caracteres para la dirección de email de salida.
+        </div>
+        <div *ngIf="emailCompaniaForm.get('email_salida')?.errors?.['email']">
+          No tiene un formato de email valido.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña de Email</mat-label>
+        <input matInput formControlName="email_clave" [type]="hideEmail ? 'password' : 'text'" placeholder="Introduzca contraseña del email">
+        <button mat-icon-button matSuffix (click)="hideEmail = !hideEmail" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hideEmail">
+          <mat-icon>{{hideEmail ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div *ngIf="emailCompaniaForm.get('email_clave')?.invalid && (emailCompaniaForm.get('email_clave')?.dirty || emailCompaniaForm.get('email_clave')?.touched)" class="alert alert-danger">
+        <div *ngIf="emailCompaniaForm.get('email_clave')?.errors?.['required']">
+          La contraseña del email es requerida.
+        </div>
+        <div *ngIf="emailCompaniaForm.get('email_clave')?.errors?.['maxlength']">
+          Solo se permiten 100 caracteres para la contraseña del email.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Tema del Email</mat-label>
+        <input matInput formControlName="email_tema" placeholder="Introduzca el tema del email">
+      </mat-form-field>
+      <div *ngIf="emailCompaniaForm.get('email_tema')?.invalid && (emailCompaniaForm.get('email_tema')?.dirty || emailCompaniaForm.get('email_tema')?.touched)" class="alert alert-danger">
+        <div *ngIf="emailCompaniaForm.get('email_tema')?.errors?.['required']">
+          El tema del email es requerido.
+        </div>
+        <div *ngIf="emailCompaniaForm.get('email_tema')?.errors?.['maxlength']">
+          Solo se permiten 100 caracteres para el tema del email.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Mensaje del Email</mat-label>
+        <input matInput formControlName="email_mensaje" placeholder="Introduzca el mensaje del email">
+      </mat-form-field>
+      <div *ngIf="emailCompaniaForm.get('email_mensaje')?.invalid && (emailCompaniaForm.get('email_mensaje')?.dirty || emailCompaniaForm.get('email_mensaje')?.touched)" class="alert alert-danger">
+        <div *ngIf="emailCompaniaForm.get('email_mensaje')?.errors?.['required']">
+          El mensaje del email es requerido.
+        </div>
+        <div *ngIf="emailCompaniaForm.get('email_mensaje')?.errors?.['maxlength']">
+          Solo se permiten 100 caracteres para el mensaje del email.
+        </div>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>¿Email Office 365?</mat-label>
+        <mat-select formControlName="email_office_365" panelClass="panel-custom">
+          <mat-option [value]="true">Si</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button class="login-button-container create-button-custom" mat-raised-button color="accent" matStepperPrevious>Atrás</button>
+        <button class="login-button-container create-button-custom" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!emailCompaniaForm.valid">Crear Compañía</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>

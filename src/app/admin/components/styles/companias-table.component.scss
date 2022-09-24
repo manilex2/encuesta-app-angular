@@ -1,20 +1,20 @@
-th.mat-header-cell {
-  z-index: 0 !important;
-}
-
 .mat-cell {
-  font-size: 14px;
+  font-size: 11px;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
 }
 
 .mat-header-cell {
-  font-size: 14px;
+  font-size: 11px;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
 }
 
-.admins-container {
+.companias-container {
   width: auto;
   max-width: 100vw;
   overflow: auto;
-  max-height: 400px;
+  max-height: 530px;
 }
 
 table {
@@ -31,18 +31,18 @@ th.mat-column-position, td.mat-column-position {
   padding-left: 8px;
 }
 
-.admins-button-row .mat-button-base {
+.companias-button-row .mat-button-base {
   margin: 8px 8px 8px 0;
 }
 
-.admins-flex-container {
+.companias-flex-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   flex-direction: row-reverse;
 }
 
-.admins-button-container {
+.companias-button-container {
   display: flex;
   justify-content: center;
 }
@@ -77,34 +77,38 @@ th.mat-column-position, td.mat-column-position {
   .mat-header-cell {
     font-size: 8px;
   }
+  .companias-container {
+    min-height: auto;
+    height: 580px;
+  }
 }
 
 @media only screen and (min-width: 960px) {
-  .admins-container::-webkit-scrollbar {
+  .companias-container::-webkit-scrollbar {
     -webkit-appearance: none;
   }
 
-  .admins-container::-webkit-scrollbar:vertical {
+  .companias-container::-webkit-scrollbar:vertical {
     width: 6px;
     background-color: var(--warn-color);
   }
 
-  .admins-container::-webkit-scrollbar-button:increment,.admins-container::-webkit-scrollbar-button {
+  .companias-container::-webkit-scrollbar-button:increment,.companias-container::-webkit-scrollbar-button {
     display: none;
   }
 
-  .admins-container::-webkit-scrollbar:horizontal {
+  .companias-container::-webkit-scrollbar:horizontal {
     height: 6px;
     background-color: var(--warn-color);
   }
 
-  .admins-container::-webkit-scrollbar-thumb {
-    background-color: var(--accent-color);
+  .companias-container::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);;
     border-radius: 20px;
     border: 1px solid var(--warn-color);
   }
 
-  .admins-container::-webkit-scrollbar-track {
+  .companias-container::-webkit-scrollbar-track {
     border-radius: 10px;
   }
 }

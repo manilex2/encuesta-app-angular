@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { ToastrModule } from 'ngx-toastr';
 
 import { CompaniasComponent } from '../controllers/companias.component';
 
@@ -10,9 +10,9 @@ describe('CompaniasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ToastrModule.forRoot()],
+      imports: [ RouterTestingModule ],
       declarations: [ CompaniasComponent ],
-      providers: [provideMockStore({})]
+      providers: [provideMockStore({}), ]
     })
     .compileComponents();
 

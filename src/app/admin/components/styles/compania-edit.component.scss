@@ -6,7 +6,7 @@ form {
 }
 
 .mat-form-field {
-  width:100%;
+  width: 100%;
 }
 
 .misc-bottom-padding {
@@ -30,9 +30,9 @@ form {
 }
 
 .login-button-container {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
-  width: 100%;
+  width: 50%;
 }
 
 #uploadFile {
@@ -78,8 +78,16 @@ form {
   form {
     width: 100vw;
   }
+
   .login-button-container {
-    width: 100vw;
+    width: 30vw;
+  }
+  .mat-form-field {
+    width: 80%;
+  }
+
+  .alert div {
+    width: 72%;
   }
 }
 

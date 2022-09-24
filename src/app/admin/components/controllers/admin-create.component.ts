@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Appstate } from '../../../shared/store/AppState';
 import { selectAppState } from '../../../shared/store/selectors/app.selectors';
 import { setAPIStatus } from '../../../shared/store/actions/app.actions';
+import { Admin } from '../models';
 
 @Component({
   selector: 'app-admin-create',
@@ -39,10 +40,10 @@ export class AdminCreateComponent implements OnInit {
     private appStore: Store<Appstate>
   ) { }
 
-  createAdminForm = this.fb.group({
+  createAdminForm = this.fb.group<Admin>({
     codigo: ["", [Validators.required, Validators.pattern(/[0-9]{3}/g)]],
-    nombre: ["", [Validators.required]],
-    clave: ["", Validators.required],
+    nombre: ["", [Validators.required, Validators.maxLength(100)]],
+    clave: ["", [Validators.required, Validators.maxLength(12)]],
     fsbs: [false, Validators.required],
     createdIp: ['', Validators.required],
     logo: [null],

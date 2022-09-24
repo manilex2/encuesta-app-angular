@@ -16,4 +16,4 @@ export const selectAdminById = (adminCodigo: string) =>
       return null;
     }
     return adminById[0];
-  });
+});

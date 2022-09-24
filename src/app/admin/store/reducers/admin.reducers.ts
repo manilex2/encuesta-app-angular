@@ -17,12 +17,13 @@ export const adminReducer = createReducer(
       return newState;
     }),
     on(UPDATE_ADMIN_SUCCESS, (state, { updateAdmin }) => {
-      let newState = state.filter((_) => _.codigo != updateAdmin.codigo);;
+      let newState = state.filter((_) => _.codigo != updateAdmin.codigo);
       newState.push(updateAdmin);
+      newState.sort((a, b) => a.codigo - b.codigo);
       return newState;
     }),
     on(DELETE_ADMIN_SUCCESS, (state, { deleteAdmin }) => {
-      let newState = state.filter((_) => _.codigo != deleteAdmin.codigo);;
+      let newState = state.filter((_) => _.codigo != deleteAdmin.codigo);
       return newState;
     })
 );

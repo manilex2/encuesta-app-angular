@@ -37,7 +37,7 @@ export class AdminsEffect {
         }
         return this.adminService.obtenerTodosAdmins().pipe(
           map(admins => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200}}))
+            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, adminState: 'getted'}}))
             return GET_ADMINS_SUCCESS({ admins })
           }),
           catchError((error) => {
@@ -113,7 +113,7 @@ export class AdminsEffect {
     );
   });
 
-  deleteAdminAPI$ = createEffect(() => {
+  deleteAdmin$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DELETE_ADMIN),
       mergeMap((actions) => {

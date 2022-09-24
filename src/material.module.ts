@@ -16,6 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatProgressBarModule,
     MatSlideToggleModule,
     MatSidenavModule,
-    MatDialogModule
+    MatDialogModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: []

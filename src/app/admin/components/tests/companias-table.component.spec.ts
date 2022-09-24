@@ -4,21 +4,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ToastrModule } from 'ngx-toastr';
 
-import { AdminsTableComponent } from '../controllers/admins-table.component';
+import { CompaniasTableComponent } from '../controllers/companias-table.component';
 
-describe('AdminsTableComponent', () => {
-  let component: AdminsTableComponent;
-  let fixture: ComponentFixture<AdminsTableComponent>;
+describe('CompaniasTableComponent', () => {
+  let component: CompaniasTableComponent;
+  let fixture: ComponentFixture<CompaniasTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ToastrModule.forRoot(), RouterTestingModule, MatDialogModule],
-      declarations: [ AdminsTableComponent ],
+      declarations: [ CompaniasTableComponent ],
       providers: [provideMockStore({})]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminsTableComponent);
+    fixture = TestBed.createComponent(CompaniasTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -13,7 +13,7 @@ import { TiposEncuestaComponent } from './components/controllers/tipos-encuesta.
 import { AdminsComponent } from './components/controllers/admins.component';
 import { EncuestasComponent } from './components/controllers/encuestas.component';
 import { AdminRoutingModule } from './router/admin-routing.module';
-import { CompaniasComponent } from './components/controllers/companias.component';
+import { CompaniasTableComponent } from './components/controllers/companias-table.component';
 import { DashboardComponent } from './components/controllers/dashboard.component';
 import { SpinnerComponent } from './components/controllers/spinner.component';
 import { AdminCreateComponent } from './components/controllers/admin-create.component';
@@ -21,7 +21,11 @@ import { AdminsTableComponent } from './components/controllers/admins-table.comp
 import { HeaderComponent } from './components/controllers/header.component';
 import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
 import { AdminEditComponent } from './components/controllers/admin-edit.component';
-import { DeleteDialogComponent } from './components/controllers/delete-dialog.component';
+import { AdminDeleteDialogComponent } from './components/controllers/admin-delete-dialog.component';
+import { CompaniaDeleteDialogComponent } from './components/controllers/compania-delete-dialog.component';
+import { CompaniaCreateComponent } from './components/controllers/compania-create.component';
+import { CompaniaEditComponent } from './components/controllers/compania-edit.component';
+import { CompaniasComponent } from './components/controllers/companias.component';
 
 /*************** COMMONS **********************/
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -51,7 +55,7 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     TiposEncuestaComponent,
     AdminsComponent,
     EncuestasComponent,
-    CompaniasComponent,
+    CompaniasTableComponent,
     DashboardComponent,
     SpinnerComponent,
     AdminCreateComponent,
@@ -59,7 +63,11 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     ListaClientesComponent,
     HeaderComponent,
     AdminEditComponent,
-    DeleteDialogComponent
+    AdminDeleteDialogComponent,
+    CompaniaDeleteDialogComponent,
+    CompaniaCreateComponent,
+    CompaniaEditComponent,
+    CompaniasComponent
   ],
   imports: [
     CommonModule,
