@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { LOGOUT } from 'src/app/auth/store/actions/login.actions';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { Appstate } from 'src/app/shared/store/AppState';
 
@@ -17,7 +18,8 @@ export class NavComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private overlay: OverlayContainer,
-    private appStore: Store<Appstate>
+    private appStore: Store<Appstate>,
+    private store: Store
   ) { }
 
   public get logIn(): boolean {
@@ -52,8 +54,6 @@ export class NavComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
-    this.router.navigate(['auth']);
-    this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "", loginStatus: "logout" } }));
+    this.store.dispatch(LOGOUT());
   }
 }

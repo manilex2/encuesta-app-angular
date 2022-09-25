@@ -37,3 +37,7 @@ export const DELETE_TIPOS_ENCUESTA_SUCCESS = createAction(
   '[DELETE TIPOS DE ENCUESTA] Tipo de Encuesta eliminada',
   props<{ deleteTipoEncuesta: TiposEncuesta }>()
 );
+
+export const RESET_TIPOS_ENCUESTAS = createAction(
+  '[RESET TIPOS ENCUESTA] Tipos de Encuesta State Reiniciado'
+);

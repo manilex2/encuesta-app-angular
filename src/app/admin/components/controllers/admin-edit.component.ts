@@ -154,14 +154,14 @@ export class AdminEditComponent implements OnInit {
       this.store.dispatch(UPDATE_ADMIN({updateAdmin: { ...this.updateAdminForm.value }, codigo: this.routeParams.codigo}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success' && data.adminState === "updated") {
+        if (data.apiStatus === 'success' && data.loginStatus === "logged" && data.adminState === "updated") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
           this.toastr.success("Admin actualizado exitosamente.", "Admin", {
             progressBar: true
           });
           this.router.navigate(['/admin/admins']);
-        } else if (data.apiStatus === 'error'){
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        } else if (data.apiStatus === 'error' && data.loginStatus === "logged" && data.adminState === "updatedError"){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Admin", {
             progressBar: true,
             timeOut: 8000

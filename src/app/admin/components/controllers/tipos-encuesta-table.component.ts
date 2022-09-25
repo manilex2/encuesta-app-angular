@@ -44,13 +44,13 @@ export class TiposEncuestaTableComponent {
       this.dataSource.sort = this.sort;
       let apiStatus$ = this.appStore.pipe(select(selectAppState));
       apiStatus$.subscribe((data) => {
-        if (data.apiStatus === "success" && data.tiposEncuestaState === "getted" && data.loginStatus === "login") {
+        if (data.apiStatus === "success" && data.tiposEncuestaState === "getted" && data.loginStatus === "logged") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
           this.toastr.success("Tipos de encuesta recuperados con exito.", "Tipos de Encuesta", {
             progressBar: true
           })
-        } else if (data.apiStatus === "error" && data.tiposEncuestaState === "error" && data.loginStatus === "login") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
+        } else if (data.apiStatus === "error" && data.tiposEncuestaState === "gettedError" && data.loginStatus === "logged") {
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Tipos de Encuesta", {
             progressBar: true
           })
@@ -79,13 +79,13 @@ export class TiposEncuestaTableComponent {
       this.store.dispatch(DELETE_TIPOS_ENCUESTA({ codigo, identificador }));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success' && data.tiposEncuestaState === "deleted") {
+        if (data.apiStatus === 'success' && data.tiposEncuestaState === "deleted" && data.loginStatus === "logged") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
           this.toastr.success("Tipo de encuesta eliminada exitosamente.", "Tipos de Encuesta", {
             progressBar: true
           });
-        } else if (data.apiStatus === 'error'){
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        } else if (data.apiStatus === 'error' && data.loginStatus === "logged" && data.tiposEncuestaState === "deletedError"){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Tipos de Encuesta", {
             progressBar: true,
             timeOut: 8000

@@ -105,14 +105,14 @@ export class CompaniaCreateComponent implements OnInit {
       this.store.dispatch(CREATE_COMPANIA({newCompania: {...this.createCompaniaForm}}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success' && data.companiaState === "created") {
+        if (data.apiStatus === 'success' && data.loginStatus === "logged" && data.companiaState === "created") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, companiaState: "done" } }));
           this.toastr.success("Compañía creada exitosamente.", "Compañía", {
             progressBar: true
           });
           this.router.navigate(['/admin/companias']);
-        } else if (data.apiStatus === 'error'){
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        } else if (data.apiStatus === 'error' && data.loginStatus === "logged" && data.companiaState === "createdError"){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, companiaState: '' } }));
           this.toastr.error(data.apiResponseMessage, "Compañía", {
             progressBar: true,
             timeOut: 8000

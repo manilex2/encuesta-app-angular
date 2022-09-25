@@ -49,14 +49,9 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(this.token);
   }
 
-  login(user: User) {
+  login(user: User): Observable<User[]> {
     try {
-      this.http.post(this.serverURL + '/authenticate', { codigo: user.codigo, clave: user.clave })
-      .subscribe((resp: any) => {
-        this.appStore.dispatch(setAPIStatus({apiStatus: { apiCodeStatus: 200, apiResponseMessage: '', apiStatus: '', loginStatus: "login" }}))
-        this.router.navigate(['admin']);
-        localStorage.setItem('auth_token', resp.token)
-      });
+      return this.http.post<User[]>(`${this.serverURL}/authenticate`, { codigo: user.codigo, clave: user.clave })
     } catch (error) {
       throw error;
 

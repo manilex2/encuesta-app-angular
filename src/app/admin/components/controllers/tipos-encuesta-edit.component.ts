@@ -82,14 +82,14 @@ export class TiposEncuestaEditComponent implements OnInit {
       this.store.dispatch(UPDATE_TIPOS_ENCUESTA({updateTipoEncuesta: { ...this.updateTipoEncuestaForm.value }, identificador: this.routeParams.idenfificador, codigo: this.routeParams.codigo}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success' && data.tiposEncuestaState === "updated") {
+        if (data.apiStatus === 'success' && data.loginStatus === "logged" && data.tiposEncuestaState === "updated") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
           this.toastr.success("Tipo de encuesta actualizada exitosamente.", "Tipo de Encuesta", {
             progressBar: true
           });
           this.router.navigate(['/admin/tipos_encuesta']);
-        } else if (data.apiStatus === 'error'){
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        } else if (data.apiStatus === 'error' && data.loginStatus === "logged" && data.tiposEncuestaState === "updatedError"){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Tipo de Encuesta", {
             progressBar: true,
             timeOut: 8000

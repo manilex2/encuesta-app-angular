@@ -58,14 +58,14 @@ export class TiposEncuestaCreateComponent implements OnInit {
       this.store.dispatch(CREATE_TIPOS_ENCUESTA({newTipoEncuesta: {...this.createTipoEncuestaForm.value}}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success' && data.tiposEncuestaState === "created") {
+        if (data.apiStatus === 'success' && data.tiposEncuestaState === "created" && data.loginStatus === "logged") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
           this.toastr.success("Compañía creada exitosamente.", "Tipo de Encuesta", {
             progressBar: true
           });
           this.router.navigate(['/admin/tipos_encuesta']);
-        } else if (data.apiStatus === 'error'){
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        } else if (data.apiStatus === 'error' && data.tiposEncuestaState === "createdError" && data.loginStatus === "logged"){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Tipo de Encuesta", {
             progressBar: true,
             timeOut: 8000

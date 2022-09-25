@@ -2,14 +2,27 @@
   <span class="header-login">BIENVENIDO, POR FAVOR INICIE SESIÓN</span>
   <mat-form-field appearance="fill">
     <mat-label>Codigo</mat-label>
-    <input matInput formControlName="codigo">
+    <input matInput formControlName="codigo" placeholder="Introduzca 3 digitos obligatoriamente">
   </mat-form-field>
+  <div *ngIf="loginForm.get('codigo')?.invalid && (loginForm.get('codigo')?.dirty || loginForm.get('codigo')?.touched)" class="alert alert-danger">
+    <div *ngIf="loginForm.get('codigo')?.errors?.['required']">
+      El codigo es requerido.
+    </div>
+    <div *ngIf="loginForm.get('codigo')?.errors?.['pattern']">
+      El codigo introducido no tiene un formato valido.
+    </div>
+  </div>
   <mat-form-field appearance="fill">
     <mat-label>Contraseña</mat-label>
-    <input matInput formControlName="clave" [type]="hide ? 'password' : 'text'">
+    <input matInput formControlName="clave" [type]="hide ? 'password' : 'text'" placeholder="Introduzca contraseña del admin">
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
   </mat-form-field>
+  <div *ngIf="loginForm.get('clave')?.invalid && (loginForm.get('clave')?.dirty || loginForm.get('clave')?.touched)" class="alert alert-danger">
+    <div *ngIf="loginForm.get('clave')?.errors?.['required']">
+      La contraseña es requerida.
+    </div>
+  </div>
   <button class="login-button-container" (click)="onSubmit()" [disabled]="!loginForm.valid" mat-raised-button color="primary">Login</button>
 </form>

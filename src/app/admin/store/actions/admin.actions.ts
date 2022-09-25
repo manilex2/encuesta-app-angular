@@ -37,3 +37,7 @@ export const DELETE_ADMIN_SUCCESS = createAction(
   '[DELETE ADMIN] Admin eliminado',
   props<{ deleteAdmin: Admin }>()
 );
+
+export const RESET_ADMINS = createAction(
+  '[RESET ADMIN] Admin State Reiniciado',
+);

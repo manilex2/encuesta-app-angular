@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { TiposEncuesta } from "../../components/models";
-import { CREATE_TIPOS_ENCUESTA_SUCCESS, DELETE_TIPOS_ENCUESTA, DELETE_TIPOS_ENCUESTA_SUCCESS, GET_TIPOS_ENCUESTA_SUCCESS, UPDATE_TIPOS_ENCUESTA, UPDATE_TIPOS_ENCUESTA_SUCCESS } from "../actions/tiposencuesta.actions";
+import { CREATE_TIPOS_ENCUESTA_SUCCESS, DELETE_TIPOS_ENCUESTA, DELETE_TIPOS_ENCUESTA_SUCCESS, GET_TIPOS_ENCUESTA_SUCCESS, RESET_TIPOS_ENCUESTAS, UPDATE_TIPOS_ENCUESTA, UPDATE_TIPOS_ENCUESTA_SUCCESS } from "../actions/tiposencuesta.actions";
 
 export const tiposEncuestaFeatureKey = "tiposEncuestaState";
 
@@ -26,8 +26,7 @@ export const tiposEncuestaReducer = createReducer(
       return newState;
     }),
     on(UPDATE_TIPOS_ENCUESTA_SUCCESS, (state, { updateTipoEncuesta }) => {
-      let newState = state.filter((_) => !(_.identificador == updateTipoEncuesta.identificador_ant && _.codigo == updateTipoEncuesta.codigo_ant));;
-      console.log(newState);
+      let newState = state.filter((_) => !(_.identificador == updateTipoEncuesta.identificador_ant && _.codigo == updateTipoEncuesta.codigo_ant));
       newState.push(updateTipoEncuesta);
       newState.sort((a, b) => {
         if (a.codigo < b.codigo) return -1;
@@ -43,6 +42,11 @@ export const tiposEncuestaReducer = createReducer(
     on(DELETE_TIPOS_ENCUESTA_SUCCESS, (state, { deleteTipoEncuesta }) => {
       let newState = state.filter((_) => !(_.identificador == deleteTipoEncuesta.identificador && _.codigo == deleteTipoEncuesta.codigo));
       return newState;
+    }),
+    on(RESET_TIPOS_ENCUESTAS, (state, ) => {
+      let newState = [...state];
+      newState.length = 0;
+      return newState
     })
 );
 

@@ -4,6 +4,7 @@ import { select, Store } from "@ngrx/store";
 import { catchError, map, exhaustMap, withLatestFrom, EMPTY, concatMap, mergeMap } from 'rxjs';
 import { setAPIStatus } from "src/app/shared/store/actions/app.actions";
 import { Appstate } from "src/app/shared/store/AppState";
+import { selectAppState } from "src/app/shared/store/selectors/app.selectors";
 import { TipoEncuestaService } from '../../services/tipo-encuesta.service';
 import { CREATE_TIPOS_ENCUESTA, CREATE_TIPOS_ENCUESTA_SUCCESS, DELETE_TIPOS_ENCUESTA, DELETE_TIPOS_ENCUESTA_SUCCESS, GET_TIPOS_ENCUESTA, GET_TIPOS_ENCUESTA_SUCCESS, UPDATE_TIPOS_ENCUESTA, UPDATE_TIPOS_ENCUESTA_SUCCESS } from '../actions/tiposencuesta.actions';
 import { selectTiposEncuesta } from "../selectors/tiposencuesta.selectors";
@@ -22,8 +23,16 @@ export class TiposEncuestaEffect {
       ofType(GET_TIPOS_ENCUESTA),
       withLatestFrom(this.store.pipe(select(selectTiposEncuesta))),
       exhaustMap(([, tiposEncuestaFromStore]) => {
-        this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200}}))
+        let loginStatus: any;
+        let token = localStorage.getItem('auth_token');
+        this.appStore.pipe(select(selectAppState)).subscribe(data => loginStatus = data.loginStatus);
+        if (loginStatus === "logout" && !token) {
+          return EMPTY;
+        } else {
+          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, loginStatus: "logged"}}))
+        }
         if (tiposEncuestaFromStore.length > 0) {
+          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, tiposEncuestaState: "done"}}))
           return EMPTY;
         }
         return this.tipoEncuestaService.obtenerTiposEncuestas().pipe(
@@ -33,18 +42,16 @@ export class TiposEncuestaEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({
-                apiStatus: {
-                  apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas",
-                  apiStatus: 'error',
-                  apiCodeStatus: error.status,
-                  adminState: 'error'
-                }}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "gettedError"}}))
+              throw error;
+            } else if (error.statusText === "Unauthorized") {
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "gettedError"}}))
               throw error;
             } else {
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "gettedError"}}))
               throw error;
             }
-          }),
+          })
         );
       })
     )
@@ -62,13 +69,13 @@ export class TiposEncuestaEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "createdError"}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "createdError"}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "createdError"}}))
               throw error;
             }
           })
@@ -90,13 +97,13 @@ export class TiposEncuestaEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "updatedError"}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "updatedError"}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "updatedError"}}))
               throw error;
             }
           })
@@ -117,13 +124,13 @@ export class TiposEncuestaEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "deletedError"}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "deletedError"}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, tiposEncuestaState: "deletedError"}}))
               throw error;
             }
           })

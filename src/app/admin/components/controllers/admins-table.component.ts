@@ -37,7 +37,7 @@ export class AdminsTableComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.store.pipe(select(admins)).subscribe(admin => {
       this.store.dispatch(GET_ADMINS());
       this.admins = admin;
@@ -46,13 +46,13 @@ export class AdminsTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
       let apiStatus$ = this.appStore.pipe(select(selectAppState));
       apiStatus$.subscribe((data) => {
-        if (data.apiStatus === "success" && data.adminState === "getted" && data.loginStatus === "login") {
+        if (data.apiStatus === "success" && data.adminState === "getted" && data.loginStatus === "logged") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
           this.toastr.success("Admins recuperados con exito.", "Admin", {
             progressBar: true
           })
-        } else if (data.apiStatus === "error" && data.adminState === "error" && data.loginStatus === "login") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
+        } else if (data.apiStatus === "error" && data.adminState === "gettedError" && data.loginStatus === "logged") {
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Admin", {
             progressBar: true
           })
@@ -62,7 +62,7 @@ export class AdminsTableComponent implements OnInit {
 
     this.store.pipe(select(currentUser)).subscribe(currentUser => {
       this.currentUser = currentUser;
-    })
+      })
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, admin: any): void {
@@ -85,13 +85,13 @@ export class AdminsTableComponent implements OnInit {
       this.store.dispatch(DELETE_ADMIN({ codigo }));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
-        if (data.apiStatus === 'success' && data.adminState === "deleted") {
+        if (data.apiStatus === 'success' && data.adminState === "deleted" && data.loginStatus === "logged") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "done" } }));
           this.toastr.success("Admin eliminado exitosamente.", "Admin", {
             progressBar: true
           });
-        } else if (data.apiStatus === 'error'){
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        } else if (data.apiStatus === 'error' && data.adminState === "deletedError" && data.loginStatus === "logged"){
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, adminState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Admin", {
             progressBar: true,
             timeOut: 8000

@@ -4,6 +4,7 @@ import { select, Store } from "@ngrx/store";
 import { catchError, map, of, exhaustMap, withLatestFrom, EMPTY, concatMap, mergeMap } from 'rxjs';
 import { setAPIStatus } from "src/app/shared/store/actions/app.actions";
 import { Appstate } from "src/app/shared/store/AppState";
+import { selectAppState } from "src/app/shared/store/selectors/app.selectors";
 import { CompaniaService } from '../../services/compania.service';
 import { CREATE_COMPANIA, CREATE_COMPANIA_SUCCESS, DELETE_COMPANIA, DELETE_COMPANIA_SUCCESS, GET_COMPANIAS, GET_COMPANIAS_SUCCESS, UPDATE_COMPANIA, UPDATE_COMPANIA_SUCCESS } from '../actions/companias.actions';
 import { selectCompanias } from "../selectors/companias.selectors";
@@ -22,8 +23,16 @@ export class CompaniasEffect {
       ofType(GET_COMPANIAS),
       withLatestFrom(this.store.pipe(select(selectCompanias))),
       exhaustMap(([, companiasFromStore]) => {
-        this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200}}))
+        let loginStatus: any;
+        let token = localStorage.getItem('auth_token');
+        this.appStore.pipe(select(selectAppState)).subscribe(data => loginStatus = data.loginStatus);
+        if (loginStatus === "logout" && !token) {
+          return EMPTY;
+        } else {
+          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, loginStatus: "logged"}}))
+        }
         if (companiasFromStore.length > 0) {
+          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, companiaState: "done"}}))
           return EMPTY;
         }
         return this.companiaService.obtenerTodasCompanias().pipe(
@@ -33,18 +42,16 @@ export class CompaniasEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({
-                apiStatus: {
-                  apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas",
-                  apiStatus: 'error',
-                  apiCodeStatus: error.status,
-                  adminState: 'error'
-                }}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "gettedError"}}))
+              throw error;
+            } else if (error.statusText === "Unauthorized") {
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "gettedError"}}))
               throw error;
             } else {
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, companiaState: "gettedError"}}))
               throw error;
             }
-          }),
+          })
         );
       })
     )
@@ -62,13 +69,13 @@ export class CompaniasEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "createdError"}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "createdError"}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, companiaState: "createdError"}}))
               throw error;
             }
           })
@@ -89,13 +96,13 @@ export class CompaniasEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "updatedError"}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "updatedError"}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, companiaState: "updatedError"}}))
               throw error;
             }
           })
@@ -116,13 +123,13 @@ export class CompaniasEffect {
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "deletedError"}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status, companiaState: "deletedError"}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status, companiaState: "deletedError"}}))
               throw error;
             }
           })

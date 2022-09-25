@@ -22,19 +22,19 @@ import { TiposEncuestaEditComponent } from '../components/controllers/tipos-encu
 const routes: Routes = [
     { path: 'admin', component: AdminComponent, children: [
         { path: 'dashboard', component: DashboardComponent },
-        { path: 'admins', component: AdminsComponent, canActivate: [FsbsGuard], children: [
+        { path: 'admins', component: AdminsComponent, canActivateChild:[AdminGuard], canActivate: [FsbsGuard], children: [
           { path: 'view', component: AdminsTableComponent},
           { path: 'create', component: AdminCreateComponent},
           { path: 'edit/:codigo', component: AdminEditComponent },
           { path: '', redirectTo:'view', pathMatch:"full" },
         ]},
-        { path: 'companias', component: CompaniasComponent, children: [
+        { path: 'companias', component: CompaniasComponent, canActivateChild:[AdminGuard], children: [
           { path: 'view', component: CompaniasTableComponent},
           { path: 'create', component: CompaniaCreateComponent},
           { path: 'edit/:codigo/:compania', component: CompaniaEditComponent },
           { path: '', redirectTo:'view', pathMatch:"full" },
         ]},
-        { path: 'tipos_encuesta', component: TiposEncuestaComponent, children: [
+        { path: 'tipos_encuesta', component: TiposEncuestaComponent, canActivateChild:[AdminGuard], children: [
           { path: 'view', component: TiposEncuestaTableComponent},
           { path: 'create', component: TiposEncuestaCreateComponent},
           { path: 'edit/:codigo/:identificador', component: TiposEncuestaEditComponent },

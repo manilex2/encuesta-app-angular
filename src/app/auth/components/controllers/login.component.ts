@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   hide = true;
   token = localStorage.getItem("auth_token");
-  getToken = "";
 
   ngOnInit() {
     if(this.token) {
@@ -42,12 +41,40 @@ export class LoginComponent implements OnInit {
   ) { }
 
   loginForm = this.fb.group<User>({
-    codigo: ["", [Validators.required]],
-    clave: ["", Validators.required]
+    codigo: ["", [Validators.required, Validators.pattern(/[0-9]{3}/g)]],
+    clave: ["", [Validators.required]]
   });
 
   onSubmit() {
     this.authService.login(this.loginForm.value);
+    this.store.dispatch(LOGIN({ user: this.loginForm.value }));
+    let apiStatus$ = this.appStore.pipe(select(selectAppState))
+    apiStatus$.subscribe((data) => {
+      if (data.apiStatus === "success" && data.loginStatus === "login") {
+        this.appStore.dispatch(setAPIStatus({
+          apiStatus: {
+            apiCodeStatus: 200,
+            apiResponseMessage: '',
+            apiStatus: '',
+            loginStatus: "logged"
+          }}))
+        this.toastr.success("Usuario logeado con exito.", "Login", {
+          progressBar: true
+        })
+        this.store.pipe(select(user)).subscribe((data => {
+          for (let i = 0; i < data.length; i++) {
+            const token = data[i].token;
+            this.router.navigate(['admin']);
+            localStorage.setItem('auth_token', token);
+          }
+        }))
+      } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
+        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        this.toastr.error(data.apiResponseMessage, "Login", {
+          progressBar: true
+        })
+      }
+    })
     /* this.store.dispatch(LOGIN({user: this.loginForm.value}))
     this.store.pipe(select(user)).subscribe((data => {
       this.getToken = data.token;

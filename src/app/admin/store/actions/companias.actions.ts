@@ -37,3 +37,7 @@ export const DELETE_COMPANIA_SUCCESS = createAction(
   '[DELETE COMPAÑÍA] Compañía eliminada',
   props<{ deleteCompania: Compania }>()
 );
+
+export const RESET_COMPANIAS = createAction(
+  '[RESET COMPAÑÍA] Compañía State Reiniciado',
+);
