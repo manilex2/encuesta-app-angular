@@ -60,7 +60,7 @@ export class TiposEncuestaCreateComponent implements OnInit {
       appStatus$.subscribe((data) => {
         if (data.apiStatus === 'success' && data.tiposEncuestaState === "created" && data.loginStatus === "logged") {
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
-          this.toastr.success("Compañía creada exitosamente.", "Tipo de Encuesta", {
+          this.toastr.success("Tipo de encuesta creada exitosamente.", "Tipo de Encuesta", {
             progressBar: true
           });
           this.router.navigate(['/admin/tipos_encuesta']);
