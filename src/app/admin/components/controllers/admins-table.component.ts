@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Admin } from "../models";
+import { Admin, Compania } from "../models";
 import { select, Store } from '@ngrx/store';
 import { admins } from '../../store/selectors/admin.selectors';
 import { DELETE_ADMIN, GET_ADMINS } from '../../store/actions/admin.actions';
@@ -14,6 +14,8 @@ import { currentUser } from '../../store/selectors/currentuser.selectors';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminDeleteDialogComponent } from './admin-delete-dialog.component';
+import { DELETE_COMPANIA_SUCCESS, GET_COMPANIAS } from '../../store/actions/companias.actions';
+import { companias } from '../../store/selectors/companias.selectors';
 
 @Component({
   selector: 'app-admins-table',
@@ -25,6 +27,9 @@ export class AdminsTableComponent implements OnInit {
   admins: Admin[] = [];
   dataSource: any;
   currentUser: any;
+  companias: Compania[] = [];
+  compList: Compania[] = [];
+  compAdminList: Compania[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -62,7 +67,7 @@ export class AdminsTableComponent implements OnInit {
 
     this.store.pipe(select(currentUser)).subscribe(currentUser => {
       this.currentUser = currentUser;
-      })
+    })
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, admin: any): void {
@@ -82,7 +87,21 @@ export class AdminsTableComponent implements OnInit {
 
   deleteAdmin(codigo: string) {
     try {
+      let newArray: any[] = [];
       this.store.dispatch(DELETE_ADMIN({ codigo }));
+      this.store.pipe(select(companias)).subscribe(companias => {
+        this.store.dispatch(GET_COMPANIAS());
+        this.companias = companias;
+        companias.map(compania => {
+          if (compania.codigo === codigo) {
+            newArray.push({codigo: compania.codigo, codigo_cia: compania.codigo_cia});
+          }
+        })
+      })
+      for (let i = 0; i < newArray.length; i++) {
+        const element = newArray[i];
+        this.store.dispatch(DELETE_COMPANIA_SUCCESS({deleteCompania: element}))
+      }
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
         if (data.apiStatus === 'success' && data.adminState === "deleted" && data.loginStatus === "logged") {

@@ -17,6 +17,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSlideToggleModule,
     MatSidenavModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: []

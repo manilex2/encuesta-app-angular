@@ -3,6 +3,8 @@ export interface Admin {
   codigo_ant?: any;
   nombre?: any;
   fsbs?: any;
+  companias?: any;
+  admins?: any;
   createdIp?: any;
   createdAt?: any;
   updatedIp?: any;

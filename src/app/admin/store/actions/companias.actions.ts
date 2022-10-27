@@ -38,6 +38,11 @@ export const DELETE_COMPANIA_SUCCESS = createAction(
   props<{ deleteCompania: Compania }>()
 );
 
+export const DELETE_COMPANIA_X_CODIGO_SUCCESS = createAction(
+  '[DELETE COMPAÑÍA] Compañías eliminadas y actualizadas',
+  props<{ deleteCodCompania: Compania }>()
+);
+
 export const RESET_COMPANIAS = createAction(
   '[RESET COMPAÑÍA] Compañía State Reiniciado',
 );

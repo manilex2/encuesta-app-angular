@@ -13,6 +13,7 @@ import { TiposEncuestaTableComponent } from '../components/controllers/tipos-enc
 import { AdminEditComponent } from '../components/controllers/admin-edit.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { FsbsGuard } from '../guards/fsbs.guard';
+import { UserGuard } from '../guards/user.guard';
 import { CompaniaCreateComponent } from '../components/controllers/compania-create.component';
 import { CompaniaEditComponent } from '../components/controllers/compania-edit.component';
 import { CompaniasComponent } from '../components/controllers/companias.component';
@@ -22,13 +23,13 @@ import { TiposEncuestaEditComponent } from '../components/controllers/tipos-encu
 const routes: Routes = [
     { path: 'admin', component: AdminComponent, children: [
         { path: 'dashboard', component: DashboardComponent },
-        { path: 'admins', component: AdminsComponent, canActivateChild:[AdminGuard], canActivate: [FsbsGuard], children: [
+        { path: 'admins', component: AdminsComponent, canActivateChild:[AdminGuard], children: [
           { path: 'view', component: AdminsTableComponent},
           { path: 'create', component: AdminCreateComponent},
           { path: 'edit/:codigo', component: AdminEditComponent },
           { path: '', redirectTo:'view', pathMatch:"full" },
         ]},
-        { path: 'companias', component: CompaniasComponent, canActivateChild:[AdminGuard], children: [
+        { path: 'companias', component: CompaniasComponent, canActivateChild:[AdminGuard], canActivate: [FsbsGuard], children: [
           { path: 'view', component: CompaniasTableComponent},
           { path: 'create', component: CompaniaCreateComponent},
           { path: 'edit/:codigo/:compania', component: CompaniaEditComponent },
@@ -44,8 +45,8 @@ const routes: Routes = [
         { path: 'clientes', component: ListaClientesComponent },
         { path: '**', component: DashboardComponent },
       ],
-      canActivate: [AdminGuard],
-      canLoad: [AdminGuard]
+      canActivate: [AdminGuard, UserGuard],
+      canLoad: [AdminGuard, UserGuard]
     }
 ]
 

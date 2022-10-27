@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { Compania } from "../../components/models";
-import { GET_COMPANIAS_SUCCESS, UPDATE_COMPANIA_SUCCESS, CREATE_COMPANIA_SUCCESS, DELETE_COMPANIA_SUCCESS, RESET_COMPANIAS } from "../actions/companias.actions";
+import { GET_COMPANIAS_SUCCESS, UPDATE_COMPANIA_SUCCESS, CREATE_COMPANIA_SUCCESS, DELETE_COMPANIA_SUCCESS, RESET_COMPANIAS, DELETE_COMPANIA_X_CODIGO_SUCCESS } from "../actions/companias.actions";
 
 export const companiasFeatureKey = "companiasState";
 
@@ -26,7 +26,7 @@ export const companiasReducer = createReducer(
       return newState;
     }),
     on(UPDATE_COMPANIA_SUCCESS, (state, { updateCompania }) => {
-      let newState = state.filter((_) => !(_.codigo_cia == updateCompania.codigo_cia_ant && _.codigo == updateCompania.codigo_ant));;
+      let newState = state.filter((_) => !(_.codigo_cia == updateCompania.codigo_cia_ant && _.codigo == updateCompania.codigo_ant));
       newState.push(updateCompania);
       newState.sort((a, b) => {
         if (a.codigo < b.codigo) return -1;
@@ -41,6 +41,10 @@ export const companiasReducer = createReducer(
     }),
     on(DELETE_COMPANIA_SUCCESS, (state, { deleteCompania }) => {
       let newState = state.filter((_) => !(_.codigo_cia == deleteCompania.codigo_cia && _.codigo == deleteCompania.codigo));
+      return newState;
+    }),
+    on(DELETE_COMPANIA_X_CODIGO_SUCCESS, (state, { deleteCodCompania }) => {
+      let newState = state.filter((_) => !(_.codigo == deleteCodCompania.codigo));
       return newState;
     }),
     on(RESET_COMPANIAS, (state) => {

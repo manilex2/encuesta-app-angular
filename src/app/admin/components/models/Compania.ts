@@ -21,4 +21,5 @@ export interface Compania {
   updatedAt?: any;
   logo?: any;
   vista_lista?: any;
+  completed?: any;
 }

@@ -22,7 +22,7 @@ export class AdminComponent {
     if (this.tokenPayload.fsbs) {
       this.links = [
         {ruta: 'dashboard', nombre: 'Dashboard'},
-        {ruta: 'admins', nombre: 'Admins'},
+        {ruta: 'admins', nombre: 'Usuarios'},
         {ruta: 'companias', nombre: 'Compañías'},
         {ruta: 'tipos_encuesta', nombre: 'Tipos de Encuesta'},
         {ruta: 'encuestas', nombre: 'Encuestas'},
@@ -31,7 +31,7 @@ export class AdminComponent {
     } else {
       this.links = [
         {ruta: 'dashboard', nombre: 'Dashboard'},
-        {ruta: 'companias', nombre: 'Compañías'},
+        {ruta: 'admins', nombre: 'Usuarios'},
         {ruta: 'tipos_encuesta', nombre: 'Tipos de Encuesta'},
         {ruta: 'encuestas', nombre: 'Encuestas'},
         {ruta: 'clientes', nombre: 'Lista de Clientes'}

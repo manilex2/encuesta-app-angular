@@ -29,10 +29,22 @@ export class AuthService {
 
     let tokenPayload: any = this.token? decode(this.token) : false;
 
-    if (tokenPayload.fsbs) {
+    if (tokenPayload.fsbs == 1) {
       return true;
     } else {
       return false;
+    }
+  }
+
+  notUser(): boolean {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? decode(this.token) : false;
+
+    if (tokenPayload.fsbs == 2) {
+      return false;
+    } else {
+      return true;
     }
   }
 
