@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CompaniaDeleteDialogComponent } from '../controllers/compania-delete-dialog.component';
 import { Observable } from 'rxjs';
+import { tipos_encuesta } from '../../store/selectors/tiposencuesta.selectors';
+import { DELETE_TIPOS_ENCUESTA_SUCCESS } from '../../store/actions/tiposencuesta.actions';
 
 @Component({
   selector: 'app-companias',
@@ -25,6 +27,7 @@ export class CompaniasTableComponent implements OnInit {
   companias: Compania[] = [];
   dataSource: any;
   data$: Observable<any> = this.store.pipe(select(companias));
+  tipos_encuesta: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -70,14 +73,28 @@ export class CompaniasTableComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteAdmin(result.codigo, result.codigo_cia);
+        this.deleteCompania(result.codigo, result.codigo_cia);
       }
     });
   }
 
-  deleteAdmin(codigo: string, codigo_cia: string) {
+  deleteCompania(codigo: string, codigo_cia: string) {
     try {
+      let newTiposEncuestaArray: any[] = [];
       this.store.dispatch(DELETE_COMPANIA({ codigo, codigo_cia }));
+      this.store.pipe(select(tipos_encuesta)).subscribe(tipos_encuesta => {
+        this.store.dispatch(GET_COMPANIAS());
+        this.tipos_encuesta = tipos_encuesta;
+        tipos_encuesta.map(tipo_encuesta => {
+          if (tipo_encuesta.codigo === codigo && tipo_encuesta.codigo_cia === codigo_cia) {
+            newTiposEncuestaArray.push({codigo: tipo_encuesta.codigo, codigo_cia: tipo_encuesta.codigo_cia, identificador: tipo_encuesta.identificador});
+          }
+        })
+      })
+      for (let i = 0; i < newTiposEncuestaArray.length; i++) {
+        const element = newTiposEncuestaArray[i];
+        this.store.dispatch(DELETE_TIPOS_ENCUESTA_SUCCESS({deleteTipoEncuesta: element}))
+      }
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
         if (data.apiStatus === 'success' && data.companiaState === "deleted" && data.loginStatus === "logged") {

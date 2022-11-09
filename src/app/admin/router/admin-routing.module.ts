@@ -6,7 +6,6 @@ import { AdminsComponent } from '../components/controllers/admins.component';
 import { CompaniasTableComponent } from '../components/controllers/companias-table.component';
 import { AdminCreateComponent } from '../components/controllers/admin-create.component';
 import { DashboardComponent } from '../components/controllers/dashboard.component';
-import { EncuestasComponent } from '../components/controllers/encuestas.component';
 import { ListaClientesComponent } from '../components/controllers/lista-clientes.component';
 import { TiposEncuestaComponent } from '../components/controllers/tipos-encuesta.component';
 import { TiposEncuestaTableComponent } from '../components/controllers/tipos-encuesta-table.component';
@@ -38,11 +37,10 @@ const routes: Routes = [
         { path: 'tipos_encuesta', component: TiposEncuestaComponent, canActivateChild:[AdminGuard], children: [
           { path: 'view', component: TiposEncuestaTableComponent},
           { path: 'create', component: TiposEncuestaCreateComponent},
-          { path: 'edit/:codigo/:identificador', component: TiposEncuestaEditComponent },
+          { path: 'edit/:codigo/:codigo_cia/:identificador', component: TiposEncuestaEditComponent },
           { path: '', redirectTo:'view', pathMatch:"full" },
         ] },
-        { path: 'encuestas', component: EncuestasComponent },
-        { path: 'clientes', component: ListaClientesComponent },
+        /* { path: 'clientes', component: ListaClientesComponent }, */
         { path: '**', component: DashboardComponent },
       ],
       canActivate: [AdminGuard, UserGuard],

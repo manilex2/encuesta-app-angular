@@ -1,16 +1,12 @@
 <form [formGroup]="createTipoEncuestaForm">
-  <mat-form-field [class.hidden-field]="!currentUser.fsbs" appearance="fill">
-    <mat-label>Codigo</mat-label>
-    <input matInput formControlName="codigo" placeholder="Introduzca 3 digitos obligatoriamente">
-  </mat-form-field>
-  <div *ngIf="createTipoEncuestaForm.get('codigo')?.invalid && (createTipoEncuestaForm.get('codigo')?.dirty || createTipoEncuestaForm.get('codigo')?.touched)" class="alert alert-danger">
-    <div *ngIf="createTipoEncuestaForm.get('codigo')?.errors?.['required']">
-      El codigo es requerido.
-    </div>
-    <div *ngIf="createTipoEncuestaForm.get('codigo')?.errors?.['pattern']">
-      El codigo debe ser numerico y de 3 dígitos.
-    </div>
-  </div>
+  <ng-container *ngIf="fsbsCod == 1">
+    <mat-form-field appearance="fill">
+      <mat-label>¿Código Admin?</mat-label>
+      <mat-select formControlName="admins" panelClass="panel-custom" (selectionChange)="getCompanias($event.value)">
+        <mat-option *ngFor="let admin of companiaLista.admins" [value]="admin.codigo">{{admin.codigo}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
   <mat-form-field appearance="fill">
     <mat-label>Código Tipo de Encuesta</mat-label>
     <input matInput formControlName="identificador" placeholder="Introduzca un identificador para el tipo de encuesta">
@@ -42,5 +38,28 @@
       <mat-option value="PROVEEDOR">PROVEEDOR</mat-option>
     </mat-select>
   </mat-form-field>
+  <ng-container *ngIf="createTipoEncuestaForm.value.admins">
+    <span class="example-list-section">
+      <mat-checkbox class="example-margin"
+                    [checked]="allComplete"
+                    [indeterminate]="someComplete()"
+                    (change)="setAll($event.checked)">
+        Compañías
+      </mat-checkbox>
+    </span>
+    <span class="example-list-section">
+      <ul>
+        <li *ngFor="let compania of companiaLista.companias">
+          <mat-checkbox [(ngModel)]="compania.completed"
+                        (ngModelChange)="updateAllComplete()"
+                        [ngModelOptions]="{standalone: true}"
+                        (change)="setCompania($event.checked, $event.source.value)"
+                        [value]="compania.codigo_cia!">
+            {{compania.codigo_cia}}
+          </mat-checkbox>
+        </li>
+      </ul>
+    </span>
+  </ng-container>
   <button class="login-button-container create-button-custom" (click)="onSubmit()" [disabled]="!createTipoEncuestaForm.valid" mat-raised-button color="primary">Crear Tipo de Encuesta</button>
 </form>

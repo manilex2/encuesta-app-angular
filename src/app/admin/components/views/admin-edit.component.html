@@ -35,7 +35,7 @@
     <mat-label>Tipo de Usuario?</mat-label>
     <mat-select formControlName="fsbs" panelClass="panel-custom">
       <mat-option (click)="requerido()" [value]="0">Admin</mat-option>
-      <mat-option (click)="requerido()" [value]="1">FSBS</mat-option>
+      <mat-option *ngIf="currentUser.fsbs == 1" (click)="requerido()" [value]="1">FSBS</mat-option>
       <mat-option (click)="requerido()" [value]="2">Usuario</mat-option>
     </mat-select>
   </mat-form-field>

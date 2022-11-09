@@ -9,9 +9,9 @@ export const tipos_encuesta = createSelector(
   (selectTiposEncuesta) => selectTiposEncuesta
 );
 
-export const selectTipoEncuestaById = (adminCodigo: string, identificador: string) =>
+export const selectTipoEncuestaById = (adminCodigo: string, codigo_cia: string, identificador: string) =>
   createSelector(selectTiposEncuesta, (tipos_encuesta: TiposEncuesta[]) => {
-    var tipoEncuestaById = tipos_encuesta.filter((_) => (_.identificador == identificador && _.codigo == adminCodigo));
+    var tipoEncuestaById = tipos_encuesta.filter((_) => (_.codigo == adminCodigo && _.codigo_cia == codigo_cia && _.identificador == identificador));
     if (tipoEncuestaById.length == 0) {
       return null;
     }

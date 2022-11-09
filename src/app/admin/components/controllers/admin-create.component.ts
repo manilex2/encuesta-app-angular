@@ -193,12 +193,13 @@ export class AdminCreateComponent implements OnInit {
 
   cantAdmin() {
     return this.adminService.obtenerTodosAdmins().subscribe((admin) => {
-      if (admin.length < 10) {
-        this.createAdminForm.controls['codigo']?.setValue(`00${admin.length + 1}`);
-      } else if (admin.length < 100) {
-        this.createAdminForm.controls['codigo']?.setValue(`0${admin.length + 1}`);
+      let codigo: number = parseInt(admin[admin.length - 1].codigo);
+      if (codigo < 10) {
+        this.createAdminForm.controls['codigo']?.setValue(`00${codigo + 1}`);
+      } else if (codigo < 100) {
+        this.createAdminForm.controls['codigo']?.setValue(`0${codigo + 1}`);
       } else {
-        this.createAdminForm.controls['codigo']?.setValue((admin.length + 1).toString());
+        this.createAdminForm.controls['codigo']?.setValue((codigo + 1).toString());
       }
     });
   }

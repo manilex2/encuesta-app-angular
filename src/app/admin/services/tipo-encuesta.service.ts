@@ -33,9 +33,9 @@ export class TipoEncuestaService {
     }
   }
 
-  eliminarTipoEncuesta(codigo: string, codigo_cia: string): Observable<TiposEncuesta> {
+  eliminarTipoEncuesta(codigo: string, codigo_cia: string, tipo_encuesta: string): Observable<TiposEncuesta> {
     try {
-      return this.http.delete<TiposEncuesta>(`${this.serverURL}/tiposEncuesta/delete/${codigo}/${codigo_cia}`);
+      return this.http.delete<TiposEncuesta>(`${this.serverURL}/tiposEncuesta/delete/${codigo}/${codigo_cia}/${tipo_encuesta}`);
     } catch (error) {
       throw error;
     }

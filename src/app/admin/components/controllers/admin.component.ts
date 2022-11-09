@@ -25,16 +25,14 @@ export class AdminComponent {
         {ruta: 'admins', nombre: 'Usuarios'},
         {ruta: 'companias', nombre: 'Compañías'},
         {ruta: 'tipos_encuesta', nombre: 'Tipos de Encuesta'},
-        {ruta: 'encuestas', nombre: 'Encuestas'},
-        {ruta: 'clientes', nombre: 'Lista de Clientes'}
+        /* {ruta: 'clientes', nombre: 'Lista de Clientes'} */
       ];
     } else {
       this.links = [
         {ruta: 'dashboard', nombre: 'Dashboard'},
         {ruta: 'admins', nombre: 'Usuarios'},
         {ruta: 'tipos_encuesta', nombre: 'Tipos de Encuesta'},
-        {ruta: 'encuestas', nombre: 'Encuestas'},
-        {ruta: 'clientes', nombre: 'Lista de Clientes'}
+        /* {ruta: 'clientes', nombre: 'Lista de Clientes'} */
       ];
     }
   }

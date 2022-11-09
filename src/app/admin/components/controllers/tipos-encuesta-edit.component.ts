@@ -41,13 +41,15 @@ export class TiposEncuestaEditComponent implements OnInit {
     let fetchData$ = this.route.paramMap.pipe(
       switchMap((params) => {
         var codigo = String(params.get('codigo'));
+        var codigo_cia = String(params.get('codigo_cia'));
         var identificador = String(params.get('identificador'));
-        return this.store.pipe(select(selectTipoEncuestaById(codigo, identificador)));
+        return this.store.pipe(select(selectTipoEncuestaById(codigo, codigo_cia, identificador)));
       })
     );
     fetchData$.subscribe((data) => {
       if (data) {
         this.updateTipoEncuestaForm.controls.codigo?.setValue(data.codigo);
+        this.updateTipoEncuestaForm.controls.codigo_cia?.setValue(data.codigo_cia);
         this.updateTipoEncuestaForm.controls.identificador?.setValue(data.identificador);
         this.updateTipoEncuestaForm.controls.descripcion?.setValue(data.descripcion);
         this.updateTipoEncuestaForm.controls.afectacion?.setValue(data.afectacion);
@@ -63,7 +65,8 @@ export class TiposEncuestaEditComponent implements OnInit {
   }
 
   updateTipoEncuestaForm = this.fb.group({
-    codigo: ["", [Validators.required, Validators.pattern(/[0-9]{3}/g)]],
+    codigo: ["000", [Validators.required, Validators.pattern(/[0-9]{3}/g)]],
+    codigo_cia: ["00", [Validators.required, Validators.pattern(/[0-9]{2}/g)]],
     identificador: ["", [Validators.required, Validators.maxLength(3)]],
     afectacion: ["CLIENTE", [Validators.required, Validators.maxLength(10)]],
     descripcion: ["", [Validators.required, Validators.maxLength(100)]],
@@ -78,8 +81,7 @@ export class TiposEncuestaEditComponent implements OnInit {
 
   onUpdate() {
     try {
-
-      this.store.dispatch(UPDATE_TIPOS_ENCUESTA({updateTipoEncuesta: { ...this.updateTipoEncuestaForm.value }, identificador: this.routeParams.idenfificador, codigo: this.routeParams.codigo}));
+      this.store.dispatch(UPDATE_TIPOS_ENCUESTA({updateTipoEncuesta: { ...this.updateTipoEncuestaForm.value }, codigo: this.routeParams.codigo, codigo_cia: this.routeParams.codigo_cia, identificador: this.routeParams.idenfificador}));
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {
         if (data.apiStatus === 'success' && data.loginStatus === "logged" && data.tiposEncuestaState === "updated") {

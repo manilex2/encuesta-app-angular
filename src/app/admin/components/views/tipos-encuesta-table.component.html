@@ -21,11 +21,16 @@
 </section>
 
 <section class="tipos-encuesta-container mat-elevation-z8" tabindex="0">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #tabla2>
+  <table (reset)="newEncuesta = [];" mat-table multiTemplateDataRows [dataSource]="dataSource" class="mat-elevation-z8" matSort #tabla2>
 
     <ng-container matColumnDef="codigo">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
       <td mat-cell *matCellDef="let tipoencuesta" data-label="Codigo"> {{tipoencuesta.codigo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="codigo_cia">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Compañía </th>
+      <td mat-cell *matCellDef="let tipoencuesta" data-label="Compania"> {{tipoencuesta.codigo_cia}} </td>
     </ng-container>
 
     <ng-container matColumnDef="identificador">
@@ -63,21 +68,180 @@
       <td mat-cell *matCellDef="let tipoencuesta" data-label="Fecha de Actualización"> {{tipoencuesta.updatedAt | date: 'medium':"+0000":"es-EC"}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let tipoencuesta">
+        <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === tipoencuesta ? null : tipoencuesta); $event.stopPropagation();">
+          <mat-icon *ngIf="expandedElement !== tipoencuesta">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="expandedElement === tipoencuesta">keyboard_arrow_up</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="edit" stickyEnd>
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let compania">
+      <td mat-cell *matCellDef="let tipoencuesta">
         <a
           href="#"
-          [routerLink]="['../edit/', compania.codigo, compania.identificador]"
+          [routerLink]="['../edit/', tipoencuesta.codigo, tipoencuesta.codigo_cia, tipoencuesta.identificador]"
           routerLinkActive="router-link-active"
         >
           <button class="button-actions" mat-fab color="accent" aria-label="Icon button with a edit icon">
             <mat-icon class="icon-actions">edit</mat-icon>
           </button>
         </a>
-        <button (click)="openDialog('1500ms', '1000ms', compania)" class="button-actions" mat-fab color="warn" aria-label="Icon button with a delete icon">
+        <button (click)="openDialog('1500ms', '1000ms', tipoencuesta)" class="button-actions" mat-fab color="warn" aria-label="Icon button with a delete icon">
           <mat-icon class="icon-actions">delete</mat-icon>
         </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let tipoencuesta" [attr.colspan]="columnsToDisplayWithExpand.length">
+        <div class="example-element-detail" [@detailExpand]="tipoencuesta == expandedElement ? 'expanded' : 'collapsed'">
+          <mat-accordion class="example-headers-align">
+            <form [formGroup]="updateEncuestaForm">
+              <mat-expansion-panel (afterExpand)="respTemp = encuesta.cantResp" (opened)="respTemp = encuesta.cantResp; resetEncuesta(encuesta)" (closed)="encuesta.cantResp;" *ngFor="let encuesta of tipoencuesta.encuestas" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Pregunta: {{encuesta.pregunta}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    N° de Pregunta: {{encuesta.numero}}
+                    Tipo de Pregunta: {{encuesta.tipo_pregunta == "C"? "Cerrada": "Abierta"}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table class="example-full-width" cellspacing="0">
+                  <tr>
+                    <td>
+                      <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Pregunta:</mat-label>
+                        <input matInput placeholder="Introduzca una pregunta" formControlName="pregunta" [value]="pregunta">
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Tipo de Pregunta</mat-label>
+                        <mat-select panelClass="panel-custom" formControlName="tipo_pregunta" [value]="tipo_pregunta">
+                          <mat-option value="C">Cerrada</mat-option>
+                          <mat-option value="A">Abierta</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                </table>
+
+                <table class="example-full-width" cellspacing="0">
+                  <tr>
+                      <ng-container *ngFor="let respuesta of encuesta.respuestas; let indice = index">
+                        <td *ngIf="indice < respTemp && tipo_pregunta == 'C'">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Respuesta {{respuesta.id}}:</mat-label>
+                            <input (input)="setRespuesta($event.target, encuesta, respuesta.id)" matInput placeholder="Introduzca una respuesta" [value]="respuesta.resp">
+                          </mat-form-field>
+                          <mat-form-field appearance="fill">
+                            <mat-label>Ponderacion:</mat-label>
+                            <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
+                          </mat-form-field>
+                        </td>
+                      </ng-container>
+                      <ng-container *ngIf="tipo_pregunta == 'C'">
+                        <button [disabled]="respTemp == 5 || !activarBoton" (click)="addResp(encuesta)" class="button-actions" mat-fab color="primary" aria-label="Icon button with a edit icon">
+                          <mat-icon class="icon-actions">add</mat-icon>
+                        </button>
+                        <button [disabled]="respTemp == 1" (click)="deleteResp(encuesta)" class="button-actions" mat-fab color="accent" aria-label="Icon button with a edit icon">
+                          <mat-icon class="icon-actions">delete</mat-icon>
+                        </button>
+                      </ng-container>
+                  </tr>
+                </table>
+                <p class="buttons-edit-resp">
+                  <button matTooltip="Guardar" [disabled]="!activarBoton" (click)="actualizar(encuesta)" class="button-actions" mat-fab color="primary" aria-label="Icon button with a edit icon">
+                    <mat-icon class="icon-actions">save_as</mat-icon>
+                  </button>
+                  <button matTooltip="Eliminar" (click)="eliminarEncuestaDialog('1500ms', '1000ms', encuesta)" class="button-actions" mat-fab color="accent" aria-label="Icon button with a delete icon">
+                    <mat-icon class="icon-actions">delete</mat-icon>
+                  </button>
+                  <button matTooltip="Reiniciar" (click)="reiniciar()" class="button-actions" mat-fab color="warn" aria-label="Icon button with a edit icon">
+                    <mat-icon class="icon-actions">restart_alt</mat-icon>
+                  </button>
+                </p>
+              </mat-expansion-panel>
+            </form>
+            <form [formGroup]="createEncuestaForm">
+              <mat-expansion-panel (afterExpand)="respTemp = encuesta.cantResp" (opened)="respTemp = encuesta.cantResp; resetEncuesta(encuesta)" (closed)="encuesta.cantResp;" *ngFor="let encuesta of newEncuesta" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Pregunta: {{encuesta.pregunta}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    N° de Pregunta: {{encuesta.numero}}
+                    Tipo de Pregunta: {{createTipo_pregunta == "C"? "Cerrada": "Abierta"}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table class="example-full-width" cellspacing="0">
+                  <tr>
+                    <td>
+                      <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Pregunta:</mat-label>
+                        <input matInput placeholder="Introduzca una pregunta" formControlName="pregunta" [value]="createPregunta">
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Tipo de Pregunta</mat-label>
+                        <mat-select panelClass="panel-custom" formControlName="tipo_pregunta" [value]="createTipo_pregunta == 'C' ? 'C' : 'A'">
+                          <mat-option value="C">Cerrada</mat-option>
+                          <mat-option value="A">Abierta</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                </table>
+                <table class="example-full-width" cellspacing="0">
+                  <tr>
+                    <ng-container *ngFor="let respuesta of encuesta.respuestas; let indice = index">
+                      <td *ngIf="indice < respTemp && createTipo_pregunta == 'C'">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Respuesta {{respuesta.id}}:</mat-label>
+                          <input (input)="setRespuesta($event.target, encuesta, respuesta.id)" matInput placeholder="Introduzca una respuesta" [value]="respuesta.resp">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Ponderacion:</mat-label>
+                          <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
+                        </mat-form-field>
+                      </td>
+                    </ng-container>
+                    <ng-container *ngIf="createTipo_pregunta == 'C'">
+                      <button [disabled]="respTemp == 5 || !activarBoton" (click)="addResp(encuesta)" class="button-actions" mat-fab color="primary" aria-label="Icon button with a edit icon">
+                        <mat-icon class="icon-actions">add</mat-icon>
+                      </button>
+                      <button [disabled]="respTemp == 1" (click)="deleteResp(encuesta)" class="button-actions" mat-fab color="accent" aria-label="Icon button with a edit icon">
+                        <mat-icon class="icon-actions">delete</mat-icon>
+                      </button>
+                    </ng-container>
+                  </tr>
+                </table>
+                <p class="buttons-edit-resp">
+                  <button matTooltip="Guardar" (click)="encuesta.saved? actualizar(encuesta) : openDialogCreate()" [disabled]="!activarBoton" class="button-actions" mat-fab color="primary" aria-label="Icon button with a edit icon">
+                    <mat-icon class="icon-actions">save_as</mat-icon>
+                  </button>
+                  <button matTooltip="Eliminar" (click)="encuesta.saved? eliminarEncuestaDialog('1500ms', '1000ms', encuesta) : newEncuesta.pop(); activarBotonADD = true" class="button-actions" mat-fab color="accent" aria-label="Icon button with a delete icon">
+                    <mat-icon class="icon-actions">delete</mat-icon>
+                  </button>
+                  <button matTooltip="Reiniciar" (click)="reiniciar()" class="button-actions" mat-fab color="warn" aria-label="Icon button with a edit icon">
+                    <mat-icon class="icon-actions">restart_alt</mat-icon>
+                  </button>
+                </p>
+              </mat-expansion-panel>
+            </form>
+            <div class="add-pregunta">
+              <button [disabled]="!activarBotonADD" (click)="agregarEncuesta(tipoencuesta)" mat-fab color="primary" aria-label="Icon button with a create icon">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </mat-accordion>
+        </div>
       </td>
     </ng-container>
 
@@ -85,8 +249,13 @@
       <td class="mat-cell" colspan="20">No hay tipos de encuesta</td>
     </tr>
 
-    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let tipoencuesta; columns: columnsToDisplayWithExpand;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === tipoencuesta"
+      (click)="newEncuesta = []; expandedElement = expandedElement === tipoencuesta ? null : tipoencuesta; this.activarBotonADD = true;">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="example-detail-row"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 </section>

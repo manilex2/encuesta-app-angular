@@ -5,5 +5,6 @@ export interface Appstate {
   adminState?: string;
   companiaState?: string;
   tiposEncuestaState?: string;
-  loginStatus?: string
+  encuestaState?: string;
+  loginStatus?: string;
 }

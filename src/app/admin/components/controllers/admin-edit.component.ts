@@ -14,6 +14,7 @@ import { selectAdminById } from '../../store/selectors/admin.selectors';
 import { Compania } from '../models';
 import { CREATE_COMPANIA_SUCCESS, DELETE_COMPANIA_X_CODIGO_SUCCESS, GET_COMPANIAS } from '../../store/actions/companias.actions';
 import { companias } from '../../store/selectors/companias.selectors';
+import { currentUser } from '../../store/selectors/currentuser.selectors';
 
 export interface CompaniaLista {
   codigo?: string | null;
@@ -54,6 +55,7 @@ export class AdminEditComponent implements OnInit {
   filterChecked: any[] = [];
   arraySelected: any;
   arrayOptions: any = [];
+  currentUser: any;
 
   constructor(
     private fb: FormBuilder,
@@ -187,6 +189,9 @@ export class AdminEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIp();
+    this.store.pipe(select(currentUser)).subscribe(currentUser => {
+      this.currentUser = currentUser;
+    });
     this.store.pipe(select(companias)).subscribe(companias => {
       this.store.dispatch(GET_COMPANIAS());
       this.companias = companias;

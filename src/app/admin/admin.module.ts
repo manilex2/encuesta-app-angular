@@ -33,8 +33,8 @@ import { TiposEncuestaTableComponent } from './components/controllers/tipos-encu
 import { TiposEncuestaCreateComponent } from './components/controllers/tipos-encuesta-create.component';
 import { TiposEncuestaEditComponent } from './components/controllers/tipos-encuesta-edit.component';
 import { TiposEncuestaDeleteDialogComponent } from './components/controllers/tipos-encuesta-delete-dialog.component';
-//ENCUESTAS
-import { EncuestasComponent } from './components/controllers/encuestas.component';
+//ENCUESTA
+import { EncuestaDeleteDialogComponent } from './components/controllers/encuesta-delete-dialog.component';
 //LISTA DE CLIENTES
 import { ListaClientesComponent } from './components/controllers/lista-clientes.component';
 
@@ -49,12 +49,14 @@ import * as fromAdmins from './store/reducers/admin.reducers';
 import * as fromCurrentUser from './store/reducers/currentuser.reducers';
 import * as fromCompanias from './store/reducers/companias.reducers';
 import * as fromTiposEncuesta from './store/reducers/tiposencuesta.reducers';
+import * as fromEncuesta from './store/reducers/encuesta.reducers';
 
 /*************** EFFECTS ***********************/
 import { AdminsEffect } from './store/effects/admin.effects';
 import { CompaniasEffect } from './store/effects/companias.effects';
 import { TiposEncuestaEffect } from './store/effects/tiposencuesta.effects';
 import { CurrentUserEffect } from './store/effects/currentuser.effects';
+import { EncuestaEffect } from './store/effects/encuesta.effects';
 
 /**************** INTERCEPTORES ******************/
 import { AdminInterceptor } from './services/admin.interceptor';
@@ -65,7 +67,6 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     AdminComponent,
     TiposEncuestaTableComponent,
     AdminsComponent,
-    EncuestasComponent,
     CompaniasTableComponent,
     DashboardComponent,
     SpinnerComponent,
@@ -82,7 +83,8 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     TiposEncuestaComponent,
     TiposEncuestaDeleteDialogComponent,
     TiposEncuestaCreateComponent,
-    TiposEncuestaEditComponent
+    TiposEncuestaEditComponent,
+    EncuestaDeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -93,7 +95,8 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.currentUserReducer),
     StoreModule.forFeature(fromCompanias.companiasFeatureKey, fromCompanias.companiasReducer),
     StoreModule.forFeature(fromTiposEncuesta.tiposEncuestaFeatureKey, fromTiposEncuesta.tiposEncuestaReducer),
-    EffectsModule.forFeature([AdminsEffect, CompaniasEffect, TiposEncuestaEffect, CurrentUserEffect]),
+    StoreModule.forFeature(fromEncuesta.encuestaFeatureKey, fromEncuesta.encuestaReducer),
+    EffectsModule.forFeature([AdminsEffect, CompaniasEffect, TiposEncuestaEffect, CurrentUserEffect, EncuestaEffect]),
     ReactiveFormsModule,
     FormsModule
   ],

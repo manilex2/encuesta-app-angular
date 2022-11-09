@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Admin, Compania } from "../models";
+import { Admin, Compania, TiposEncuesta } from "../models";
 import { select, Store } from '@ngrx/store';
 import { admins } from '../../store/selectors/admin.selectors';
 import { DELETE_ADMIN, GET_ADMINS } from '../../store/actions/admin.actions';
@@ -16,6 +16,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AdminDeleteDialogComponent } from './admin-delete-dialog.component';
 import { DELETE_COMPANIA_SUCCESS, GET_COMPANIAS } from '../../store/actions/companias.actions';
 import { companias } from '../../store/selectors/companias.selectors';
+import { tipos_encuesta } from '../../store/selectors/tiposencuesta.selectors';
+import { DELETE_TIPOS_ENCUESTA_SUCCESS } from '../../store/actions/tiposencuesta.actions';
 
 @Component({
   selector: 'app-admins-table',
@@ -28,6 +30,7 @@ export class AdminsTableComponent implements OnInit {
   dataSource: any;
   currentUser: any;
   companias: Compania[] = [];
+  tipos_encuesta: TiposEncuesta[] = [];
   compList: Compania[] = [];
   compAdminList: Compania[] = [];
 
@@ -87,20 +90,34 @@ export class AdminsTableComponent implements OnInit {
 
   deleteAdmin(codigo: string) {
     try {
-      let newArray: any[] = [];
+      let newCompaniasArray: any[] = [];
+      let newTiposEncuestaArray: any[] = [];
       this.store.dispatch(DELETE_ADMIN({ codigo }));
       this.store.pipe(select(companias)).subscribe(companias => {
         this.store.dispatch(GET_COMPANIAS());
         this.companias = companias;
         companias.map(compania => {
           if (compania.codigo === codigo) {
-            newArray.push({codigo: compania.codigo, codigo_cia: compania.codigo_cia});
+            newCompaniasArray.push({codigo: compania.codigo, codigo_cia: compania.codigo_cia});
           }
         })
       })
-      for (let i = 0; i < newArray.length; i++) {
-        const element = newArray[i];
+      this.store.pipe(select(tipos_encuesta)).subscribe(tipos_encuesta => {
+        this.store.dispatch(GET_COMPANIAS());
+        this.tipos_encuesta = tipos_encuesta;
+        tipos_encuesta.map(tipo_encuesta => {
+          if (tipo_encuesta.codigo === codigo) {
+            newTiposEncuestaArray.push({codigo: tipo_encuesta.codigo, codigo_cia: tipo_encuesta.codigo_cia, identificador: tipo_encuesta.identificador});
+          }
+        })
+      })
+      for (let i = 0; i < newCompaniasArray.length; i++) {
+        const element = newCompaniasArray[i];
         this.store.dispatch(DELETE_COMPANIA_SUCCESS({deleteCompania: element}))
+      }
+      for (let i = 0; i < newTiposEncuestaArray.length; i++) {
+        const element = newTiposEncuestaArray[i];
+        this.store.dispatch(DELETE_TIPOS_ENCUESTA_SUCCESS({deleteTipoEncuesta: element}))
       }
       let appStatus$ = this.appStore.pipe(select(selectAppState));
       appStatus$.subscribe((data) => {

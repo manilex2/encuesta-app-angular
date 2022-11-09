@@ -20,7 +20,7 @@ export const CREATE_TIPOS_ENCUESTA_SUCCESS = createAction(
 
 export const UPDATE_TIPOS_ENCUESTA = createAction(
   '[UPDATE TIPOS DE ENCUESTA] Init',
-  props<{ updateTipoEncuesta: TiposEncuesta, identificador: string, codigo: string }>()
+  props<{ updateTipoEncuesta: TiposEncuesta, codigo: string, codigo_cia: string, identificador: string }>()
 );
 
 export const UPDATE_TIPOS_ENCUESTA_SUCCESS = createAction(
@@ -30,7 +30,7 @@ export const UPDATE_TIPOS_ENCUESTA_SUCCESS = createAction(
 
 export const DELETE_TIPOS_ENCUESTA = createAction(
   '[DELETE TIPOS DE ENCUESTA] Init',
-  props<{ codigo: string, identificador: string }>()
+  props<{ codigo: string, codigo_cia: string, identificador: string }>()
 );
 
 export const DELETE_TIPOS_ENCUESTA_SUCCESS = createAction(

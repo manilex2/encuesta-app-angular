@@ -91,7 +91,6 @@ export class TiposEncuestaEffect {
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "" } }));
         return this.tipoEncuestaService.actualizarTipoEncuesta(action.updateTipoEncuesta, action.codigo, action.identificador).pipe(
           map((updateTipoEncuesta) => {
-            console.log(updateTipoEncuesta);
             this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "success", tiposEncuestaState: "updated" } }));
             return UPDATE_TIPOS_ENCUESTA_SUCCESS({ updateTipoEncuesta });
           }),
@@ -117,7 +116,7 @@ export class TiposEncuestaEffect {
       ofType(DELETE_TIPOS_ENCUESTA),
       mergeMap((actions) => {
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "" } }));
-        return this.tipoEncuestaService.eliminarTipoEncuesta(actions.codigo, actions.identificador).pipe(
+        return this.tipoEncuestaService.eliminarTipoEncuesta(actions.codigo, actions.codigo_cia, actions.identificador).pipe(
           map((deleteTipoEncuesta) => {
             this.appStore.dispatch(setAPIStatus({ apiStatus: { apiCodeStatus: 200, apiResponseMessage: "", apiStatus: "success", tiposEncuestaState: "deleted" } }));
             return DELETE_TIPOS_ENCUESTA_SUCCESS({ deleteTipoEncuesta });

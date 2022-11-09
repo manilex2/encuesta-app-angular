@@ -1,6 +1,8 @@
 export interface TiposEncuesta {
   codigo?: any,
   codigo_ant?: any,
+  codigo_cia?: any,
+  codigo_cia_ant?: any,
   identificador?: any,
   identificador_ant?: any,
   descripcion?: any,
@@ -9,4 +11,7 @@ export interface TiposEncuesta {
   createdAt?: any,
   updatedIp?: any,
   updatedAt?: any,
+  companias?: any,
+  admins?: any,
+  encuestas?: any,
 }
