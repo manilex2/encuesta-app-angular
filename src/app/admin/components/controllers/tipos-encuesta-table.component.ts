@@ -188,6 +188,7 @@ export class TiposEncuestaTableComponent {
   };
 
   ngOnInit() {
+    this.getIp();
     this.store.pipe(select(encuesta)).subscribe(encuesta => {
       this.store.dispatch(GET_ENCUESTA());
       this.preguntas = encuesta;
@@ -238,7 +239,6 @@ export class TiposEncuestaTableComponent {
   }
 
   openDialogCreate(): void {
-    this.getIp();
     if (this.pruebaEncuesta.length > 0) {
       let cantResp = 0;
       let respuestasFinales = [];
@@ -300,28 +300,9 @@ export class TiposEncuestaTableComponent {
           this.toastr.success("Encuesta creada exitosamente.", "Encuesta", {
             progressBar: true
           });
-          this.store.pipe(select(encuesta)).subscribe(encuesta => {
-            this.store.dispatch(GET_ENCUESTA());
-            this.preguntas = [];
-            this.preguntas = encuesta;
-            this.store.pipe(select(tipos_encuesta)).subscribe(tiposencuesta => {
-              this.store.dispatch(GET_TIPOS_ENCUESTA());
-              this.tiposencuesta = [];
-              for (let i = 0; i < tiposencuesta.length; i++) {
-                const element = tiposencuesta[i];
-                let filteredData = this.preguntas.filter((_) => _.codigo === element.codigo && _.codigo_cia === element.codigo_cia && _.identificador === element.identificador)
-                this.tiposencuesta.push({
-                  ...element,
-                  encuestas: filteredData
-                })
-              }
-
-              this.dataSource.data = this.tiposencuesta;
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-            });
-          })
-
+          this.router.navigateByUrl('/admin', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/admin/tipos_encuesta']);
+          });
         } else if (data.apiStatus === 'error' && data.encuestaState === "createdError" && data.loginStatus === "logged"){
           this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, encuestaState: "" } }));
           this.toastr.error(data.apiResponseMessage, "Encuesta", {
@@ -424,7 +405,6 @@ export class TiposEncuestaTableComponent {
   }
 
   actualizar(encuestas: any) {
-    this.getIp();
     if (encuestas.saved) {
       this.updateEncuestaForm.controls.tipo_pregunta?.setValue(encuestas.tipo_pregunta);
       this.updateEncuestaForm.controls.codigo?.setValue(encuestas.codigo);
