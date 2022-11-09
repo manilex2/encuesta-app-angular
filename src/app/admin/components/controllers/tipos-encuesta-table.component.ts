@@ -192,35 +192,35 @@ export class TiposEncuestaTableComponent {
     this.store.pipe(select(encuesta)).subscribe(encuesta => {
       this.store.dispatch(GET_ENCUESTA());
       this.preguntas = encuesta;
-    })
-    this.store.pipe(select(tipos_encuesta)).subscribe(tiposencuesta => {
-      this.store.dispatch(GET_TIPOS_ENCUESTA());
-      for (let i = 0; i < tiposencuesta.length; i++) {
-        const element = tiposencuesta[i];
-        let filteredData = this.preguntas.filter((_) => _.codigo === element.codigo && _.codigo_cia === element.codigo_cia && _.identificador === element.identificador)
-        this.tiposencuesta.push({
-          ...element,
-          encuestas: filteredData
-        })
-      }
-      this.dataSource = new MatTableDataSource<TiposEncuesta>(this.tiposencuesta);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      let apiStatus$ = this.appStore.pipe(select(selectAppState));
-      apiStatus$.subscribe((data) => {
-        if (data.apiStatus === "success" && data.tiposEncuestaState === "getted" && data.loginStatus === "logged") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
-          this.toastr.success("Tipos de encuesta recuperados con exito.", "Tipos de Encuesta", {
-            progressBar: true
-          })
-        } else if (data.apiStatus === "error" && data.tiposEncuestaState === "gettedError" && data.loginStatus === "logged") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "" } }));
-          this.toastr.error(data.apiResponseMessage, "Tipos de Encuesta", {
-            progressBar: true
+      this.store.pipe(select(tipos_encuesta)).subscribe(tiposencuesta => {
+        this.store.dispatch(GET_TIPOS_ENCUESTA());
+        for (let i = 0; i < tiposencuesta.length; i++) {
+          const element = tiposencuesta[i];
+          let filteredData = this.preguntas.filter((_) => _.codigo === element.codigo && _.codigo_cia === element.codigo_cia && _.identificador === element.identificador)
+          this.tiposencuesta.push({
+            ...element,
+            encuestas: filteredData
           })
         }
-      })
-    });
+        this.dataSource = new MatTableDataSource<TiposEncuesta>(this.tiposencuesta);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        let apiStatus$ = this.appStore.pipe(select(selectAppState));
+        apiStatus$.subscribe((data) => {
+          if (data.apiStatus === "success" && data.tiposEncuestaState === "getted" && data.loginStatus === "logged") {
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "done" } }));
+            this.toastr.success("Tipos de encuesta recuperados con exito.", "Tipos de Encuesta", {
+              progressBar: true
+            })
+          } else if (data.apiStatus === "error" && data.tiposEncuestaState === "gettedError" && data.loginStatus === "logged") {
+            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, tiposEncuestaState: "" } }));
+            this.toastr.error(data.apiResponseMessage, "Tipos de Encuesta", {
+              progressBar: true
+            })
+          }
+        })
+      });
+    })
   };
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, tipos_encuesta: any): void {
