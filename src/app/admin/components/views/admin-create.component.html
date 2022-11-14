@@ -3,7 +3,7 @@
     <img [src]="cardImageBase64" class="img-logo"/>
   </div>
 </ng-container>
-<form [formGroup]="createAdminForm">
+<form class="create-admin-form" [formGroup]="createAdminForm">
   <mat-form-field appearance="fill">
     <mat-label>Nombre</mat-label>
     <input matInput formControlName="nombre" placeholder="Introduzca un nombre">
