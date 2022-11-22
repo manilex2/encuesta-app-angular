@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverURL: "https://encuesta-app-api.herokuapp.com"
+  serverURL: "https://encuesta-app-api.onrender.com"
 };
