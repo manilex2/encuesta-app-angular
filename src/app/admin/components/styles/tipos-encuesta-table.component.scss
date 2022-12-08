@@ -186,3 +186,30 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: flex;
   justify-content: center;
 }
+
+#encuestaUploadFile {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 9;
+  opacity: 0;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+}
+
+.encuesta-button-files {
+  width: 100px;
+}
+
+.encuesta-img-logo {
+  max-height: 100px;
+}
+
+.encuesta-container-img-logo {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+}

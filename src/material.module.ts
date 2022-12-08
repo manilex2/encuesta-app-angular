@@ -19,6 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [],
@@ -42,7 +44,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: []

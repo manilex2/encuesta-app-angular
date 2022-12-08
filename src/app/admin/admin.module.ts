@@ -100,7 +100,7 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     ReactiveFormsModule,
     FormsModule
   ],
-  exports: [AdminComponent],
+  exports: [AdminComponent, HeaderComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true },

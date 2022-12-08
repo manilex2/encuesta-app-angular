@@ -14,7 +14,7 @@
         <img [src]="cardImageBase64" class="img-logo"/>
       </div>
     </ng-container>
-    <form [formGroup]="basicCompaniaForm">
+    <form class="company-form" [formGroup]="basicCompaniaForm">
       <ng-template matStepLabel>Información Básica</ng-template>
       <mat-form-field [class.hidden-field]="!currentUser.fsbs" appearance="fill">
         <mat-label>Codigo</mat-label>
@@ -66,7 +66,7 @@
     </form>
   </mat-step>
   <mat-step state="public" [stepControl]="origenCompaniaForm">
-    <form [formGroup]="origenCompaniaForm">
+    <form class="company-form" [formGroup]="origenCompaniaForm">
       <ng-template matStepLabel>Información Origen</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Dato de Origen</mat-label>
@@ -138,7 +138,7 @@
     </form>
   </mat-step>
   <mat-step state="mail" [stepControl]="emailCompaniaForm">
-    <form [formGroup]="emailCompaniaForm">
+    <form class="company-form" [formGroup]="emailCompaniaForm">
       <ng-template matStepLabel>Información Email</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>SMTP del Email</mat-label>

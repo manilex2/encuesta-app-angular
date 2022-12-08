@@ -143,6 +143,27 @@
                             <mat-label>Ponderacion:</mat-label>
                             <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
                           </mat-form-field>
+                          <ng-container *ngIf="respuesta.img;">
+                            <div class="encuesta-container-img-logo">
+                              <img [src]="respuesta.img" class="encuesta-img-logo"/>
+                            </div>
+                          </ng-container>
+                          <mat-form-field>
+                            <div>
+                              <mat-toolbar class="custom-toolbar">
+                                <input matInput readonly name="name" value="Imagen"/>
+                                <button class="encuesta-button-files" mat-flat-button color="primary">Subir</button>
+                              </mat-toolbar>
+                              <input
+                                type="file"
+                                accept="image/jpeg,image/png"
+                                #logoInput
+                                id="encuestaUploadFile"
+                                (change)="uploadFileEvt($event, encuesta, respuesta.id)"
+                                name="uploadFile"
+                              />
+                            </div>
+                          </mat-form-field>
                         </td>
                       </ng-container>
                       <ng-container *ngIf="tipo_pregunta == 'C'">
@@ -209,6 +230,27 @@
                         <mat-form-field appearance="fill">
                           <mat-label>Ponderacion:</mat-label>
                           <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
+                        </mat-form-field>
+                        <ng-container *ngIf="respuesta.img;">
+                          <div class="encuesta-container-img-logo">
+                            <img [src]="respuesta.img" class="encuesta-img-logo"/>
+                          </div>
+                        </ng-container>
+                        <mat-form-field>
+                          <div>
+                            <mat-toolbar class="custom-toolbar">
+                              <input matInput readonly name="name" value="Imagen"/>
+                              <button class="button-files" mat-flat-button color="primary">Subir</button>
+                            </mat-toolbar>
+                            <input
+                              type="file"
+                              accept="image/jpeg,image/png"
+                              #logoInput
+                              id="encuestaUploadFile"
+                              (change)="uploadFileEvt($event, encuesta, respuesta.id)"
+                              name="uploadFile"
+                            />
+                          </div>
                         </mat-form-field>
                       </td>
                     </ng-container>

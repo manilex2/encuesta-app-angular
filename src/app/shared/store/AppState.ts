@@ -7,4 +7,5 @@ export interface Appstate {
   tiposEncuestaState?: string;
   encuestaState?: string;
   loginStatus?: string;
+  clientState?: string;
 }

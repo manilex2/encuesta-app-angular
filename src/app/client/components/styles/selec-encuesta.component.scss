@@ -1,0 +1,70 @@
+.botones-encuestas {
+  width: 100%;
+  height: auto;
+}
+
+.boton-encuesta-indv {
+  margin: 5px;
+}
+
+.header-encuesta {
+  text-align: center;
+  font-weight: 300;
+  background-color: var(--accent-color);
+  color: var(--text-accent-color);
+}
+
+@media screen and (max-width: 768px) {
+  .boton-encuesta-indv {
+    width: 90%;
+    margin: 5px 0px;
+    margin-left: 5%;
+  }
+}
+
+.card-encuestas {
+  max-width: 400px;
+  display: flex;
+  flex-direction: row;
+  overflow-y: auto;
+  max-height: 85vh;
+}
+
+.card-encuestas::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.card-encuestas::-webkit-scrollbar:vertical {
+  width: 6px;
+  background-color: var(--warn-color);
+}
+
+.card-encuestas::-webkit-scrollbar-button:increment, .card-encuestas::-webkit-scrollbar-button {
+  display: none;
+}
+
+.card-encuestas::-webkit-scrollbar:horizontal {
+  height: 6px;
+  background-color: var(--warn-color);
+}
+
+.card-encuestas::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 20px;
+  border: 1px solid var(--warn-color);
+}
+
+.card-encuestas::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.card-encuestas {
+  scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}

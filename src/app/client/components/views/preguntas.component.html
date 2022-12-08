@@ -1,0 +1,33 @@
+ <form [formGroup]="formGroup">
+  <mat-vertical-stepper formArrayName="preguntas" linear [animationDuration]="'1500'">
+    <mat-step [formGroupName]="i" [stepControl]="formGroup.get('preguntas')['controls'][i]" *ngFor="let customerGroup of formGroup.get('preguntas')['controls']; let i = index">
+      <ng-template matStepLabel>{{customerGroup.value.pregunta}}</ng-template>
+      <mat-radio-group formControlName="selected" *ngIf="customerGroup.value.tipo == 'C'">
+        <mat-radio-button class="radio-boton-encuesta" *ngIf="customerGroup.value.respuestas.a != null" [value]="customerGroup.value.respuestas.a">
+          {{customerGroup.value.respuestas.a}}
+        </mat-radio-button>
+        <mat-radio-button class="radio-boton-encuesta" *ngIf="customerGroup.value.respuestas.b != null" [value]="customerGroup.value.respuestas.b">
+          {{customerGroup.value.respuestas.b}}
+        </mat-radio-button>
+        <mat-radio-button class="radio-boton-encuesta" *ngIf="customerGroup.value.respuestas.c != null" [value]="customerGroup.value.respuestas.c">
+          {{customerGroup.value.respuestas.c}}
+        </mat-radio-button>
+        <mat-radio-button class="radio-boton-encuesta" *ngIf="customerGroup.value.respuestas.d != null" [value]="customerGroup.value.respuestas.d">
+          {{customerGroup.value.respuestas.d}}
+        </mat-radio-button>
+        <mat-radio-button class="radio-boton-encuesta" *ngIf="customerGroup.value.respuestas.e != null" [value]="customerGroup.value.respuestas.e">
+          {{customerGroup.value.respuestas.e}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field appearance="fill" *ngIf="customerGroup.value.tipo == 'A'">
+        <mat-label>Respuesta</mat-label>
+        <textarea matInput formControlName="selected" placeholder="Introduzca una respuesta..."></textarea>
+      </mat-form-field>
+    <div class="botones-stepper">
+      <button mat-button matStepperPrevious *ngIf="i > 0" type="button">Atrás</button>
+      <button mat-button matStepperNext *ngIf="i < formGroup.get('preguntas')['controls'].length-1" [disabled]="!customerGroup.value.selected" type="button">Siguiente</button>
+      <button mat-button *ngIf="i == formGroup.get('preguntas')['controls'].length-1" [disabled]="!customerGroup.value.selected" (click)="sendData()">Enviar</button>
+    </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>

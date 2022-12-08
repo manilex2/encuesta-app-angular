@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="card-container">
+  <mat-card class="card-encuestas" *ngIf="example.length > 0; else noencuesta">
+    <mat-card-header>
+      <mat-card-title>SELECCIONE ENCUESTA</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container >
+        <ng-container *ngFor="let encuesta of example">
+          <a
+            href="#"
+            [routerLink]="['./encuesta', encuesta.codigo]"
+            routerLinkActive="router-link-active"
+          >
+            <button class="boton-encuesta-indv" mat-raised-button color="primary">{{encuesta.encuesta}}</button>
+          </a>
+        </ng-container>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+  <ng-template #noencuesta>
+    <h2>No hay encuestas asignadas a usted. Comuniquese con su administrador.</h2>
+  </ng-template>
+</div>

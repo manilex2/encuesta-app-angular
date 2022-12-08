@@ -1,9 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Encuesta, TiposEncuesta } from '../models';
 import { Store, select } from '@ngrx/store';
+import * as _ from 'lodash';
 import { DELETE_TIPOS_ENCUESTA, GET_TIPOS_ENCUESTA } from '../../store/actions/tiposencuesta.actions';
 import { tipos_encuesta } from '../../store/selectors/tiposencuesta.selectors';
 import { encuesta } from '../../store/selectors/encuesta.selectors';
@@ -41,7 +42,7 @@ export interface Respuesta {
   ],
 })
 
-export class TiposEncuestaTableComponent {
+export class TiposEncuestaTableComponent implements OnInit {
   columnsToDisplay: string[] = ['codigo', 'codigo_cia', 'identificador', 'descripcion', 'afectacion', 'createdIp', 'createdAt', 'updatedIp', 'updatedAt'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand', 'edit'];
   tiposencuesta: TiposEncuesta[] = [];
@@ -54,10 +55,15 @@ export class TiposEncuestaTableComponent {
   activarBoton: Boolean = true;
   activarBotonADD: Boolean = true;
   activarBotonDELETE: Boolean = true;
+  logoAtrib = 'Imagen';
+  imageError: string | null | undefined;
+  isImageSaved: boolean | undefined;
+  cardImageBase64: string | undefined;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild(MatAccordion) accordion!: MatAccordion;
+  @ViewChild('logoInput') logoInput!: ElementRef;
 
   constructor(
     private store: Store,
@@ -108,7 +114,7 @@ export class TiposEncuestaTableComponent {
     let pondData = respuestas.filter((_) => (_.id == id));
     filterData.push({
       resp,
-      img: null,
+      img: pondData[0].img,
       id,
       pond: pondData[0].pond
     });
@@ -135,7 +141,7 @@ export class TiposEncuestaTableComponent {
     let respData = respuestas.filter((_) => (_.id == id));
     filterData.push({
       resp: respData[0].resp,
-      img: null,
+      img: respData[0].img,
       id,
       pond
     });
@@ -187,11 +193,13 @@ export class TiposEncuestaTableComponent {
     })
   };
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getIp();
     this.store.pipe(select(encuesta)).subscribe(encuesta => {
       this.store.dispatch(GET_ENCUESTA());
       this.preguntas = encuesta;
+    })
+    setTimeout(()=> {
       this.store.pipe(select(tipos_encuesta)).subscribe(tiposencuesta => {
         this.store.dispatch(GET_TIPOS_ENCUESTA());
         for (let i = 0; i < tiposencuesta.length; i++) {
@@ -220,7 +228,7 @@ export class TiposEncuestaTableComponent {
           }
         })
       });
-    })
+    }, 400)
   };
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, tipos_encuesta: any): void {
@@ -602,6 +610,84 @@ export class TiposEncuestaTableComponent {
       this.pruebaEncuesta = this.newEncuesta[0].respuestas;
       this.createEncuestaForm.controls.respuestas?.setValue(this.pruebaEncuesta);
       this.createEncuestaForm.controls.cantResp?.setValue(1);
+    }
+  }
+
+  uploadFileEvt(event: any, encuestas: any, id: any) {
+    this.imageError = null;
+    if (event.target.files && event.target.files[0]) {
+      const max_size = 512000;
+      const allowed_types = ['image/png', 'image/jpeg'];
+      const max_height = 1200;
+      const max_width = 1800;
+      this.logoAtrib = '';
+      Array.from(event.target.files).forEach((file: any) => {
+        this.logoAtrib = file.name;
+      });
+      if (event.target.files[0].size > max_size) {
+        this.imageError =
+            'Tamaño maximo permitido es ' + Math.trunc(max_size / 1024) + 'Kb';
+        event = null;
+        this.logoAtrib = 'Subir un logo';
+        this.toastr.error(this.imageError, "Imagen", {
+          progressBar: true
+        })
+        return false;
+      }
+
+      if (!_.includes(allowed_types, event.target.files[0].type)) {
+          this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
+          event = null;
+          this.logoAtrib = 'Subir un logo';
+          this.toastr.error(this.imageError, "Imagen", {
+            progressBar: true
+          })
+          return false;
+      }
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        const img_height = e.currentTarget['height'];
+        const img_width = e.currentTarget['width'];
+        if (img_height > max_height && img_width > max_width) {
+          this.imageError =
+              'Dimensiones maximas permitidas ' +
+              max_height +
+              '*' +
+              max_width +
+              'px';
+            event = null;
+            this.logoAtrib = 'Subir un logo';
+          return false;
+        } else {
+          const imgBase64Path = e.target.result;
+          if (this.pruebaEncuesta.length === 0) {
+            this.pruebaEncuesta = encuestas.respuestas;
+          }
+          const img: Blob = imgBase64Path;
+          var respuestas: Respuesta[] = this.pruebaEncuesta;
+          let filterData = respuestas.filter((_) => !(_.id == id));
+          let imgdData = respuestas.filter((_) => (_.id == id));
+          filterData.push({
+            resp: imgdData[0].resp,
+            img: img,
+            id,
+            pond: imgdData[0].pond
+          });
+          filterData.sort((a, b) => {
+            if (a.id < b.id) return -1;
+            else if (a.id > b.id) return 1;
+            return 0;
+          });
+          this.pruebaEncuesta = filterData;
+          return true;
+        }
+      };
+      reader.readAsDataURL(event.target.files[0]);
+      this.logoInput.nativeElement.value = '';
+      return true;
+    } else {
+      this.logoAtrib = 'Subir un logo';
+      return false;
     }
   }
 }
