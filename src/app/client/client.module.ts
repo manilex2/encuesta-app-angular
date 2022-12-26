@@ -5,6 +5,7 @@ import { MaterialModule } from '../../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientRoutingModule } from './router/client-routing.module';
 import { AdminModule } from "../admin/admin.module";
+import { OnlineStatusModule } from 'ngx-online-status';
 
 /*************** INTERCEPTORS **********************/
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -35,7 +36,8 @@ import { SelecEncuestaComponent } from './components/controllers/selec-encuesta.
         MaterialModule,
         AdminModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        OnlineStatusModule
     ]
 })
 export class ClientModule { }

@@ -1,18 +1,18 @@
 <app-header></app-header>
 <div class="card-container">
-  <mat-card class="card-encuestas" *ngIf="example.length > 0; else noencuesta">
+  <mat-card class="card-encuestas" *ngIf="encuestas.length > 0; else noencuesta">
     <mat-card-header>
       <mat-card-title>SELECCIONE ENCUESTA</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <ng-container >
-        <ng-container *ngFor="let encuesta of example">
+        <ng-container *ngFor="let encuesta of encuestas">
           <a
             href="#"
-            [routerLink]="['./encuesta', encuesta.codigo]"
+            [routerLink]="['./encuesta', encuesta.identificador]"
             routerLinkActive="router-link-active"
           >
-            <button class="boton-encuesta-indv" mat-raised-button color="primary">{{encuesta.encuesta}}</button>
+            <button class="boton-encuesta-indv" mat-raised-button color="primary">{{encuesta.descripcion}}</button>
           </a>
         </ng-container>
       </ng-container>

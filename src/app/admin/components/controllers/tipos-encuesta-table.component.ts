@@ -616,17 +616,17 @@ export class TiposEncuestaTableComponent implements OnInit {
   uploadFileEvt(event: any, encuestas: any, id: any) {
     this.imageError = null;
     if (event.target.files && event.target.files[0]) {
-      const max_size = 512000;
+      const max_size = 35840;
       const allowed_types = ['image/png', 'image/jpeg'];
-      const max_height = 1200;
-      const max_width = 1800;
+      const max_height = 420;
+      const max_width = 420;
       this.logoAtrib = '';
       Array.from(event.target.files).forEach((file: any) => {
         this.logoAtrib = file.name;
       });
       if (event.target.files[0].size > max_size) {
         this.imageError =
-            'Tamaño maximo permitido es ' + Math.trunc(max_size / 1024) + 'Kb';
+            'Tamaño maximo permitido es ' + Math.trunc(max_size / 1024) + 'kb';
         event = null;
         this.logoAtrib = 'Subir un logo';
         this.toastr.error(this.imageError, "Imagen", {

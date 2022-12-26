@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Client } from "../components/models";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,15 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerClientData(): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.serverURL}/client`)
-  }
+  saveClientData(data: any): Observable<any[]> {
+    try {
+      return this.http.post<any>(`${this.serverURL}/client/create`, data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  getIPAddress() {
+    return this.http.get("https://api.ipify.org/?format=json");
+  };
 }

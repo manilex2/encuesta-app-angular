@@ -15,10 +15,8 @@ import { Appstate } from 'src/app/shared/store/AppState';
 export class NavComponent implements OnInit {
 
   constructor(
-    private router: Router,
     private authService: AuthService,
     private overlay: OverlayContainer,
-    private appStore: Store<Appstate>,
     private store: Store
   ) { }
 
