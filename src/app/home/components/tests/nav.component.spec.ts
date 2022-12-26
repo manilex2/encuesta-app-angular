@@ -16,7 +16,8 @@ describe('NavComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule
-      ], providers: [
+      ],
+      providers: [
         JwtHelperService,
         { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         provideMockStore({})
