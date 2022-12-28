@@ -151,7 +151,7 @@
                           <mat-form-field>
                             <div>
                               <mat-toolbar class="custom-toolbar">
-                                <input matInput readonly name="name" value="Imagen"/>
+                                <input [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="logoAtrib[indice]" readonly name="name" />
                                 <button class="encuesta-button-files" mat-flat-button color="primary">Subir</button>
                               </mat-toolbar>
                               <input
@@ -239,8 +239,8 @@
                         <mat-form-field>
                           <div>
                             <mat-toolbar class="custom-toolbar">
-                              <input matInput readonly name="name" value="Imagen"/>
-                              <button class="button-files" mat-flat-button color="primary">Subir</button>
+                              <input [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="logoAtrib[indice]" readonly name="name" />
+                              <button class="encuesta-button-files" mat-flat-button color="primary">Subir</button>
                             </mat-toolbar>
                             <input
                               type="file"

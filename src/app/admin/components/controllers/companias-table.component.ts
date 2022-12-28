@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { MatSort } from '@angular/material/sort';
 import { Compania } from '../models/Compania';
 import { select, Store } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { CompaniaDeleteDialogComponent } from '../controllers/compania-delete-dialog.component';
 import { Observable } from 'rxjs';
 import { tipos_encuesta } from '../../store/selectors/tiposencuesta.selectors';

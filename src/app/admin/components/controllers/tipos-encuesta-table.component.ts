@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { MatSort } from '@angular/material/sort';
 import { Encuesta, TiposEncuesta } from '../models';
 import { Store, select } from '@ngrx/store';
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { TiposEncuestaDeleteDialogComponent } from './tipos-encuesta-delete-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatAccordion } from '@angular/material/expansion';
@@ -55,7 +55,7 @@ export class TiposEncuestaTableComponent implements OnInit {
   activarBoton: Boolean = true;
   activarBotonADD: Boolean = true;
   activarBotonDELETE: Boolean = true;
-  logoAtrib = 'Imagen';
+  logoAtrib = ['Imagen', 'Imagen', 'Imagen', 'Imagen', 'Imagen'];
   imageError: string | null | undefined;
   isImageSaved: boolean | undefined;
   cardImageBase64 = [];
@@ -620,25 +620,25 @@ export class TiposEncuestaTableComponent implements OnInit {
       const allowed_types = ['image/png', 'image/jpeg'];
       const max_height = 420;
       const max_width = 420;
-      this.logoAtrib = '';
+      this.logoAtrib[indice] = '';
       Array.from(event.target.files).forEach((file: any) => {
-        this.logoAtrib = file.name;
+        this.logoAtrib[indice] = file.name;
       });
       if (event.target.files[0].size > max_size) {
         this.imageError =
             'Tamaño maximo permitido es ' + Math.trunc(max_size / 1024) + 'kb';
         event = null;
-        this.logoAtrib = 'Subir un logo';
+        this.logoAtrib[indice] = 'Imagen';
         this.toastr.error(this.imageError, "Imagen", {
           progressBar: true
         })
         return false;
       }
 
-      if (includes(allowed_types, event.target.files[0].type)) {
+      if (!includes(allowed_types, event.target.files[0].type)) {
           this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
           event = null;
-          this.logoAtrib = 'Subir un logo';
+          this.logoAtrib[indice] = 'Imagen';
           this.toastr.error(this.imageError, "Imagen", {
             progressBar: true
           })
@@ -656,7 +656,7 @@ export class TiposEncuestaTableComponent implements OnInit {
               max_width +
               'px';
             event = null;
-            this.logoAtrib = 'Subir un logo';
+            this.logoAtrib[indice] = 'Imagen';
           return false;
         } else {
           let image = new Image();
@@ -691,7 +691,7 @@ export class TiposEncuestaTableComponent implements OnInit {
       this.logoInput.nativeElement.value = '';
       return true;
     } else {
-      this.logoAtrib = 'Subir un logo';
+      this.logoAtrib[indice] = 'Imagen';
       return false;
     }
   }
