@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import decode from 'jwt-decode';
+import { select, Store } from '@ngrx/store';
+import { currentUser } from 'src/app/admin/store/selectors/currentuser.selectors';
+import { GET_CURRENT_USER } from 'src/app/admin/store/actions/currentuser.actions';
 
 @Component({
   selector: 'app-selec-encuesta',
@@ -7,17 +9,16 @@ import decode from 'jwt-decode';
   styleUrls: ['../styles/selec-encuesta.component.scss']
 })
 export class SelecEncuestaComponent implements OnInit {
-  token: any;
-  encuestas = []
+  encuestas? = [];
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('auth_token');
-
-    let tokenPayload: any = this.token? decode(this.token) : false;
-
-    this.encuestas = tokenPayload.tipos_encuesta;
+    this.store.pipe(select(currentUser))
+    .subscribe(current => {
+      this.store.dispatch(GET_CURRENT_USER());
+      this.encuestas = current.tipos_encuesta;
+    });
   }
 
 }

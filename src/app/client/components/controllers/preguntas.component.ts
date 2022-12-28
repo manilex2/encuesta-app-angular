@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import decode from 'jwt-decode';
 import { ClientService } from '../../services/client.service';
 import { DbPwaService } from '../../services/db-pwa.service';
 import * as uuid from 'uuid';
 import { ToastrService } from 'ngx-toastr';
+import { select, Store } from '@ngrx/store';
+import { currentUser } from 'src/app/admin/store/selectors/currentuser.selectors';
+import { GET_CURRENT_USER } from 'src/app/admin/store/actions/currentuser.actions';
 
 @Component({
   selector: 'app-preguntas',
@@ -15,7 +17,6 @@ import { ToastrService } from 'ngx-toastr';
 export class PreguntasComponent implements OnInit {
   formGroup!: FormGroup;
   preguntas!: FormArray;
-  token: any;
   data = [];
 
   identificador: string;
@@ -27,31 +28,30 @@ export class PreguntasComponent implements OnInit {
     private dbPwaService: DbPwaService,
     private router: Router,
     private toastr: ToastrService,
+    private store: Store
   ) {}
 
   ngOnInit() {
     this.identificador = this.route.snapshot.paramMap.get('tipo_encuesta');
+    this.store.pipe(select(currentUser))
+    .subscribe(current => {
+      this.store.dispatch(GET_CURRENT_USER());
+      let nombre = current.nombre;
+      let preguntas = current.encuestas.filter((encuesta: { identificador: string; }) => encuesta.identificador == this.identificador);
+      preguntas = preguntas.sort((x: { numero: number; }, y: { numero: number; }) => x.numero - y.numero);
+      this.data = preguntas;
+      let tipos_encuesta = current.tipos_encuesta.filter((tipo_encuesta: { identificador: string; }) => tipo_encuesta.identificador == this.identificador);
+      this.formGroup = this.fb.group({
+        preguntas: this.fb.array([])
+      });
 
-    this.token = localStorage.getItem('auth_token');
+      this.preguntas = this.formGroup.get('preguntas') as FormArray;
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
-
-    let nombre = tokenPayload.nombre;
-
-    let preguntas = tokenPayload.encuestas.filter((encuesta: { identificador: string; }) => encuesta.identificador == this.identificador);
-    preguntas = preguntas.sort((x: { numero: number; }, y: { numero: number; }) => x.numero - y.numero);
-    this.data = preguntas;
-    let tipos_encuesta = tokenPayload.tipos_encuesta.filter((tipo_encuesta: { identificador: string; }) => tipo_encuesta.identificador == this.identificador);
-    this.formGroup = this.fb.group({
-      preguntas: this.fb.array([])
+      for (let i = 0; i < this.data.length; i++) {
+        const element = this.data[i];
+        this.preguntas.push(this.init(element, tipos_encuesta, nombre));
+      }
     });
-
-    this.preguntas = this.formGroup.get('preguntas') as FormArray;
-
-    for (let i = 0; i < this.data.length; i++) {
-      const element = this.data[i];
-      this.preguntas.push(this.init(element, tipos_encuesta, nombre));
-    }
   }
 
   init(data: any, tipos_encuesta: any, nombre: any){

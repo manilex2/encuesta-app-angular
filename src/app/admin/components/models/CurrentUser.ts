@@ -3,4 +3,7 @@ export interface CurrentUser {
   nombre?: any;
   fsbs?: any;
   logo?: any;
+  companias?: any;
+  encuestas?: any;
+  tipos_encuesta?: any;
 }

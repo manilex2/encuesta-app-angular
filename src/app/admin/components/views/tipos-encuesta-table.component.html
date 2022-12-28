@@ -143,9 +143,9 @@
                             <mat-label>Ponderacion:</mat-label>
                             <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
                           </mat-form-field>
-                          <ng-container *ngIf="respuesta.img;">
+                          <ng-container *ngIf="respuesta.img || cardImageBase64[indice]">
                             <div class="encuesta-container-img-logo">
-                              <img [src]="respuesta.img" class="encuesta-img-logo"/>
+                              <img [src]="cardImageBase64[indice]? cardImageBase64[indice] : respuesta.img" class="encuesta-img-logo"/>
                             </div>
                           </ng-container>
                           <mat-form-field>
@@ -159,7 +159,7 @@
                                 accept="image/jpeg,image/png"
                                 #logoInput
                                 id="encuestaUploadFile"
-                                (change)="uploadFileEvt($event, encuesta, respuesta.id)"
+                                (change)="uploadFileEvt($event, encuesta, respuesta.id, indice)"
                                 name="uploadFile"
                               />
                             </div>
@@ -231,9 +231,9 @@
                           <mat-label>Ponderacion:</mat-label>
                           <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
                         </mat-form-field>
-                        <ng-container *ngIf="respuesta.img;">
+                        <ng-container *ngIf="respuesta.img || cardImageBase64[indice]">
                           <div class="encuesta-container-img-logo">
-                            <img [src]="respuesta.img" class="encuesta-img-logo"/>
+                            <img [src]="cardImageBase64[indice]? cardImageBase64[indice] : respuesta.img" class="encuesta-img-logo"/>
                           </div>
                         </ng-container>
                         <mat-form-field>
@@ -247,7 +247,7 @@
                               accept="image/jpeg,image/png"
                               #logoInput
                               id="encuestaUploadFile"
-                              (change)="uploadFileEvt($event, encuesta, respuesta.id)"
+                              (change)="uploadFileEvt($event, encuesta, respuesta.id, indice)"
                               name="uploadFile"
                             />
                           </div>

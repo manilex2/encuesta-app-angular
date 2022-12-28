@@ -19,6 +19,7 @@ import { RESET_ADMINS } from "src/app/admin/store/actions/admin.actions";
 import { RESET_COMPANIAS } from "src/app/admin/store/actions/companias.actions";
 import { RESET_TIPOS_ENCUESTAS } from "src/app/admin/store/actions/tiposencuesta.actions";
 import { RESET_CURRENT_USER } from "src/app/admin/store/actions/currentuser.actions";
+import { RESET_ENCUESTAS } from "src/app/admin/store/actions/encuesta.actions";
 import { User } from "../../components/models";
 
 @Injectable()
@@ -82,6 +83,7 @@ export class LoginEffect {
         this.adminStore.dispatch(RESET_ADMINS());
         this.companiaStore.dispatch(RESET_COMPANIAS());
         this.tipoEncuestaStore.dispatch(RESET_TIPOS_ENCUESTAS());
+        this.tipoEncuestaStore.dispatch(RESET_ENCUESTAS());
         this.currentUserStore.dispatch(RESET_CURRENT_USER());
         this.loginStore.dispatch(RESET_LOGIN());
         this.appStore.dispatch(setAPIStatus({
@@ -92,7 +94,8 @@ export class LoginEffect {
             loginStatus: "logout",
             adminState: "",
             companiaState: "",
-            tiposEncuestaState: ""
+            tiposEncuestaState: "",
+            encuestaState: ""
           }
         }));
         localStorage.removeItem('auth_token');

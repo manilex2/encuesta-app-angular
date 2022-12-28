@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="card-container">
-  <mat-card class="card-encuestas" *ngIf="encuestas.length > 0; else noencuesta">
+  <mat-card class="card-encuestas" *ngIf="encuestas; else noencuesta">
     <mat-card-header>
       <mat-card-title>SELECCIONE ENCUESTA</mat-card-title>
     </mat-card-header>

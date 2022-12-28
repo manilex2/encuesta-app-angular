@@ -58,7 +58,7 @@ export class TiposEncuestaTableComponent implements OnInit {
   logoAtrib = 'Imagen';
   imageError: string | null | undefined;
   isImageSaved: boolean | undefined;
-  cardImageBase64: string | undefined;
+  cardImageBase64 = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -613,7 +613,7 @@ export class TiposEncuestaTableComponent implements OnInit {
     }
   }
 
-  uploadFileEvt(event: any, encuestas: any, id: any) {
+  uploadFileEvt(event: any, encuestas: any, id: any, indice: number) {
     this.imageError = null;
     if (event.target.files && event.target.files[0]) {
       const max_size = 35840;
@@ -659,26 +659,31 @@ export class TiposEncuestaTableComponent implements OnInit {
             this.logoAtrib = 'Subir un logo';
           return false;
         } else {
-          const imgBase64Path = e.target.result;
-          if (this.pruebaEncuesta.length === 0) {
-            this.pruebaEncuesta = encuestas.respuestas;
-          }
-          const img: Blob = imgBase64Path;
-          var respuestas: Respuesta[] = this.pruebaEncuesta;
-          let filterData = respuestas.filter((_) => !(_.id == id));
-          let imgdData = respuestas.filter((_) => (_.id == id));
-          filterData.push({
-            resp: imgdData[0].resp,
-            img: img,
-            id,
-            pond: imgdData[0].pond
-          });
-          filterData.sort((a, b) => {
-            if (a.id < b.id) return -1;
-            else if (a.id > b.id) return 1;
-            return 0;
-          });
-          this.pruebaEncuesta = filterData;
+          let image = new Image();
+          image.src = e.target.result;
+          image.onload = (rs) => {
+            const imgBase64Path = e.target.result;
+            this.cardImageBase64[indice] = imgBase64Path;
+            if (this.pruebaEncuesta.length === 0) {
+              this.pruebaEncuesta = encuestas.respuestas;
+            }
+            const img: Blob = imgBase64Path;
+            var respuestas: Respuesta[] = this.pruebaEncuesta;
+            let filterData = respuestas.filter((_) => !(_.id == id));
+            let imgdData = respuestas.filter((_) => (_.id == id));
+            filterData.push({
+              resp: imgdData[0].resp,
+              img: img,
+              id,
+              pond: imgdData[0].pond
+            });
+            filterData.sort((a, b) => {
+              if (a.id < b.id) return -1;
+              else if (a.id > b.id) return 1;
+              return 0;
+            });
+            this.pruebaEncuesta = filterData;
+          };
           return true;
         }
       };
