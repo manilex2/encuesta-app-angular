@@ -11,6 +11,7 @@ import { DbPwaService } from '../../services/db-pwa.service';
 })
 export class HomeComponent {
   status: OnlineStatusType = this.onlineStatusService.getStatus();
+  ip;
 
   constructor(
     private onlineStatusService: OnlineStatusService,
@@ -18,6 +19,7 @@ export class HomeComponent {
     private clientService: ClientService,
     private toastr: ToastrService
   ) {
+    this.getIp();
     this.onlineStatusService.status.subscribe((status: OnlineStatusType) => {
       // Retrieve Online status Type
       this.status = status;
@@ -25,6 +27,12 @@ export class HomeComponent {
         this.syncAll();
       }
     });
+  }
+
+  getIp() {
+    return this.clientService.getIPAddress().subscribe((res: any) => {
+      this.ip = res.ip;
+    })
   }
 
   syncAll() {
@@ -40,7 +48,7 @@ export class HomeComponent {
   }
 
   sendData(data: any){
-    this.clientService.saveClientData(data).subscribe(data => {
+    this.clientService.saveClientData({...data, ip: this.ip}).subscribe(data => {
       this.toastr.success("Conexión reestrablecida. Respuestas sincronizadas con el servidor.", "Encuesta", {
         progressBar: true,
         timeOut: 8000

@@ -101,7 +101,7 @@
         <div class="example-element-detail" [@detailExpand]="tipoencuesta == expandedElement ? 'expanded' : 'collapsed'">
           <mat-accordion class="example-headers-align">
             <form [formGroup]="updateEncuestaForm">
-              <mat-expansion-panel (afterExpand)="respTemp = encuesta.cantResp" (opened)="respTemp = encuesta.cantResp; resetEncuesta(encuesta)" (closed)="encuesta.cantResp;" *ngFor="let encuesta of tipoencuesta.encuestas" hideToggle>
+              <mat-expansion-panel (afterExpand)="respTemp = encuesta.cantResp" (opened)="respTemp = encuesta.cantResp; resetEncuesta(encuesta); images(encuesta.respuestas)" (closed)="encuesta.cantResp;" *ngFor="let encuesta of tipoencuesta.encuestas" hideToggle>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     Pregunta: {{encuesta.pregunta}}
@@ -133,8 +133,8 @@
 
                 <table class="example-full-width" cellspacing="0">
                   <tr>
-                      <ng-container *ngFor="let respuesta of encuesta.respuestas; let indice = index">
-                        <td *ngIf="indice < respTemp && tipo_pregunta == 'C'">
+                      <ng-container *ngFor="let respuesta of encuesta.respuestas; let indice = index;">
+                        <td *ngIf="indice < respTemp && tipo_pregunta == 'C'" >
                           <mat-form-field appearance="fill">
                             <mat-label>Respuesta {{respuesta.id}}:</mat-label>
                             <input (input)="setRespuesta($event.target, encuesta, respuesta.id)" matInput placeholder="Introduzca una respuesta" [value]="respuesta.resp">
@@ -143,9 +143,12 @@
                             <mat-label>Ponderacion:</mat-label>
                             <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
                           </mat-form-field>
-                          <ng-container *ngIf="respuesta.img || cardImageBase64[indice]">
+                          <ng-container *ngIf="cardImageBase64[indice]">
                             <div class="encuesta-container-img-logo">
-                              <img [src]="cardImageBase64[indice]? cardImageBase64[indice] : respuesta.img" class="encuesta-img-logo"/>
+                              <img [src]="cardImageBase64[indice]" class="encuesta-img-logo"/>
+                              <button (click)="deleteImage(encuesta, respuesta.id, indice)" class="button-encuesta-close" mat-fab color="accent" aria-label="Icon button with a create icon">
+                                <mat-icon class="encuesta-close-icon-actions">close</mat-icon>
+                              </button>
                             </div>
                           </ng-container>
                           <mat-form-field>
@@ -231,9 +234,12 @@
                           <mat-label>Ponderacion:</mat-label>
                           <input (input)="setPoderacion($event.target, encuesta, respuesta.id)" matInput type="number" placeholder="Introduzca una ponderacion" [value]="respuesta.pond">
                         </mat-form-field>
-                        <ng-container *ngIf="respuesta.img || cardImageBase64[indice]">
+                        <ng-container *ngIf="cardImageBase64[indice]">
                           <div class="encuesta-container-img-logo">
-                            <img [src]="cardImageBase64[indice]? cardImageBase64[indice] : respuesta.img" class="encuesta-img-logo"/>
+                            <img [src]="cardImageBase64[indice]" class="encuesta-img-logo"/>
+                            <button class="button-encuesta-close" mat-fab color="accent" aria-label="Icon button with a create icon">
+                              <mat-icon class="encuesta-close-icon-actions">close</mat-icon>
+                            </button>
                           </div>
                         </ng-container>
                         <mat-form-field>
@@ -268,7 +274,7 @@
                   <button matTooltip="Guardar" (click)="encuesta.saved? actualizar(encuesta) : openDialogCreate()" [disabled]="!activarBoton" class="button-actions" mat-fab color="primary" aria-label="Icon button with a edit icon">
                     <mat-icon class="icon-actions">save_as</mat-icon>
                   </button>
-                  <button matTooltip="Eliminar" (click)="encuesta.saved? eliminarEncuestaDialog('1500ms', '1000ms', encuesta) : newEncuesta.pop(); activarBotonADD = true" class="button-actions" mat-fab color="accent" aria-label="Icon button with a delete icon">
+                  <button matTooltip="Eliminar" (click)="encuesta.saved? eliminarEncuestaDialog('1500ms', '1000ms', encuesta) : newEncuesta.pop(); activarBotonADD = true; cardImageBase64 = []" class="button-actions" mat-fab color="accent" aria-label="Icon button with a delete icon">
                     <mat-icon class="icon-actions">delete</mat-icon>
                   </button>
                   <button matTooltip="Reiniciar" (click)="reiniciar()" class="button-actions" mat-fab color="warn" aria-label="Icon button with a edit icon">

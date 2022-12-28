@@ -213,3 +213,16 @@ tr.example-element-row:not(.example-expanded-row):active {
   align-items: center;
   padding-top: 30px;
 }
+
+.button-encuesta-close {
+  width: 30px;
+  height: 35px;
+  position: relative;
+  bottom: 20px;
+}
+
+.encuesta-close-icon-actions {
+  font-size: 12px !important;
+  position: relative;
+  bottom: 5px;
+}

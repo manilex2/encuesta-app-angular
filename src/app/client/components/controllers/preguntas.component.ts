@@ -20,6 +20,7 @@ export class PreguntasComponent implements OnInit {
   data = [];
 
   identificador: string;
+  ip;
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +32,14 @@ export class PreguntasComponent implements OnInit {
     private store: Store
   ) {}
 
+  getIp() {
+    return this.clientService.getIPAddress().subscribe((res: any) => {
+      this.ip = res.ip;
+    })
+  }
+
   ngOnInit() {
+    this.getIp();
     this.identificador = this.route.snapshot.paramMap.get('tipo_encuesta');
     this.store.pipe(select(currentUser))
     .subscribe(current => {
@@ -46,7 +54,6 @@ export class PreguntasComponent implements OnInit {
       });
 
       this.preguntas = this.formGroup.get('preguntas') as FormArray;
-
       for (let i = 0; i < this.data.length; i++) {
         const element = this.data[i];
         this.preguntas.push(this.init(element, tipos_encuesta, nombre));
@@ -62,12 +69,13 @@ export class PreguntasComponent implements OnInit {
       respuestas: this.fb.array(data.respuestas),
       afectacion: tipos_encuesta[0].afectacion,
       descripcion: tipos_encuesta[0].descripcion,
-      selected: ["", [Validators.required]]
+      selected: ["", [Validators.required]],
+      ip: ""
     });
   }
 
   sendData(){
-    this.clientService.saveClientData(this.formGroup.value).subscribe(data => {
+    this.clientService.saveClientData({...this.formGroup.value, ip: this.ip}).subscribe(data => {
       this.toastr.success("Respuestas enviadas con éxito.", "Encuesta", {
         progressBar: true
       });

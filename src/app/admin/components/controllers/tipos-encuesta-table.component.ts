@@ -247,6 +247,7 @@ export class TiposEncuestaTableComponent implements OnInit {
   }
 
   openDialogCreate(): void {
+    this.cardImageBase64 = [];
     if (this.pruebaEncuesta.length > 0) {
       let cantResp = 0;
       let respuestasFinales = [];
@@ -269,7 +270,7 @@ export class TiposEncuestaTableComponent implements OnInit {
     if (this.createEncuestaForm.value.tipo_pregunta == "A") {
       let abierta = [];
       for (let i = 0; i < 5; i++) {
-        var element;
+        var element: string;
         switch (i) {
           case 0:
             element = "A";
@@ -510,7 +511,7 @@ export class TiposEncuestaTableComponent implements OnInit {
   agregarEncuesta(encuestas: any) {
     this.activarBotonADD = false;
     this.activarBotonDELETE = false;
-    let numero;
+    let numero: unknown;
     if (encuestas.encuestas.length > 0) {
       let nEncuesta = encuestas.encuestas[encuestas.encuestas.length - 1].numero;
       if (this.newEncuesta.length == 0) {
@@ -693,6 +694,36 @@ export class TiposEncuestaTableComponent implements OnInit {
     } else {
       this.logoAtrib[indice] = 'Imagen';
       return false;
+    }
+  }
+
+  deleteImage(encuestas: any, id: any, indice: number) {
+    if (this.pruebaEncuesta.length === 0) {
+      this.pruebaEncuesta = encuestas.respuestas;
+    }
+    var respuestas: Respuesta[] = this.pruebaEncuesta;
+    let filterData = respuestas.filter((_) => !(_.id == id));
+    let imgdData = respuestas.filter((_) => (_.id == id));
+    filterData.push({
+      resp: imgdData[0].resp,
+      img: null,
+      id,
+      pond: imgdData[0].pond
+    });
+    filterData.sort((a, b) => {
+      if (a.id < b.id) return -1;
+      else if (a.id > b.id) return 1;
+      return 0;
+    });
+    this.pruebaEncuesta = filterData;
+    this.cardImageBase64[indice] = null;
+  }
+
+  images(respuestas: any) {
+    this.cardImageBase64 = [];
+    for (let i = 0; i < respuestas.length; i++) {
+      const img = respuestas[i].img;
+      this.cardImageBase64[i] = img;
     }
   }
 }
