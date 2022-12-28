@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1672200575901,
+  "timestamp": 1672225549358,
   "index": "https://manilex2.github.io/encuesta-app-angular/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "https://manilex2.github.io/encuesta-app-angular/favicon.ico",
         "https://manilex2.github.io/encuesta-app-angular/index.html",
-        "https://manilex2.github.io/encuesta-app-angular/main.128abd0b7e4c08b1.js",
+        "https://manilex2.github.io/encuesta-app-angular/main.2bfef70b2fdb9d7e.js",
         "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest",
         "https://manilex2.github.io/encuesta-app-angular/polyfills.d2b616f5a9cb3b04.js",
         "https://manilex2.github.io/encuesta-app-angular/runtime.3f43a5aa5bc2301d.js",
-        "https://manilex2.github.io/encuesta-app-angular/styles.bafcc15a96b3297a.css"
+        "https://manilex2.github.io/encuesta-app-angular/styles.00f9c12cf507b6b2.css"
       ],
       "patterns": []
     },
@@ -54,12 +54,12 @@
     "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-96x96.png": "0d266267853df6c3e0e158260d0c8390aea31836",
     "https://manilex2.github.io/encuesta-app-angular/assets/placeholder.png": "c74cf8e4ab9d4609baa3f5fb92c9bbb7976ccafa",
     "https://manilex2.github.io/encuesta-app-angular/favicon.ico": "fac23ebe9359d8382c496c80ae30329bd8d9be13",
-    "https://manilex2.github.io/encuesta-app-angular/index.html": "334790a5ba0a4d2791ed659151dadee619bf3da1",
-    "https://manilex2.github.io/encuesta-app-angular/main.128abd0b7e4c08b1.js": "29f0ad7aa0267815663243333587f8e2bbab42c9",
+    "https://manilex2.github.io/encuesta-app-angular/index.html": "6ba619753b4299032ce1cac965f590957e5ce676",
+    "https://manilex2.github.io/encuesta-app-angular/main.2bfef70b2fdb9d7e.js": "fc816d8bd89b118c3f10cc5fc21c4c10008f11e3",
     "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest": "5e2e5e69025a683ba26c833da2446d211101b03a",
     "https://manilex2.github.io/encuesta-app-angular/polyfills.d2b616f5a9cb3b04.js": "715165b5fbba60cd7000bfa5a9cf0f6832435b90",
     "https://manilex2.github.io/encuesta-app-angular/runtime.3f43a5aa5bc2301d.js": "6e6c56d3b2ceafe49b4db91692b7a6049f6418ae",
-    "https://manilex2.github.io/encuesta-app-angular/styles.bafcc15a96b3297a.css": "5b5057dfbb2653d7ed690f0972c85a5e0b70dfe9"
+    "https://manilex2.github.io/encuesta-app-angular/styles.00f9c12cf507b6b2.css": "899daab1d067037112c8fb7b4a6e7c9ad2b19444"
   },
   "navigationUrls": [
     {
