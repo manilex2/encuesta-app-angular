@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Encuesta, TiposEncuesta } from '../models';
 import { Store, select } from '@ngrx/store';
-import * as _ from 'lodash';
+import { includes } from 'lodash';
 import { DELETE_TIPOS_ENCUESTA, GET_TIPOS_ENCUESTA } from '../../store/actions/tiposencuesta.actions';
 import { tipos_encuesta } from '../../store/selectors/tiposencuesta.selectors';
 import { encuesta } from '../../store/selectors/encuesta.selectors';
@@ -635,7 +635,7 @@ export class TiposEncuestaTableComponent implements OnInit {
         return false;
       }
 
-      if (!_.includes(allowed_types, event.target.files[0].type)) {
+      if (includes(allowed_types, event.target.files[0].type)) {
           this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
           event = null;
           this.logoAtrib = 'Subir un logo';

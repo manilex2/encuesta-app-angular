@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
-import * as _ from 'lodash';
+import { includes } from 'lodash';
 import { Store, select } from '@ngrx/store';
-import { CREATE_ADMIN, GET_ADMINS } from '../../store/actions/admin.actions';
+import { CREATE_ADMIN } from '../../store/actions/admin.actions';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Appstate } from '../../../shared/store/AppState';
@@ -285,7 +285,7 @@ export class AdminCreateComponent implements OnInit {
         return false;
       }
 
-      if (!_.includes(allowed_types, imgFile.target.files[0].type)) {
+      if (!includes(allowed_types, imgFile.target.files[0].type)) {
           this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
           imgFile = null;
           this.logoAtrib = 'Subir un logo';

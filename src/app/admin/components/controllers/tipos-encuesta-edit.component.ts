@@ -11,7 +11,6 @@ import { TipoEncuestaService } from '../../services/tipo-encuesta.service';
 import { UPDATE_TIPOS_ENCUESTA } from '../../store/actions/tiposencuesta.actions';
 import { currentUser } from '../../store/selectors/currentuser.selectors';
 import { selectTipoEncuestaById } from '../../store/selectors/tiposencuesta.selectors';
-import { TiposEncuesta } from '../models';
 
 @Component({
   selector: 'app-tipos-encuesta-edit',

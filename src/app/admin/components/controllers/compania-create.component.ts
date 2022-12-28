@@ -5,7 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { StepperOrientation } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import * as _ from 'lodash';
+import { includes } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
@@ -155,7 +155,7 @@ export class CompaniaCreateComponent implements OnInit {
         return false;
       }
 
-      if (!_.includes(allowed_types, imgFile.target.files[0].type)) {
+      if (includes(allowed_types, imgFile.target.files[0].type)) {
           this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
           imgFile = null;
           this.logoAtrib = 'Subir un logo';

@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { compose, select, Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { AdminService } from '../../services/admin.service';
-import * as _ from 'lodash';
+import { includes } from 'lodash';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { UPDATE_ADMIN } from '../../store/actions/admin.actions';
@@ -292,7 +292,7 @@ export class AdminEditComponent implements OnInit {
         return false;
       }
 
-      if (!_.includes(allowed_types, imgFile.target.files[0].type)) {
+      if (includes(allowed_types, imgFile.target.files[0].type)) {
           this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
           imgFile = null;
           this.logoAtrib = 'Subir un logo';

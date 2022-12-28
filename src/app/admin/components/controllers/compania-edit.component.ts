@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { CompaniaService } from '../../services/compania.service';
-import * as _ from 'lodash';
+import { includes } from 'lodash';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { UPDATE_COMPANIA } from '../../store/actions/companias.actions';
@@ -160,7 +160,7 @@ export class CompaniaEditComponent implements OnInit {
         return false;
       }
 
-      if (!_.includes(allowed_types, imgFile.target.files[0].type)) {
+      if (includes(allowed_types, imgFile.target.files[0].type)) {
           this.imageError = 'Solo imagenes son compatibles ( JPG | PNG )';
           imgFile = null;
           this.logoAtrib = 'Subir un logo';
