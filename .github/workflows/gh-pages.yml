@@ -17,7 +17,7 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Instalar Dependencias del package.lock
+    - name: Instalar Dependencias
       run: npm install
 
     - name: Ejecutar tests de Angular
@@ -32,5 +32,5 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/encuesta-app
-        enable_jekyll: false
+        enable_jekyll: true
 
