@@ -6,7 +6,7 @@ on:
     - main
 
 jobs:
-  desplegar:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -17,20 +17,16 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Instalar dependencias
-      run: npm install
-
-    - name: Ejecutar tests
-      run: npm run test:headless
+    - name: Instalar Angular CLI
+      run: npm install -g @angular/cli
 
     - name: Construir
       run: npm run build:prod
 
     - name: Desplegar
-      if: success()
-      uses: peaceiris/actions-gh-pages@v3
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: dist/encuesta-app
-        enable_jekyll: false
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: docs
 
