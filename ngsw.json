@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1672638259012,
+  "timestamp": 1672638610577,
   "index": "/encuesta-app-angular/index.html",
   "assetGroups": [
     {
@@ -56,7 +56,7 @@
     "/encuesta-app-angular/favicon.ico": "fac23ebe9359d8382c496c80ae30329bd8d9be13",
     "/encuesta-app-angular/index.html": "9503233689216cfef95a3cbc7dd42ed80bf9adea",
     "/encuesta-app-angular/main.2bfef70b2fdb9d7e.js": "fc816d8bd89b118c3f10cc5fc21c4c10008f11e3",
-    "/encuesta-app-angular/manifest.webmanifest": "5e2e5e69025a683ba26c833da2446d211101b03a",
+    "/encuesta-app-angular/manifest.webmanifest": "3275ba6618e98b68aacceef1bad8f6b4217815dc",
     "/encuesta-app-angular/polyfills.d2b616f5a9cb3b04.js": "715165b5fbba60cd7000bfa5a9cf0f6832435b90",
     "/encuesta-app-angular/runtime.3f43a5aa5bc2301d.js": "6e6c56d3b2ceafe49b4db91692b7a6049f6418ae",
     "/encuesta-app-angular/styles.00f9c12cf507b6b2.css": "899daab1d067037112c8fb7b4a6e7c9ad2b19444"
