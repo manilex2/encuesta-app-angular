@@ -58,4 +58,12 @@ export class AdminService {
   getIPAddress() {
     return this.http.get("https://api.ipify.org/?format=json");
   }
+
+  obtenerClientResponse(): Observable<any[]> {
+    try {
+      return this.http.get<Response[]>(`${this.serverURL}/client`);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

@@ -1,0 +1,33 @@
+export interface Response {
+  codigo?: any;
+  codigo_cia?: any;
+  identificador?: any;
+  docReferencia?: any;
+  nombre?: any;
+  descripcion?: any;
+  afectacion?: any;
+  selected?: any;
+  numero?: any;
+  pregunta?: any;
+  tipo_pregunta?: any;
+  cantResp?: any;
+  a?: any;
+  b?: any;
+  c?: any;
+  d?: any;
+  e?: any;
+  a_pond?: any;
+  b_pond?: any;
+  c_pond?: any;
+  d_pond?: any;
+  e_pond?: any;
+  a_img?: any;
+  b_img?: any;
+  c_img?: any;
+  d_img?: any;
+  e_img?: any;
+  createdIp?: any;
+  createdAt?: any;
+  updatedIp?: any;
+  updatedAt?: any;
+}

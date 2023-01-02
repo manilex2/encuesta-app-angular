@@ -1,0 +1,22 @@
+<div>
+  <h2>{{data[0].pregunta}}</h2>
+</div>
+<div>
+  <h3>Respuestas</h3>
+  <ngx-charts-advanced-pie-chart
+      (window:resize)="onResize($event)"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="processData"
+      (select)="onSelect($event)">
+  </ngx-charts-advanced-pie-chart>
+  <h3>Ponderaciones de Respuestas</h3>
+  <ngx-charts-advanced-pie-chart
+      (window:resize)="onResize($event)"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="ponderaciones"
+      (select)="onSelect($event)">
+  </ngx-charts-advanced-pie-chart>
+</div>
+<button mat-raised-button color="warn" (click)="onNoClick()" cdkFocusInitial>Cerrar</button>

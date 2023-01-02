@@ -1,97 +1,33 @@
-<mat-accordion class="example-headers-align" hideToggle>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Encuesta 1
-      </mat-panel-title>
-      <mat-panel-description>
-        Contiene las estadisticas de la encuesta 1
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+<ng-container *ngIf="respuestas.length > 0 else norespuestas">
+  <mat-accordion class="example-headers-align" hideToggle>
+    <mat-expansion-panel *ngFor="let compania of companias">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Compañía {{compania.codigo_cia}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Contiene los gráficos por usuario de la Compañía {{compania.codigo_cia}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let usuario of admins">
+        <p>Usuario que realizo la encuesta: {{usuario.nombre}}</p>
+        <ng-container *ngFor="let identificador of identificadores">
+          <div>
+            <p>Tipo de Encuesta: {{identificador.descripcion}}</p>
+            <mat-selection-list #resps [multiple]="false">
+              <mat-list-option *ngFor="let resp of respuestas | filterTipoEncuesta:identificador.identificador" [value]="resp.pregunta">
+                <span class="option-dashboard-chart">{{resp.pregunta}}</span>
+                <button class="button-dashboard-chart" mat-flat-button color="accent" (click)="openDialog('1000ms', '1000ms', usuario.codigo, compania.codigo_cia, identificador.identificador, resp.pregunta)">Ver Gráfico</button>
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+        </ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
 
-    <ngx-charts-pie-grid
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="single"
-      (select)="onSelect($event)">
-    </ngx-charts-pie-grid>
+</ng-container>
 
-  </mat-expansion-panel>
-
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Encuesta 2
-      </mat-panel-title>
-      <mat-panel-description>
-        Contiene las estadisticas de la encuesta 2
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <ngx-charts-pie-grid
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="single"
-      (select)="onSelect($event)">
-    </ngx-charts-pie-grid>
-
-  </mat-expansion-panel>
-
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Encuesta 3
-      </mat-panel-title>
-      <mat-panel-description>
-        Contiene las estadisticas de la encuesta 3
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <ngx-charts-pie-grid
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="single"
-      (select)="onSelect($event)">
-    </ngx-charts-pie-grid>
-
-  </mat-expansion-panel>
-
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Encuesta 4
-      </mat-panel-title>
-      <mat-panel-description>
-        Contiene las estadisticas de la encuesta 4
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <ngx-charts-pie-grid
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="single"
-      (select)="onSelect($event)">
-    </ngx-charts-pie-grid>
-
-  </mat-expansion-panel>
-
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Encuesta 5
-      </mat-panel-title>
-      <mat-panel-description>
-        Contiene las estadisticas de la encuesta 5
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <ngx-charts-pie-grid
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="single"
-      (select)="onSelect($event)">
-    </ngx-charts-pie-grid>
-
-  </mat-expansion-panel>
-</mat-accordion>
-
+<ng-template #norespuestas>
+  <p>No hay encuestas realizadas por lo momentos para las compañías asociadas.</p>
+</ng-template>

@@ -21,6 +21,7 @@ import { MatLegacyCheckboxModule as MatCheckboxModule } from "@angular/material/
 import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -46,7 +47,8 @@ import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy
     MatCheckboxModule,
     MatTooltipModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: []

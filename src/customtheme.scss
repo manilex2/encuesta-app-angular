@@ -11,7 +11,7 @@
 
 // Fonts
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,500&display=swap');
 
 $fontConfig: (
   display-4: mat.define-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
@@ -274,4 +274,9 @@ $altTheme: (
 
 .mat-paginator-page-size-label {
   width: 130px;
+}
+
+.advanced-pie-legend .legend-items-container .legend-items {
+  overflow: hidden !important;
+  padding: 5px !important;
 }

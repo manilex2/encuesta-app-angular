@@ -5,3 +5,4 @@ export { TiposEncuesta } from './TipoEncuesta';
 export { Navs } from './Navs';
 export { Cliente } from './Cliente';
 export { Encuesta } from './Encuesta';
+export { Response } from './Response';

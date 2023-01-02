@@ -95,7 +95,8 @@ export class LoginEffect {
             adminState: "",
             companiaState: "",
             tiposEncuestaState: "",
-            encuestaState: ""
+            encuestaState: "",
+            responseState: ""
           }
         }));
         localStorage.removeItem('auth_token');

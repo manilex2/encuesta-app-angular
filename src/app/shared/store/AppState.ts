@@ -8,4 +8,5 @@ export interface Appstate {
   encuestaState?: string;
   loginStatus?: string;
   clientState?: string;
+  responseState?: string;
 }

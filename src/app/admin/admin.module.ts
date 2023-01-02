@@ -15,6 +15,7 @@ import { HeaderComponent } from './components/controllers/header.component';
 import { SpinnerComponent } from './components/controllers/spinner.component';
 //DASHBOARD
 import { DashboardComponent } from './components/controllers/dashboard.component';
+import { ChartDialogComponent } from './components/controllers/chart-dialog.component';
 //ADMINS USERS
 import { AdminsComponent } from './components/controllers/admins.component';
 import { AdminsTableComponent } from './components/controllers/admins-table.component';
@@ -50,6 +51,7 @@ import * as fromCurrentUser from './store/reducers/currentuser.reducers';
 import * as fromCompanias from './store/reducers/companias.reducers';
 import * as fromTiposEncuesta from './store/reducers/tiposencuesta.reducers';
 import * as fromEncuesta from './store/reducers/encuesta.reducers';
+import * as fromResponse from './store/reducers/response.reducers';
 
 /*************** EFFECTS ***********************/
 import { AdminsEffect } from './store/effects/admin.effects';
@@ -61,6 +63,8 @@ import { EncuestaEffect } from './store/effects/encuesta.effects';
 /**************** INTERCEPTORES ******************/
 import { AdminInterceptor } from './services/admin.interceptor';
 import { SpinnerInterceptor } from './services/spinner.interceptor';
+import { ClientDataEffect } from './store/effects/response.effects';
+import { FilterTipoEncuestaPipe } from './pipes/filter-tipo-encuesta.pipe';
 
 @NgModule({
   declarations: [
@@ -84,7 +88,9 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     TiposEncuestaDeleteDialogComponent,
     TiposEncuestaCreateComponent,
     TiposEncuestaEditComponent,
-    EncuestaDeleteDialogComponent
+    EncuestaDeleteDialogComponent,
+    ChartDialogComponent,
+    FilterTipoEncuestaPipe
   ],
   imports: [
     CommonModule,
@@ -96,7 +102,8 @@ import { SpinnerInterceptor } from './services/spinner.interceptor';
     StoreModule.forFeature(fromCompanias.companiasFeatureKey, fromCompanias.companiasReducer),
     StoreModule.forFeature(fromTiposEncuesta.tiposEncuestaFeatureKey, fromTiposEncuesta.tiposEncuestaReducer),
     StoreModule.forFeature(fromEncuesta.encuestaFeatureKey, fromEncuesta.encuestaReducer),
-    EffectsModule.forFeature([AdminsEffect, CompaniasEffect, TiposEncuestaEffect, CurrentUserEffect, EncuestaEffect]),
+    StoreModule.forFeature(fromResponse.responseFeatureKey, fromResponse.responseReducer),
+    EffectsModule.forFeature([AdminsEffect, CompaniasEffect, TiposEncuestaEffect, CurrentUserEffect, EncuestaEffect, ClientDataEffect]),
     ReactiveFormsModule,
     FormsModule
   ],
