@@ -17,21 +17,21 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Instalar Dependencias
+    - name: Instalar Dependencias del package.lock
       run: npm install
 
-    - name: Ejecutar tests
+    - name: Ejecutar tests de Angular
       run: npm run test:headless
 
-    - name: Construir
+    - name: Construir Aplicacion de Angular
       run: npm run build:prod
 
-    - name: Desplegar
+    - name: Desplegar en GitHub Pages
       if: success()
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
+        publish_dir: /
         enable_jekyll: false
         publish_branch: main
 
