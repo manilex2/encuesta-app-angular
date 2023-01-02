@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module'
-import { ActionReducer, INIT, MetaReducer, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { ToastrModule } from 'ngx-toastr';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 

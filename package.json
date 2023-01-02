@@ -1,11 +1,11 @@
 {
   "name": "encuesta-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production --base-href https://manilex2.github.io/encuesta-app-angular/",
+    "build:prod": "ng build --configuration production --base-href=/encuesta-app-angular/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
