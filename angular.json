@@ -17,11 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "baseHref": "/encuesta-app/",
             "allowedCommonJsDependencies": [
               "clone-deep"
             ],
-            "outputPath": "docs",
+            "outputPath": "dist/encuesta-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
