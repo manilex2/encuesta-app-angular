@@ -20,6 +20,7 @@
             "allowedCommonJsDependencies": [
               "clone-deep"
             ],
+            "sourceMap": true,
             "outputPath": "dist/encuesta-app",
             "index": "src/index.html",
             "main": "src/main.ts",
