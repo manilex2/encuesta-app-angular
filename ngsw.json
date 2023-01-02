@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1672688407815,
+  "timestamp": 1672688917048,
   "index": "https://manilex2.github.io/encuesta-app-angular/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://manilex2.github.io/encuesta-app-angular/favicon.ico",
         "https://manilex2.github.io/encuesta-app-angular/index.html",
-        "https://manilex2.github.io/encuesta-app-angular/main.9d92f841d51c289a.js",
+        "https://manilex2.github.io/encuesta-app-angular/main.7787ae2660192516.js",
         "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest",
         "https://manilex2.github.io/encuesta-app-angular/polyfills.c48c7f97f75c946b.js",
         "https://manilex2.github.io/encuesta-app-angular/runtime.8517f8fd80645b7f.js",
@@ -54,8 +54,8 @@
     "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-96x96.png": "0d266267853df6c3e0e158260d0c8390aea31836",
     "https://manilex2.github.io/encuesta-app-angular/assets/placeholder.png": "c74cf8e4ab9d4609baa3f5fb92c9bbb7976ccafa",
     "https://manilex2.github.io/encuesta-app-angular/favicon.ico": "fac23ebe9359d8382c496c80ae30329bd8d9be13",
-    "https://manilex2.github.io/encuesta-app-angular/index.html": "88a71fe5eda418796a9a23b7875ffa1858ffd627",
-    "https://manilex2.github.io/encuesta-app-angular/main.9d92f841d51c289a.js": "f347efef585a46fc261714c0b05da523d66f171f",
+    "https://manilex2.github.io/encuesta-app-angular/index.html": "3a857fc2e7038d9c5a4dc52fc188216b947f1c86",
+    "https://manilex2.github.io/encuesta-app-angular/main.7787ae2660192516.js": "91ffeed93b94085d529043025d75f84e5dd6b0ba",
     "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest": "d6ee88fc34d69547cd867c8dddbae659a33a33b3",
     "https://manilex2.github.io/encuesta-app-angular/polyfills.c48c7f97f75c946b.js": "365ab9a022b4aca7fe4aaedea94f5cafccd453bc",
     "https://manilex2.github.io/encuesta-app-angular/runtime.8517f8fd80645b7f.js": "793df665ac9e6da1827f6d4cfaebcf057a3687cf",
