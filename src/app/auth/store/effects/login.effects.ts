@@ -21,6 +21,7 @@ import { RESET_TIPOS_ENCUESTAS } from "src/app/admin/store/actions/tiposencuesta
 import { RESET_CURRENT_USER } from "src/app/admin/store/actions/currentuser.actions";
 import { RESET_ENCUESTAS } from "src/app/admin/store/actions/encuesta.actions";
 import { User } from "../../components/models";
+import { RESET_RESPONSE } from "src/app/admin/store/actions/response.actions";
 
 @Injectable()
 export class LoginEffect {
@@ -35,7 +36,8 @@ export class LoginEffect {
     private companiaStore: Store<Compania[]>,
     private tipoEncuestaStore: Store<TiposEncuesta[]>,
     private currentUserStore: Store<CurrentUser>,
-    private loginStore: Store<User[]>
+    private loginStore: Store<User[]>,
+    private responseStore: Store<Response[]>
   ) {}
 
   login$ = createEffect(() =>
@@ -86,6 +88,7 @@ export class LoginEffect {
         this.tipoEncuestaStore.dispatch(RESET_ENCUESTAS());
         this.currentUserStore.dispatch(RESET_CURRENT_USER());
         this.loginStore.dispatch(RESET_LOGIN());
+        this.responseStore.dispatch(RESET_RESPONSE());
         this.appStore.dispatch(setAPIStatus({
           apiStatus: {
             apiCodeStatus: 200,
