@@ -617,10 +617,10 @@ export class TiposEncuestaTableComponent implements OnInit {
   uploadFileEvt(event: any, encuestas: any, id: any, indice: number) {
     this.imageError = null;
     if (event.target.files && event.target.files[0]) {
-      const max_size = 35840;
+      const max_size = 256000;
       const allowed_types = ['image/png', 'image/jpeg'];
-      const max_height = 420;
-      const max_width = 420;
+      const max_height = 640;
+      const max_width = 640;
       this.logoAtrib[indice] = '';
       Array.from(event.target.files).forEach((file: any) => {
         this.logoAtrib[indice] = file.name;
