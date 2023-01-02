@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1672679208381,
-  "index": "https://manilex2.github.io/encuesta-app-angular/index.html",
+  "timestamp": 1672679967039,
+  "index": "https://manilex2.github.io/encuesta-app/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,13 +11,13 @@
         "ignoreVary": true
       },
       "urls": [
-        "https://manilex2.github.io/encuesta-app-angular/favicon.ico",
-        "https://manilex2.github.io/encuesta-app-angular/index.html",
-        "https://manilex2.github.io/encuesta-app-angular/main.de67dc4b79e78c83.js",
-        "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest",
-        "https://manilex2.github.io/encuesta-app-angular/polyfills.d2b616f5a9cb3b04.js",
-        "https://manilex2.github.io/encuesta-app-angular/runtime.3f43a5aa5bc2301d.js",
-        "https://manilex2.github.io/encuesta-app-angular/styles.f57f2608fb51356c.css"
+        "https://manilex2.github.io/encuesta-app/favicon.ico",
+        "https://manilex2.github.io/encuesta-app/index.html",
+        "https://manilex2.github.io/encuesta-app/main.de67dc4b79e78c83.js",
+        "https://manilex2.github.io/encuesta-app/manifest.webmanifest",
+        "https://manilex2.github.io/encuesta-app/polyfills.d2b616f5a9cb3b04.js",
+        "https://manilex2.github.io/encuesta-app/runtime.3f43a5aa5bc2301d.js",
+        "https://manilex2.github.io/encuesta-app/styles.f57f2608fb51356c.css"
       ],
       "patterns": []
     },
@@ -29,37 +29,37 @@
         "ignoreVary": true
       },
       "urls": [
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-128x128.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-144x144.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-152x152.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-192x192.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-384x384.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-512x512.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-72x72.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-96x96.png",
-        "https://manilex2.github.io/encuesta-app-angular/assets/placeholder.png"
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-128x128.png",
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-144x144.png",
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-152x152.png",
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-192x192.png",
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-384x384.png",
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-512x512.png",
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-72x72.png",
+        "https://manilex2.github.io/encuesta-app/assets/icons/icon-96x96.png",
+        "https://manilex2.github.io/encuesta-app/assets/placeholder.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-128x128.png": "546550f57d819c574bdcda9ff063433159379866",
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-144x144.png": "fc14a83c4b824593c4d7620eb1a426ec4fb8f8a4",
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-152x152.png": "363e82789d735b1ab69522d12e59eba72a63b70f",
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-192x192.png": "a8e4385038f1f0c9affd0d24a24ee622137a18d0",
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-384x384.png": "bf4b15eb4af05259c297a9bdba46d747d7f2dda6",
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-512x512.png": "c206e544f05603c230addcf22bd1d48f8e0bd084",
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-72x72.png": "7f848b5ac1a97e6560988fedd728bb68ba1d58d9",
-    "https://manilex2.github.io/encuesta-app-angular/assets/icons/icon-96x96.png": "0d266267853df6c3e0e158260d0c8390aea31836",
-    "https://manilex2.github.io/encuesta-app-angular/assets/placeholder.png": "c74cf8e4ab9d4609baa3f5fb92c9bbb7976ccafa",
-    "https://manilex2.github.io/encuesta-app-angular/favicon.ico": "fac23ebe9359d8382c496c80ae30329bd8d9be13",
-    "https://manilex2.github.io/encuesta-app-angular/index.html": "ffcfcdb14ef2232ddddc8494e4e02affaa9c4d0f",
-    "https://manilex2.github.io/encuesta-app-angular/main.de67dc4b79e78c83.js": "88007300a9e4b8ae484f627205ed9c0f91083f9b",
-    "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest": "5e2e5e69025a683ba26c833da2446d211101b03a",
-    "https://manilex2.github.io/encuesta-app-angular/polyfills.d2b616f5a9cb3b04.js": "715165b5fbba60cd7000bfa5a9cf0f6832435b90",
-    "https://manilex2.github.io/encuesta-app-angular/runtime.3f43a5aa5bc2301d.js": "6e6c56d3b2ceafe49b4db91692b7a6049f6418ae",
-    "https://manilex2.github.io/encuesta-app-angular/styles.f57f2608fb51356c.css": "2a4a286872eabfc5f42ec737cbf4f5f087242042"
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-128x128.png": "546550f57d819c574bdcda9ff063433159379866",
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-144x144.png": "fc14a83c4b824593c4d7620eb1a426ec4fb8f8a4",
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-152x152.png": "363e82789d735b1ab69522d12e59eba72a63b70f",
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-192x192.png": "a8e4385038f1f0c9affd0d24a24ee622137a18d0",
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-384x384.png": "bf4b15eb4af05259c297a9bdba46d747d7f2dda6",
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-512x512.png": "c206e544f05603c230addcf22bd1d48f8e0bd084",
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-72x72.png": "7f848b5ac1a97e6560988fedd728bb68ba1d58d9",
+    "https://manilex2.github.io/encuesta-app/assets/icons/icon-96x96.png": "0d266267853df6c3e0e158260d0c8390aea31836",
+    "https://manilex2.github.io/encuesta-app/assets/placeholder.png": "c74cf8e4ab9d4609baa3f5fb92c9bbb7976ccafa",
+    "https://manilex2.github.io/encuesta-app/favicon.ico": "fac23ebe9359d8382c496c80ae30329bd8d9be13",
+    "https://manilex2.github.io/encuesta-app/index.html": "0ad98e8c5aa0b3f28a5d6510829c288f56f92a12",
+    "https://manilex2.github.io/encuesta-app/main.de67dc4b79e78c83.js": "88007300a9e4b8ae484f627205ed9c0f91083f9b",
+    "https://manilex2.github.io/encuesta-app/manifest.webmanifest": "a8561296a59ad6e330a19240bbbc4abf626c96aa",
+    "https://manilex2.github.io/encuesta-app/polyfills.d2b616f5a9cb3b04.js": "715165b5fbba60cd7000bfa5a9cf0f6832435b90",
+    "https://manilex2.github.io/encuesta-app/runtime.3f43a5aa5bc2301d.js": "6e6c56d3b2ceafe49b4db91692b7a6049f6418ae",
+    "https://manilex2.github.io/encuesta-app/styles.f57f2608fb51356c.css": "2a4a286872eabfc5f42ec737cbf4f5f087242042"
   },
   "navigationUrls": [
     {
