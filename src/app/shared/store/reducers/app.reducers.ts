@@ -10,7 +10,8 @@ export const initialAppState: Readonly<Appstate> = {
   companiaState: "",
   tiposEncuestaState: "",
   loginStatus: "logout",
-  encuestaState: ""
+  encuestaState: "",
+  responseState: ""
 }
 
 export const appReducer = createReducer(

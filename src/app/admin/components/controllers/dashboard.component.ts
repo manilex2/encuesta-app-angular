@@ -55,7 +55,6 @@ export class DashboardComponent implements OnInit {
       const identificadorKey = 'identificador';
       const identificadorUniqueByKey = [...new Map(this.respuestas.map(item => [item[identificadorKey], item])).values()];
       this.identificadores = identificadorUniqueByKey;
-      console.log(this.respuestas);
     })
   }
 
