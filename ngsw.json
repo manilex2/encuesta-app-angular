@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1672677326161,
+  "timestamp": 1672677645846,
   "index": "https://manilex2.github.io/encuesta-app-angular/index.html",
   "assetGroups": [
     {
@@ -56,7 +56,7 @@
     "https://manilex2.github.io/encuesta-app-angular/favicon.ico": "fac23ebe9359d8382c496c80ae30329bd8d9be13",
     "https://manilex2.github.io/encuesta-app-angular/index.html": "176e2939349f89361d7b9487de509e1fa1626375",
     "https://manilex2.github.io/encuesta-app-angular/main.de67dc4b79e78c83.js": "88007300a9e4b8ae484f627205ed9c0f91083f9b",
-    "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest": "a7eed6ceb66a07766d87544cbcab704b37381fc6",
+    "https://manilex2.github.io/encuesta-app-angular/manifest.webmanifest": "5e2e5e69025a683ba26c833da2446d211101b03a",
     "https://manilex2.github.io/encuesta-app-angular/polyfills.d2b616f5a9cb3b04.js": "715165b5fbba60cd7000bfa5a9cf0f6832435b90",
     "https://manilex2.github.io/encuesta-app-angular/runtime.3f43a5aa5bc2301d.js": "6e6c56d3b2ceafe49b4db91692b7a6049f6418ae",
     "https://manilex2.github.io/encuesta-app-angular/styles.f57f2608fb51356c.css": "2a4a286872eabfc5f42ec737cbf4f5f087242042"
